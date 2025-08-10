@@ -4,14 +4,22 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Animals — EchoedWild</title>
+  <meta name="description" content="Species list — search and filter endangered animals." />
+  <link rel="icon" href="images/favicon.ico" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <script defer src="js/main.js"></script>
 </head>
 <body>
-  <header class="site-header">
+  <!-- same header -->
+  <header class="site-header glass">
     <div class="container header-inner">
-      <a class="logo" href="index.html">EchoedWild</a>
+      <a class="logo" href="index.html"><span class="echo">Echoed</span><span class="wild">Wild</span></a>
+
+      <div class="search-wrap">
+        <input id="listSearch" class="search" type="search" placeholder="Search animals, habitat, threats..." aria-label="Search animals">
+      </div>
+
       <nav class="nav" id="mainNav" aria-label="Main navigation">
         <ul>
           <li><a href="index.html">Home</a></li>
@@ -20,44 +28,53 @@
           <li><a href="about.html">About</a></li>
         </ul>
       </nav>
-      <button class="hamburger" id="hamburger" aria-label="Toggle menu">☰</button>
+
+      <div class="controls">
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+      </div>
     </div>
   </header>
 
   <main class="container">
-    <h1>Animals — Endangered Species</h1>
-    <p>Browse animals and open each bio page for more details.</p>
+    <section class="controls-row animate-up">
+      <div class="filters">
+        <label>
+          <select id="statusFilter" aria-label="Filter by status">
+            <option value="">All statuses</option>
+            <option value="Critically Endangered">Critically Endangered</option>
+            <option value="Endangered">Endangered</option>
+            <option value="Vulnerable">Vulnerable</option>
+            <option value="Near Threatened">Near Threatened</option>
+            <option value="Least Concern">Least Concern</option>
+          </select>
+        </label>
+        <label>
+          <select id="regionFilter" aria-label="Filter by region">
+            <option value="">All regions</option>
+            <option value="Asia">Asia</option>
+            <option value="Africa">Africa</option>
+            <option value="Americas">Americas</option>
+            <option value="Oceania">Oceania</option>
+          </select>
+        </label>
+        <button id="clearFilters" class="btn ghost small">Clear</button>
+      </div>
 
-    <div class="grid" id="animalsGrid">
-      <article class="card">
-        <img src="images/sumatran-tiger.jpg" alt="Sumatran Tiger">
-        <div class="card-body">
-          <h3>Sumatran Tiger</h3>
-          <p class="status critical">Critically Endangered</p>
-          <p>~400 remaining (est.)</p>
-          <a class="link" href="animals/sumatran-tiger.html">View Bio</a>
-        </div>
-      </article>
+      <div class="stats">
+        <span id="resultsCount" class="muted">0 species</span>
+      </div>
+    </section>
 
-      <article class="card">
-        <img src="images/giant-panda.jpg" alt="Giant Panda">
-        <div class="card-body">
-          <h3>Giant Panda</h3>
-          <p class="status vulnerable">Vulnerable</p>
-          <p>~1,864 remaining (est.)</p>
-          <a class="link" href="animals/giant-panda.html">View Bio</a>
-        </div>
-      </article>
-
-      <!-- Copy / duplicate cards for more animals. Use animals/slug.html for each bio -->
-    </div>
+    <section class="grid animate-up" id="animalsGrid" aria-live="polite">
+      <!-- populated by js using data/animals.json -->
+    </section>
   </main>
 
-  <footer class="site-footer">
+  <footer class="site-footer glass">
     <div class="container footer-inner">
       <div class="footer-left">
         <a class="logo small" href="index.html">EchoedWild</a>
-        <p>© <span id="year2"></span> EchoedWild</p>
+        <p class="muted">© <span id="year2"></span> EchoedWild</p>
       </div>
       <div class="footer-right">
         <nav>
