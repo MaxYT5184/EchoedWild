@@ -5,23 +5,35 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>EchoedWild — Protecting Endangered Animals</title>
   <meta name="description" content="EchoedWild — learn about endangered animals, their bios, status, and conservation efforts." />
+  <link rel="icon" href="images/favicon.ico" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
   <script defer src="js/main.js"></script>
 </head>
 <body>
-  <header class="site-header">
+  <header class="site-header glass">
     <div class="container header-inner">
-      <a class="logo" href="index.html">EchoedWild</a>
+      <a class="logo" href="index.html"><span class="echo">Echoed</span><span class="wild">Wild</span></a>
+
+      <div class="search-wrap desktop-only">
+        <input id="globalSearch" class="search" type="search" placeholder="Search animals, habitats, status..." aria-label="Search animals">
+      </div>
+
       <nav class="nav" id="mainNav" aria-label="Main navigation">
         <ul>
           <li><a class="active" href="index.html">Home</a></li>
           <li><a href="animals.html">Animals</a></li>
-          <li><a href="status.html">Status Tracker</a></li>
+          <li><a href="status.html">Status</a></li>
           <li><a href="about.html">About</a></li>
         </ul>
       </nav>
-      <button class="hamburger" id="hamburger" aria-label="Toggle menu">☰</button>
+
+      <div class="controls">
+        <button class="icon-btn" id="searchToggle" title="Open search (mobile)">🔍</button>
+        <button class="hamburger" id="hamburger" aria-label="Toggle menu" title="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
   </header>
 
@@ -29,56 +41,44 @@
     <section class="hero">
       <div class="container hero-inner">
         <div class="hero-text">
-          <h1>EchoedWild</h1>
-          <p>Protecting wildlife through learning and action. Explore endangered species, read bios, and track their conservation status.</p>
+          <h1 class="glow">EchoedWild</h1>
+          <p class="muted">Protecting wildlife with knowledge and action. Explore endangered species, read bios, and check the status tracker.</p>
           <div class="hero-cta">
             <a class="btn" href="animals.html">Explore Animals</a>
             <a class="btn ghost" href="status.html">View Status Tracker</a>
           </div>
+          <div class="feature-logos">
+            <div class="pill">Student Project</div>
+            <div class="pill">Data-driven</div>
+            <div class="pill">Mobile-first</div>
+          </div>
         </div>
-        <div class="hero-image">
-          <img src="images/hero-illustration.png" alt="Wildlife illustration" />
+
+        <div class="hero-media">
+          <!-- Unsplash query image (no upload needed) -->
+          <img src="https://source.unsplash.com/collection/190727/900x700?wildlife" alt="Wild animals collage" loading="lazy">
         </div>
       </div>
     </section>
 
-    <section class="featured container">
+    <section class="featured container animate-up">
       <h2>Featured Endangered Animals</h2>
-      <div class="grid" id="featuredGrid">
-        <article class="card">
-          <img src="images/sumatran-tiger.jpg" alt="Sumatran Tiger">
-          <div class="card-body">
-            <h3>Sumatran Tiger</h3>
-            <p class="status critical">Critically Endangered</p>
-            <p>Estimated ~400 left in the wild.</p>
-            <a class="link" href="animals/sumatran-tiger.html">Read Bio</a>
-          </div>
-        </article>
-
-        <article class="card">
-          <img src="images/giant-panda.jpg" alt="Giant Panda">
-          <div class="card-body">
-            <h3>Giant Panda</h3>
-            <p class="status vulnerable">Vulnerable</p>
-            <p>~1,864 remaining (est.)</p>
-            <a class="link" href="animals/giant-panda.html">Read Bio</a>
-          </div>
-        </article>
-
+      <div id="featuredGrid" class="grid">
+        <!-- Cards populated from data/animals.json by js/main.js -->
       </div>
     </section>
 
-    <section class="info container">
+    <section class="info container animate-up">
       <h2>Why it matters</h2>
-      <p>Every species plays a role in the ecosystem. EchoedWild helps students and visitors learn and take action to protect endangered animals.</p>
+      <p class="muted">Species loss affects ecosystems, food webs, and human livelihoods. EchoedWild helps students learn and share conservation actions.</p>
     </section>
   </main>
 
-  <footer class="site-footer">
+  <footer class="site-footer glass">
     <div class="container footer-inner">
       <div class="footer-left">
         <a class="logo small" href="index.html">EchoedWild</a>
-        <p>© <span id="year"></span> EchoedWild — All rights reserved.</p>
+        <p class="muted">© <span id="year"></span> EchoedWild — All rights reserved.</p>
       </div>
       <div class="footer-right">
         <nav>
