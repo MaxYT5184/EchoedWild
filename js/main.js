@@ -48,4 +48,150 @@ document.addEventListener('DOMContentLoaded', async ()=> {
   // populate animals list page
   const animalsGrid = document.getElementById('animalsGrid');
   const listSearch = document.getElementById('listSearch');
-  const statusFilter
+  const statusFilter = document.getElementById('statusFilter');
+  const regionFilter = document.getElementById('regionFilter');
+  const clearFilters = document.getElementById('clearFilters');
+  const resultsCount = document.getElementById('resultsCount');
+
+  function renderList(data){
+    if(!animalsGrid) return;
+    animalsGrid.innerHTML = '';
+    if(!data.length){
+      animalsGrid.innerHTML = '<div class="muted">No results — try clearing filters.</div>';
+      resultsCount && (resultsCount.textContent = '0 species');
+      return;
+    }
+    data.forEach(a => animalsGrid.appendChild(createCard(a)));
+    resultsCount && (resultsCount.textContent = data.length + ' species');
+  }
+
+  if(animalsGrid){
+    renderList(animals);
+    // search + filters
+    function applyFilters(){
+      const q = (listSearch && listSearch.value || '').toLowerCase().trim();
+      const status = (statusFilter && statusFilter.value) || '';
+      const region = (regionFilter && regionFilter.value) || '';
+      let out = animals.filter(a => {
+        // search across name, habitat, threats, region, status
+        const hay = (a.name + ' ' + a.habitat + ' ' + (a.threats||[]).join(' ') + ' ' + a.region + ' ' + a.status).toLowerCase();
+        if(q && !hay.includes(q)) return false;
+        if(status && a.status !== status) return false;
+        if(region && a.region !== region) return false;
+        return true;
+      });
+      renderList(out);
+    }
+    listSearch && listSearch.addEventListener('input', debounce(applyFilters, 220));
+    statusFilter && statusFilter.addEventListener('change', applyFilters);
+    regionFilter && regionFilter.addEventListener('change', applyFilters);
+    clearFilters && clearFilters.addEventListener('click', ()=>{
+      if(listSearch) listSearch.value = '';
+      if(statusFilter) statusFilter.value = '';
+      if(regionFilter) regionFilter.value = '';
+      applyFilters();
+    });
+  }
+
+  // index global search (if present)
+  const globalSearchInput = document.getElementById('globalSearch');
+  if(globalSearchInput){
+    globalSearchInput.addEventListener('keypress', (e)=> {
+      if(e.key === 'Enter'){
+        const q = globalSearchInput.value.trim();
+        if(!q) window.location.href = 'animals.html';
+        else window.location.href = 'animals.html?search=' + encodeURIComponent(q);
+      }
+    });
+    // if page opened with ?search=... populate animals page search
+    const query = new URLSearchParams(location.search).get('search');
+    if(query && document.location.pathname.endsWith('animals.html')){
+      const ls = document.getElementById('listSearch');
+      if(ls){ ls.value = query; ls.dispatchEvent(new Event('input')); }
+    }
+  }
+
+  // single animal page renderer (animal.html)
+  const animalBio = document.getElementById('animalBio');
+  if(animalBio){
+    const params = new URLSearchParams(location.search);
+    const id = params.get('id');
+    const slug = id || (location.pathname.split('/').pop().replace('.html',''));
+    const animal = animals.find(a => a.id === slug || a.slug === slug);
+    if(!animal){
+      animalBio.innerHTML = '<p class="muted">Animal not found. Go back to <a href="animals.html">Animals</a>.</p>';
+    } else {
+      animalBio.innerHTML = `
+        <div class="bio-grid">
+          <div class="bio-media">
+            <img src="${animal.image}" alt="${escapeHtml(animal.name)}">
+          </div>
+          <div class="bio-content">
+            <h1>${escapeHtml(animal.name)}</h1>
+            <div class="status ${statusClass(animal.status)}">${escapeHtml(animal.status)}</div>
+            <p><strong>Estimated remaining:</strong> ${escapeHtml(animal.estimated||'—')}</p>
+            <h3>Habitat</h3><p>${escapeHtml(animal.habitat||'—')}</p>
+            <h3>Threats</h3><ul>${(animal.threats||[]).map(t=>`<li>${escapeHtml(t)}</li>`).join('')}</ul>
+            <h3>Conservation efforts</h3><ul>${(animal.conservation||[]).map(c=>`<li>${escapeHtml(c)}</li>`).join('')}</ul>
+          </div>
+        </div>
+      `;
+    }
+  }
+
+  // status tracker table on status.html
+  const statusTable = document.querySelector('.status-table tbody');
+  if(statusTable){
+    statusTable.innerHTML = animals.map(a => `
+      <tr>
+        <td>${escapeHtml(a.name)}</td>
+        <td class="status ${statusClass(a.status)}">${escapeHtml(a.status)}</td>
+        <td>${escapeHtml(a.estimated||'—')}</td>
+        <td><a href="animal.html?id=${encodeURIComponent(a.id)}">Bio</a></td>
+      </tr>
+    `).join('');
+  }
+
+  // if animals.html opened with ?search=... apply it
+  if(location.search && location.pathname.endsWith('animals.html')){
+    const params2 = new URLSearchParams(location.search);
+    const q = params2.get('search');
+    if(q && document.getElementById('listSearch')){
+      document.getElementById('listSearch').value = q;
+      document.getElementById('listSearch').dispatchEvent(new Event('input'));
+    }
+  }
+
+  // helper: create card element (for grid)
+  function createCard(a){
+    const article = document.createElement('article');
+    article.className = 'card animate-up';
+    article.innerHTML = `
+      <div class="card-thumb"><img src="${a.image}" alt="${escapeHtml(a.name)}"></div>
+      <div class="card-body">
+        <h3>${escapeHtml(a.name)}</h3>
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+          <div class="status ${statusClass(a.status)}">${escapeHtml(a.status)}</div>
+          <div class="muted" style="font-weight:600">${escapeHtml(a.region)}</div>
+        </div>
+        <p class="muted">${escapeHtml(a.habitat)}</p>
+        <div style="margin-top:auto;display:flex;gap:10px;align-items:center">
+          <a class="link" href="animal.html?id=${encodeURIComponent(a.id)}">View Bio</a>
+          <span style="margin-left:auto;color:var(--muted);font-size:.95rem">${escapeHtml(a.estimated||'—')}</span>
+        </div>
+      </div>
+    `;
+    return article;
+  }
+
+  // small utilities
+  function statusClass(status){
+    if(!status) return '';
+    if(status.toLowerCase().includes('critic')) return 'critical';
+    if(status.toLowerCase().includes('endang')) return 'endangered';
+    if(status.toLowerCase().includes('vulner')) return 'vulnerable';
+    return '';
+  }
+  function escapeHtml(s){ if(!s) return ''; return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+  function debounce(fn, ms=200){ let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a), ms); }; }
+});
