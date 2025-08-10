@@ -1,0 +1,38 @@
+[
+  {
+    "id": "sumatran-tiger",
+    "name": "Sumatran Tiger",
+    "status": "Critically Endangered",
+    "estimated": "~400",
+    "region": "Asia",
+    "habitat": "Tropical forests of Sumatra, Indonesia",
+    "threats": ["Poaching", "Habitat loss due to agriculture and palm oil", "Human-wildlife conflict"],
+    "conservation": ["Habitat protection", "Anti-poaching patrols", "Breeding programs"],
+    "image": "https://source.unsplash.com/featured/?sumatran+tiger",
+    "slug": "sumatran-tiger"
+  },
+  {
+    "id": "giant-panda",
+    "name": "Giant Panda",
+    "status": "Vulnerable",
+    "estimated": "~1864",
+    "region": "Asia",
+    "habitat": "Temperate broadleaf and mixed forests of southwest China",
+    "threats": ["Habitat fragmentation", "Low birth rates"],
+    "conservation": ["Habitat restoration", "Reserves", "Captive breeding and reintroduction"],
+    "image": "https://source.unsplash.com/featured/?giant+panda",
+    "slug": "giant-panda"
+  },
+  {
+    "id": "black-rhino",
+    "name": "Black Rhino",
+    "status": "Endangered",
+    "estimated": "~5600",
+    "region": "Africa",
+    "habitat": "Savannahs and deserts in Africa",
+    "threats": ["Poaching for horn", "Habitat loss"],
+    "conservation": ["Protection zones", "Anti-poaching", "Translocations"],
+    "image": "https://source.unsplash.com/featured/?black+rhino",
+    "slug": "black-rhino"
+  }
+]
