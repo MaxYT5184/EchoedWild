@@ -8,16 +8,14 @@
   <link rel="icon" href="images/favicon.ico" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
-  <script defer src="js/main.js"></script>
 </head>
 <body>
-  <!-- same header -->
   <header class="site-header glass">
     <div class="container header-inner">
       <a class="logo" href="index.html"><span class="echo">Echoed</span><span class="wild">Wild</span></a>
 
       <div class="search-wrap">
-        <input id="listSearch" class="search" type="search" placeholder="Search animals, habitat, threats..." aria-label="Search animals">
+        <input id="listSearch" class="search" type="search" placeholder="Search animals, habitat, threats..." aria-label="Search animals" oninput="filterAnimals()">
       </div>
 
       <nav class="nav" id="mainNav" aria-label="Main navigation">
@@ -39,7 +37,7 @@
     <section class="controls-row animate-up">
       <div class="filters">
         <label>
-          <select id="statusFilter" aria-label="Filter by status">
+          <select id="statusFilter" aria-label="Filter by status" onchange="filterAnimals()">
             <option value="">All statuses</option>
             <option value="Critically Endangered">Critically Endangered</option>
             <option value="Endangered">Endangered</option>
@@ -49,24 +47,105 @@
           </select>
         </label>
         <label>
-          <select id="regionFilter" aria-label="Filter by region">
+          <select id="regionFilter" aria-label="Filter by region" onchange="filterAnimals()">
             <option value="">All regions</option>
             <option value="Asia">Asia</option>
             <option value="Africa">Africa</option>
             <option value="Americas">Americas</option>
             <option value="Oceania">Oceania</option>
+            <option value="Global Oceans">Global Oceans</option>
           </select>
         </label>
-        <button id="clearFilters" class="btn ghost small">Clear</button>
+        <button id="clearFilters" class="btn ghost small" onclick="clearFilters()">Clear</button>
       </div>
 
       <div class="stats">
-        <span id="resultsCount" class="muted">0 species</span>
+        <span id="resultsCount" class="muted">9 species</span>
       </div>
     </section>
 
     <section class="grid animate-up" id="animalsGrid" aria-live="polite">
-      <!-- populated by js using data/animals.json -->
+      <!-- Animal Cards -->
+      <a class="card" data-status="Vulnerable" data-region="Asia">
+        <div class="card-image"><img src="images/giant-panda.jpg" alt="Giant Panda"></div>
+        <div class="card-content">
+          <h3>Giant Panda</h3>
+          <p class="status vulnerable">Vulnerable</p>
+          <p class="region">Asia</p>
+        </div>
+      </a>
+
+      <a class="card" data-status="Critically Endangered" data-region="Asia">
+        <div class="card-image"><img src="images/sumatran-tiger.jpg" alt="Sumatran Tiger"></div>
+        <div class="card-content">
+          <h3>Sumatran Tiger</h3>
+          <p class="status critically-endangered">Critically Endangered</p>
+          <p class="region">Asia</p>
+        </div>
+      </a>
+
+      <a class="card" data-status="Critically Endangered" data-region="Africa">
+        <div class="card-image"><img src="images/black-rhino.jpg" alt="Black Rhino"></div>
+        <div class="card-content">
+          <h3>Black Rhino</h3>
+          <p class="status critically-endangered">Critically Endangered</p>
+          <p class="region">Africa</p>
+        </div>
+      </a>
+
+      <a class="card" data-status="Vulnerable" data-region="Africa">
+        <div class="card-image"><img src="images/african-elephant.jpg" alt="African Elephant"></div>
+        <div class="card-content">
+          <h3>African Elephant</h3>
+          <p class="status vulnerable">Vulnerable</p>
+          <p class="region">Africa</p>
+        </div>
+      </a>
+
+      <a class="card" data-status="Critically Endangered" data-region="Americas">
+        <div class="card-image"><img src="images/vaquita.jpg" alt="Vaquita"></div>
+        <div class="card-content">
+          <h3>Vaquita</h3>
+          <p class="status critically-endangered">Critically Endangered</p>
+          <p class="region">Americas</p>
+        </div>
+      </a>
+
+      <a class="card" data-status="Critically Endangered" data-region="Asia">
+        <div class="card-image"><img src="images/amur-leopard.jpg" alt="Amur Leopard"></div>
+        <div class="card-content">
+          <h3>Amur Leopard</h3>
+          <p class="status critically-endangered">Critically Endangered</p>
+          <p class="region">Asia</p>
+        </div>
+      </a>
+
+      <a class="card" data-status="Vulnerable" data-region="Oceania">
+        <div class="card-image"><img src="images/koala.jpg" alt="Koala"></div>
+        <div class="card-content">
+          <h3>Koala</h3>
+          <p class="status vulnerable">Vulnerable</p>
+          <p class="region">Oceania</p>
+        </div>
+      </a>
+
+      <a class="card" data-status="Endangered" data-region="Africa">
+        <div class="card-image"><img src="images/mountain-gorilla.jpg" alt="Mountain Gorilla"></div>
+        <div class="card-content">
+          <h3>Mountain Gorilla</h3>
+          <p class="status endangered">Endangered</p>
+          <p class="region">Africa</p>
+        </div>
+      </a>
+
+      <a class="card" data-status="Endangered" data-region="Global Oceans">
+        <div class="card-image"><img src="images/great-hammerhead.jpg" alt="Great Hammerhead"></div>
+        <div class="card-content">
+          <h3>Great Hammerhead</h3>
+          <p class="status endangered">Endangered</p>
+          <p class="region">Global Oceans</p>
+        </div>
+      </a>
     </section>
   </main>
 
@@ -86,5 +165,3 @@
       </div>
     </div>
   </footer>
-</body>
-</html>
