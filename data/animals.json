@@ -3,63 +3,63 @@
     "name": "Giant Panda",
     "status": "Vulnerable",
     "region": "Asia",
-    "image": "images/giant-panda.jpg",
+    "image": "images/giant-panda.png",
     "link": "animals/giant-panda.html"
   },
   {
     "name": "Sumatran Tiger",
     "status": "Critically Endangered",
     "region": "Asia",
-    "image": "images/sumatran-tiger.jpg",
+    "image": "images/sumatran-tiger.png",
     "link": "animals/sumatran-tiger.html"
   },
   {
     "name": "Black Rhino",
     "status": "Critically Endangered",
     "region": "Africa",
-    "image": "images/black-rhino.jpg",
+    "image": "images/black-rhino.png",
     "link": "animals/black-rhino.html"
   },
   {
     "name": "African Elephant",
     "status": "Vulnerable",
     "region": "Africa",
-    "image": "images/african-elephant.jpg",
+    "image": "images/african-elephant.png",
     "link": "animals/african-elephant.html"
   },
   {
     "name": "Vaquita",
     "status": "Critically Endangered",
     "region": "Americas",
-    "image": "images/vaquita.jpg",
+    "image": "images/vaquita.png",
     "link": "animals/vaquita.html"
   },
   {
     "name": "Amur Leopard",
     "status": "Critically Endangered",
     "region": "Asia",
-    "image": "images/amur-leopard.jpg",
+    "image": "images/amur-leopard.png",
     "link": "animals/amur-leopard.html"
   },
   {
     "name": "Koala",
     "status": "Vulnerable",
     "region": "Oceania",
-    "image": "images/koala.jpg",
+    "image": "images/koala.png",
     "link": "animals/koala.html"
   },
   {
     "name": "Mountain Gorilla",
     "status": "Endangered",
     "region": "Africa",
-    "image": "images/mountain-gorilla.jpg",
+    "image": "images/mountain-gorilla.png",
     "link": "animals/mountain-gorilla.html"
   },
   {
     "name": "Great Hammerhead",
     "status": "Endangered",
     "region": "Global Oceans",
-    "image": "images/great-hammerhead.jpg",
+    "image": "images/great-hammerhead.png",
     "link": "animals/great-hammerhead.html"
   }
 ]
