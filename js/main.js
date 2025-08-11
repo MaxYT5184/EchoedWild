@@ -225,17 +225,7 @@ function createCard(a) {
 const cursor = document.getElementById('custom-cursor');
 const trailContainer = document.getElementById('cursor-trail');
 
-document.addEventListener('mousemove', e => {
+document.addEventListener('mousemove', moveCursos => {
   cursor.style.left = e.clientX + 'px';
   cursor.style.top = e.clientY + 'px';
 
-  const dot = document.createElement('div');
-  dot.className = 'trail-dot';
-  dot.style.left = e.clientX + 'px';
-  dot.style.top = e.clientY + 'px';
-  trailContainer.appendChild(dot);
-
-  setTimeout(() => {
-    trailContainer.removeChild(dot);
-  }, 600);
-});
