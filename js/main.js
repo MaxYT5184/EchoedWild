@@ -234,42 +234,20 @@ document.addEventListener('mousemove', e => {
 });
 
 // Background Music
-(function addBackgroundMusic() {
-  const tag = document.createElement('script');
-  tag.src = "https://www.youtube.com/iframe_api";
-  document.body.appendChild(tag);
-
-  let player;
-  window.onYouTubeIframeAPIReady = function () {
-    player = new YT.Player('bg-music', {
-      height: '0',
-      width: '0',
-      videoId: 'LfPPvyk72Kk',
-      playerVars: {
-        autoplay: 1,
-        controls: 0,
-        disablekb: 1,
-        loop: 1,
-        playlist: 'PLyoj9YoVlyhk-3ftingZpIoPv0rbqnyoA',
-        modestbranding: 1,
-        rel: 0,
-        showinfo: 0
-      },
-      events: {
-        onReady: function (event) {
-          event.target.setVolume(20); // Adjust volume here
-          event.target.playVideo();
-        }
-      }
-    });
-  };
-
-  const iframe = document.createElement('div');
-  iframe.id = 'bg-music';
-  iframe.style.position = 'absolute';
-  iframe.style.width = '0px';
-  iframe.style.height = '0px';
-  iframe.style.overflow = 'hidden';
-  iframe.style.zIndex = '-1';
+(function setupBackgroundMusic() {
+  const iframe = document.createElement('iframe');
+  iframe.src = "https://www.youtube.com/embed/LfPPvyk72Kk?autoplay=1&loop=1&playlist=LfPPvyk72Kk&mute=0";
+  iframe.width = "0";
+  iframe.height = "0";
+  iframe.style.position = "absolute";
+  iframe.style.zIndex = "-1";
+  iframe.style.border = "none";
+  iframe.allow = "autoplay; encrypted-media";
+  iframe.setAttribute("allowfullscreen", "");
   document.body.appendChild(iframe);
+
+  // Trigger playback after user interaction
+  document.addEventListener('click', () => {
+    iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+  });
 })();
