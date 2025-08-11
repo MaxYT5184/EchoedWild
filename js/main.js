@@ -188,26 +188,28 @@ document.addEventListener('DOMContentLoaded', async () => {
     `;
   }
 
-  function createCard(a) {
-    const article = document.createElement('article');
-    article.className = 'card animate-up';
-    article.innerHTML = `
-      <div class="card-thumb"><img src="${a.image}" alt="${escapeHtml(a.name)}"></div>
-      <div class="card-body">
-        <h3>${escapeHtml(a.name)}</h3>
-        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-          <div class="status ${statusClass(a.status)}">${escapeHtml(a.status)}</div>
-          <div class="muted" style="font-weight:600">${escapeHtml(a.region)}</div>
-        </div>
-        <p class="muted">${escapeHtml(a.habitat)}</p>
-        <div style="margin-top:auto;display:flex;gap:10px;align-items:center">
-          <a class="link bio-btn" href="#" data-id="${a.id}">View Bio</a>
-          <span style="margin-left:auto;color:var(--muted);font-size:.95rem">${escapeHtml(a.estimated || '—')}</span>
-        </div>
+function createCard(a) {
+  const article = document.createElement('article');
+  article.className = 'card animate-up';
+  article.innerHTML = `
+    <div class="card-thumb"><img src="${a.image}" alt="${escapeHtml(a.name)}"></div>
+    <div class="card-body">
+      <h3>${escapeHtml(a.name)}</h3>
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <div class="status ${statusClass(a.status)}">${escapeHtml(a.status)}</div>
+        <div class="muted" style="font-weight:600">${escapeHtml(a.region)}</div>
       </div>
-    `;
-    return article;
-  }
+      <p class="muted">${escapeHtml(a.habitat)}</p>
+      <div style="margin-top:auto;display:flex;gap:10px;align-items:center">
+        <a class="link bio-btn" href="#" data-id="${a.id}">View Bio</a>
+        ${a.link ? `<a class="btn small" href="${a.link}">View Page</a>` : ''}
+        <span style="margin-left:auto;color:var(--muted);font-size:.95rem">${escapeHtml(a.estimated || '—')}</span>
+      </div>
+    </div>
+  `;
+  return article;
+}
+
 
   function statusClass(status) {
     if (!status) return '';
