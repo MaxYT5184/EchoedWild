@@ -1,18 +1,62 @@
 [
   {
-    "id": "tiger",
-    "name": "Tiger",
-    "status": "Endangered",
+    "id": "sumatran-tiger",
+    "name": "Sumatran Tiger",
+    "status": "Critically Endangered",
+    "estimated": "~400",
     "region": "Asia",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Tiger.50.jpg/640px-Tiger.50.jpg",
-    "bio": "Tigers are the largest cat species in the world. They are found in parts of Asia and are listed as Endangered due to habitat loss and poaching."
+    "habitat": "Tropical forests of Sumatra, Indonesia",
+    "threats": ["Poaching", "Habitat loss due to agriculture and palm oil", "Human-wildlife conflict"],
+    "conservation": ["Habitat protection", "Anti-poaching patrols", "Breeding programs"],
+    "image": "https://source.unsplash.com/featured/?sumatran+tiger",
+    "slug": "sumatran-tiger"
   },
   {
-    "id": "blue-whale",
-    "name": "Blue Whale",
+    "id": "giant-panda",
+    "name": "Giant Panda",
+    "status": "Vulnerable",
+    "estimated": "~1864",
+    "region": "Asia",
+    "habitat": "Temperate broadleaf and mixed forests of southwest China",
+    "threats": ["Habitat fragmentation", "Low birth rates"],
+    "conservation": ["Habitat restoration", "Reserves", "Captive breeding and reintroduction"],
+    "image": "https://source.unsplash.com/featured/?giant+panda",
+    "slug": "giant-panda"
+  },
+  {
+    "id": "black-rhino",
+    "name": "Black Rhino",
     "status": "Endangered",
-    "region": "Oceania",
-    "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Bluewhale-1NOAA.jpg/640px-Bluewhale-1NOAA.jpg",
-    "bio": "The blue whale is the largest animal ever known to have existed. Found in oceans worldwide, they are endangered due to whaling and environmental changes."
+    "estimated": "~5600",
+    "region": "Africa",
+    "habitat": "Savannahs and deserts in Africa",
+    "threats": ["Poaching for horn", "Habitat loss"],
+    "conservation": ["Protection zones", "Anti-poaching", "Translocations"],
+    "image": "https://source.unsplash.com/featured/?black+rhino",
+    "slug": "black-rhino"
+  },
+  {
+    "id": "african-elephant",
+    "name": "African Elephant",
+    "status": "Vulnerable",
+    "estimated": "~415,000",
+    "region": "Africa",
+    "habitat": "Savannahs, forests, and deserts of Africa",
+    "threats": ["Poaching for ivory", "Habitat loss", "Human-wildlife conflict"],
+    "conservation": ["Anti-poaching patrols", "Habitat conservation", "Community engagement"],
+    "image": "https://source.unsplash.com/featured/?african+elephant",
+    "slug": "african-elephant"
+  },
+  {
+    "id": "sea-otter",
+    "name": "Sea Otter",
+    "status": "Endangered",
+    "estimated": "~106,000",
+    "region": "Americas",
+    "habitat": "Coastal waters of the northern Pacific Ocean",
+    "threats": ["Oil spills", "Hunting", "Predation by orcas"],
+    "conservation": ["Marine protected areas", "Pollution control", "Legal protection"],
+    "image": "https://source.unsplash.com/featured/?sea+otter",
+    "slug": "sea-otter"
   }
 ]
