@@ -234,20 +234,16 @@ document.addEventListener('mousemove', e => {
 });
 
 // Background Music
-(function setupBackgroundMusic() {
-  const iframe = document.createElement('iframe');
-  iframe.src = "https://www.youtube.com/embed/LfPPvyk72Kk?autoplay=1&loop=1&playlist=LfPPvyk72Kk&mute=0";
-  iframe.width = "0";
-  iframe.height = "0";
-  iframe.style.position = "absolute";
-  iframe.style.zIndex = "-1";
-  iframe.style.border = "none";
-  iframe.allow = "autoplay; encrypted-media";
-  iframe.setAttribute("allowfullscreen", "");
-  document.body.appendChild(iframe);
+window.addEventListener('DOMContentLoaded', () => {
+  (function loadElfsightMusic() {
+    const script = document.createElement('script');
+    script.src = "https://static.elfsight.com/platform/platform.js";
+    script.async = true;
+    document.body.appendChild(script);
 
-  // Trigger playback after user interaction
-  document.addEventListener('click', () => {
-    iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-  });
-})();
+    const div = document.createElement('div');
+    div.className = "elfsight-app-2f707cbf-eeb9-4836-876d-36785d10541a";
+    div.setAttribute("data-elfsight-app-lazy", "");
+    document.body.appendChild(div);
+  })();
+});
