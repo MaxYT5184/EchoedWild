@@ -207,3 +207,91 @@ a:focus, button:focus, input:focus{outline:3px solid rgba(14,165,164,0.14);outli
 .contact-section button:hover {
   background-color: var(--accent-dark);
 }
+
+/* Responsive Enhancements */
+
+/* Phones (≤480px) */
+@media (max-width: 480px) {
+  .container {
+    padding: 12px;
+  }
+
+  .hero-text h1 {
+    font-size: 1.8rem;
+  }
+
+  .search {
+    width: 100%;
+  }
+
+  .hero-cta {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .card-thumb {
+    height: 120px;
+  }
+
+  .card-thumb img {
+    height: 120px;
+  }
+
+  .animal-bio {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .contact-section {
+    padding: 1rem;
+    margin: 2rem 1rem;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+}
+
+/* Tablets (481px–900px) */
+@media (min-width: 481px) and (max-width: 900px) {
+  .hero-text h1 {
+    font-size: 2.2rem;
+  }
+
+  .search {
+    width: 200px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  }
+
+  .animal-bio {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-section {
+    margin: 2rem;
+  }
+}
+
+/* Large screens (≥1200px) */
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1200px;
+  }
+
+  .hero-text h1 {
+    font-size: 3rem;
+  }
+
+  .card-thumb {
+    height: 180px;
+  }
+
+  .card-thumb img {
+    height: 180px;
+  }
+}
