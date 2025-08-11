@@ -301,18 +301,20 @@ a:focus, button:focus, input:focus{outline:3px solid rgba(14,165,164,0.14);outli
   position: fixed;
   top: 0;
   left: 0;
-  width: 18px;
-  height: 18px;
-  background: var(--accent);
+  width: 20px;
+  height: 20px;
+  background: white;
   border-radius: 50%;
   pointer-events: none;
   transform: translate(-50%, -50%);
-  transition: transform 0.1s ease, background 0.2s ease;
+  transition: transform 0.1s ease, box-shadow 0.2s ease;
   z-index: 9999;
   mix-blend-mode: difference;
 }
 
-body.clicked #custom-cursor {
-  transform: translate(-50%, -50%) scale(1.8);
-  background: var(--accent-2);
+/* Glow + pulse on hover */
+button:hover ~ #custom-cursor,
+a:hover ~ #custom-cursor {
+  box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.6);
+  transform: translate(-50%, -50%) scale(1.3);
 }
