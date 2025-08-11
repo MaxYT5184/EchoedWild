@@ -222,18 +222,8 @@ function createCard(a) {
 });
 
 // Custom Cursor 
-let customCursor = document.querySelector(".custom-cursor");
-let Cursortrail = document.querySelector(".cursor-trail");
-
-document.addEventListener("mousemove", moveCursor);
-
-function moveCursor(e) {
-  let x = e.clientX;
-  let y = e.clientY;
-
-  customCursor.style.left = `${x}px`;
-  customCursor.style.top = `${y}px`;
-  Cursortrail.style.left = `${x}px`;
-  Cursortrail.style.top = `${y}px`;
-}
-
+const cursor = docment.getElementById('custom-cursor')
+window.addEventListener('mousemove', (e)=>{
+  cursor.style.top = e.clientY + 'px';
+  cursor.style.left = e.clientX + 'px';
+})
