@@ -3,6 +3,7 @@
     "name": "Giant Panda",
     "status": "Vulnerable",
     "region": "Asia",
+    "estimated": "~1,864",
     "image": "images/giant-panda.png",
     "link": "animals/giant-panda.html"
   },
@@ -10,6 +11,7 @@
     "name": "Sumatran Tiger",
     "status": "Critically Endangered",
     "region": "Asia",
+    "estimated": "~400",
     "image": "images/sumatran-tiger.png",
     "link": "animals/sumatran-tiger.html"
   },
@@ -17,6 +19,7 @@
     "name": "Black Rhino",
     "status": "Critically Endangered",
     "region": "Africa",
+    "estimated": "~5,500",
     "image": "images/black-rhino.png",
     "link": "animals/black-rhino.html"
   },
@@ -24,6 +27,7 @@
     "name": "African Elephant",
     "status": "Vulnerable",
     "region": "Africa",
+    "estimated": "~415,000",
     "image": "images/african-elephant.png",
     "link": "animals/african-elephant.html"
   },
@@ -31,6 +35,7 @@
     "name": "Vaquita",
     "status": "Critically Endangered",
     "region": "Americas",
+    "estimated": "<10",
     "image": "images/vaquita.png",
     "link": "animals/vaquita.html"
   },
@@ -38,6 +43,7 @@
     "name": "Amur Leopard",
     "status": "Critically Endangered",
     "region": "Asia",
+    "estimated": "~100",
     "image": "images/amur-leopard.png",
     "link": "animals/amur-leopard.html"
   },
@@ -45,6 +51,7 @@
     "name": "Koala",
     "status": "Vulnerable",
     "region": "Oceania",
+    "estimated": "~300,000",
     "image": "images/koala.png",
     "link": "animals/koala.html"
   },
@@ -52,6 +59,7 @@
     "name": "Mountain Gorilla",
     "status": "Endangered",
     "region": "Africa",
+    "estimated": "~1,063",
     "image": "images/mountain-gorilla.png",
     "link": "animals/mountain-gorilla.html"
   },
@@ -59,6 +67,7 @@
     "name": "Great Hammerhead",
     "status": "Endangered",
     "region": "Global Oceans",
+    "estimated": "Unknown",
     "image": "images/great-hammerhead.png",
     "link": "animals/great-hammerhead.html"
   }
