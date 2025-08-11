@@ -298,22 +298,34 @@ a:focus, button:focus, input:focus{outline:3px solid rgba(14,165,164,0.14);outli
 }
 
 /* Custom Corsor */
-#custom-cursor {
-  left: 10px;
-  width: 10px;
-  position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transform: translateX(-50%) translateY(-50%);
-  border-radius: 50%;
-  background-color: transparent;
-  border: 2px solid white;
+#cursor-inner, #cursor-outer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
 }
 
-#custom-cursor span{
-  width: 3px;
-  height: 3px;
+#cursor-inner {
+  width: 8px;
+  height: 8px;
+  background-color: #072227;
   border-radius: 50%;
-  background-color: white;
+  transition: transform 0.1s ease;
+}
+
+#cursor-outer {
+  width: 24px;
+  height: 24px;
+  border: 2px solid #072227;
+  border-radius: 50%;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+/* Hover effect on interactive elements */
+a:hover ~ #cursor-outer,
+button:hover ~ #cursor-outer {
+  transform: translate(-50%, -50%) scale(1.4);
+  border-color: var(--accent);
 }
