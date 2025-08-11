@@ -220,3 +220,20 @@ function createCard(a) {
   function escapeHtml(s) { if (!s) return ''; return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
   function debounce(fn, ms = 200) { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); }; }
 });
+
+// Custom Cursor 
+const cursor = document.getElementById('custom-cursor');
+
+document.addEventListener('mousemove', e => {
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top = e.clientY + 'px';
+});
+
+document.addEventListener('mousedown', () => {
+  document.body.classList.add('clicked');
+  playClickSound();
+});
+
+document.addEventListener('mouseup', () => {
+  document.body.classList.remove('clicked');
+});
