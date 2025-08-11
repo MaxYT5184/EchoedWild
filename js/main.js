@@ -222,10 +222,18 @@ function createCard(a) {
 });
 
 // Custom Cursor 
-const cursor = document.getElementById('custom-cursor');
-const trailContainer = document.getElementById('cursor-trail');
+let customCursor = document.querySelector(".custom-cursor");
+let Cursortrail = document.querySelector(".cursor-trail");
 
-document.addEventListener('mousemove', moveCursos => {
-  cursor.style.left = e.clientX + 'px';
-  cursor.style.top = e.clientY + 'px';
+document.addEventListener("mousemove", moveCursor);
+
+function moveCursor(e) {
+  let x = e.clientX;
+  let y = e.clientY;
+
+  customCursor.style.left = `${x}px`;
+  customCursor.style.top = `${y}px`;
+  Cursortrail.style.left = `${x}px`;
+  Cursortrail.style.top = `${y}px`;
+}
 
