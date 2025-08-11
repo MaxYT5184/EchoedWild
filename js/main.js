@@ -223,17 +223,19 @@ function createCard(a) {
 
 // Custom Cursor 
 const cursor = document.getElementById('custom-cursor');
+const trailContainer = document.getElementById('cursor-trail');
 
 document.addEventListener('mousemove', e => {
   cursor.style.left = e.clientX + 'px';
   cursor.style.top = e.clientY + 'px';
-});
 
-document.addEventListener('mousedown', () => {
-  document.body.classList.add('clicked');
-  playClickSound();
-});
+  const dot = document.createElement('div');
+  dot.className = 'trail-dot';
+  dot.style.left = e.clientX + 'px';
+  dot.style.top = e.clientY + 'px';
+  trailContainer.appendChild(dot);
 
-document.addEventListener('mouseup', () => {
-  document.body.classList.remove('clicked');
+  setTimeout(() => {
+    trailContainer.removeChild(dot);
+  }, 600);
 });
