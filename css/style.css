@@ -142,3 +142,18 @@ a:focus, button:focus, input:focus{outline:3px solid rgba(14,165,164,0.14);outli
     width: 28px;
     height: 28px;
 }
+
+/* Credits Cards */
+.credits {
+  background: var(--glass);
+  padding: 1rem;
+  border-radius: 8px;
+}
+.credit-role {
+  margin: 0.5rem 0;
+  font-weight: 500;
+}
+.credit-role span {
+  font-weight: 700;
+  color: var(--accent);
+}
