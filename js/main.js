@@ -1,48 +1,47 @@
 // main.js — dynamic site behavior
-document.addEventListener('DOMContentLoaded', async ()=> {
+document.addEventListener('DOMContentLoaded', async () => {
   // fill year spans
-  ['year','year2','year3','year4','year5','year6','year7','year8'].forEach(id=>{
+  ['year', 'year2', 'year3', 'year4', 'year5', 'year6', 'year7', 'year8'].forEach(id => {
     const el = document.getElementById(id);
-    if(el) el.textContent = new Date().getFullYear();
+    if (el) el.textContent = new Date().getFullYear();
   });
 
   // header controls
   const hamburger = document.getElementById('hamburger');
   const nav = document.getElementById('mainNav');
-  if(hamburger && nav){
-    hamburger.addEventListener('click', ()=> {
+  if (hamburger && nav) {
+    hamburger.addEventListener('click', () => {
       nav.classList.toggle('open');
-      if(window.innerWidth < 720) nav.style.display = nav.classList.contains('open') ? 'block' : '';
+      if (window.innerWidth < 720) nav.style.display = nav.classList.contains('open') ? 'block' : '';
     });
-    nav.querySelectorAll('a').forEach(a => a.addEventListener('click', ()=> {
-      if(window.innerWidth < 720){ nav.classList.remove('open'); nav.style.display = ''; }
+    nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      if (window.innerWidth < 720) { nav.classList.remove('open'); nav.style.display = ''; }
     }));
   }
 
-  // toggle search on mobile (optional)
+  // toggle search on mobile
   const searchToggle = document.getElementById('searchToggle');
   const globalSearch = document.getElementById('globalSearch');
-  if(searchToggle && globalSearch){
-    searchToggle.addEventListener('click', ()=> {
+  if (searchToggle && globalSearch) {
+    searchToggle.addEventListener('click', () => {
       globalSearch.focus();
     });
   }
 
-  // load animals data if page includes animals grid or status or featured
+  // load animals data
   const animalsUrl = 'data/animals.json';
   let animals = [];
   try {
     const res = await fetch(animalsUrl);
     animals = await res.json();
-  } catch(e){
+  } catch (e) {
     console.error('Failed to load animals.json', e);
   }
 
-  // populate featured (index.html)
+  // populate featured
   const featuredGrid = document.getElementById('featuredGrid');
-  if(featuredGrid && animals.length){
-    // pick first 3 to show
-    animals.slice(0,6).forEach(a => featuredGrid.appendChild(createCard(a)));
+  if (featuredGrid && animals.length) {
+    animals.slice(0, 6).forEach(a => featuredGrid.appendChild(createCard(a)));
   }
 
   // populate animals list page
@@ -53,10 +52,10 @@ document.addEventListener('DOMContentLoaded', async ()=> {
   const clearFilters = document.getElementById('clearFilters');
   const resultsCount = document.getElementById('resultsCount');
 
-  function renderList(data){
-    if(!animalsGrid) return;
+  function renderList(data) {
+    if (!animalsGrid) return;
     animalsGrid.innerHTML = '';
-    if(!data.length){
+    if (!data.length) {
       animalsGrid.innerHTML = '<div class="muted">No results — try clearing filters.</div>';
       resultsCount && (resultsCount.textContent = '0 species');
       return;
@@ -65,19 +64,17 @@ document.addEventListener('DOMContentLoaded', async ()=> {
     resultsCount && (resultsCount.textContent = data.length + ' species');
   }
 
-  if(animalsGrid){
+  if (animalsGrid) {
     renderList(animals);
-    // search + filters
-    function applyFilters(){
+    function applyFilters() {
       const q = (listSearch && listSearch.value || '').toLowerCase().trim();
       const status = (statusFilter && statusFilter.value) || '';
       const region = (regionFilter && regionFilter.value) || '';
       let out = animals.filter(a => {
-        // search across name, habitat, threats, region, status
-        const hay = (a.name + ' ' + a.habitat + ' ' + (a.threats||[]).join(' ') + ' ' + a.region + ' ' + a.status).toLowerCase();
-        if(q && !hay.includes(q)) return false;
-        if(status && a.status !== status) return false;
-        if(region && a.region !== region) return false;
+        const hay = (a.name + ' ' + a.habitat + ' ' + (a.threats || []).join(' ') + ' ' + a.region + ' ' + a.status).toLowerCase();
+        if (q && !hay.includes(q)) return false;
+        if (status && a.status !== status) return false;
+        if (region && a.region !== region) return false;
         return true;
       });
       renderList(out);
@@ -85,85 +82,113 @@ document.addEventListener('DOMContentLoaded', async ()=> {
     listSearch && listSearch.addEventListener('input', debounce(applyFilters, 220));
     statusFilter && statusFilter.addEventListener('change', applyFilters);
     regionFilter && regionFilter.addEventListener('change', applyFilters);
-    clearFilters && clearFilters.addEventListener('click', ()=>{
-      if(listSearch) listSearch.value = '';
-      if(statusFilter) statusFilter.value = '';
-      if(regionFilter) regionFilter.value = '';
+    clearFilters && clearFilters.addEventListener('click', () => {
+      if (listSearch) listSearch.value = '';
+      if (statusFilter) statusFilter.value = '';
+      if (regionFilter) regionFilter.value = '';
       applyFilters();
     });
   }
 
-  // index global search (if present)
+  // index global search
   const globalSearchInput = document.getElementById('globalSearch');
-  if(globalSearchInput){
-    globalSearchInput.addEventListener('keypress', (e)=> {
-      if(e.key === 'Enter'){
+  if (globalSearchInput) {
+    globalSearchInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
         const q = globalSearchInput.value.trim();
-        if(!q) window.location.href = 'animals.html';
+        if (!q) window.location.href = 'animals.html';
         else window.location.href = 'animals.html?search=' + encodeURIComponent(q);
       }
     });
-    // if page opened with ?search=... populate animals page search
     const query = new URLSearchParams(location.search).get('search');
-    if(query && document.location.pathname.endsWith('animals.html')){
+    if (query && document.location.pathname.endsWith('animals.html')) {
       const ls = document.getElementById('listSearch');
-      if(ls){ ls.value = query; ls.dispatchEvent(new Event('input')); }
+      if (ls) { ls.value = query; ls.dispatchEvent(new Event('input')); }
     }
   }
 
-  // single animal page renderer (animal.html)
+  // single animal page (animal.html)
   const animalBio = document.getElementById('animalBio');
-  if(animalBio){
+  if (animalBio) {
     const params = new URLSearchParams(location.search);
     const id = params.get('id');
-    const slug = id || (location.pathname.split('/').pop().replace('.html',''));
+    const slug = id || (location.pathname.split('/').pop().replace('.html', ''));
     const animal = animals.find(a => a.id === slug || a.slug === slug);
-    if(!animal){
+    if (!animal) {
       animalBio.innerHTML = '<p class="muted">Animal not found. Go back to <a href="animals.html">Animals</a>.</p>';
     } else {
-      animalBio.innerHTML = `
-        <div class="bio-grid">
-          <div class="bio-media">
-            <img src="${animal.image}" alt="${escapeHtml(animal.name)}">
-          </div>
-          <div class="bio-content">
-            <h1>${escapeHtml(animal.name)}</h1>
-            <div class="status ${statusClass(animal.status)}">${escapeHtml(animal.status)}</div>
-            <p><strong>Estimated remaining:</strong> ${escapeHtml(animal.estimated||'—')}</p>
-            <h3>Habitat</h3><p>${escapeHtml(animal.habitat||'—')}</p>
-            <h3>Threats</h3><ul>${(animal.threats||[]).map(t=>`<li>${escapeHtml(t)}</li>`).join('')}</ul>
-            <h3>Conservation efforts</h3><ul>${(animal.conservation||[]).map(c=>`<li>${escapeHtml(c)}</li>`).join('')}</ul>
-          </div>
-        </div>
-      `;
+      animalBio.innerHTML = getAnimalBioHTML(animal);
     }
   }
 
-  // status tracker table on status.html
+  // status tracker table
   const statusTable = document.querySelector('.status-table tbody');
-  if(statusTable){
+  if (statusTable) {
     statusTable.innerHTML = animals.map(a => `
       <tr>
         <td>${escapeHtml(a.name)}</td>
         <td class="status ${statusClass(a.status)}">${escapeHtml(a.status)}</td>
-        <td>${escapeHtml(a.estimated||'—')}</td>
-        <td><a href="animal.html?id=${encodeURIComponent(a.id)}">Bio</a></td>
+        <td>${escapeHtml(a.estimated || '—')}</td>
+        <td><button class="bio-btn" data-id="${a.id}">Bio</button></td>
       </tr>
     `).join('');
   }
 
-  // if animals.html opened with ?search=... apply it
-  if(location.search && location.pathname.endsWith('animals.html')){
-    const params2 = new URLSearchParams(location.search);
-    const q = params2.get('search');
-    if(q && document.getElementById('listSearch')){
-      document.getElementById('listSearch').value = q;
-      document.getElementById('listSearch').dispatchEvent(new Event('input'));
-    }
+  // BIO modal system
+  const modal = document.createElement('div');
+  modal.id = 'bioModal';
+  modal.className = 'modal hidden';
+  modal.innerHTML = `
+    <div class="modal-content">
+      <span class="modal-close">&times;</span>
+      <div id="modalBody"></div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+
+  const modalClose = modal.querySelector('.modal-close');
+  modalClose.addEventListener('click', closeModal);
+  modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+
+  function openModal(animal) {
+    document.getElementById('modalBody').innerHTML = getAnimalBioHTML(animal);
+    modal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal() {
+    modal.classList.add('hidden');
+    document.body.style.overflow = '';
   }
 
-  // helper: create card element (for grid)
-  function createCard(a){
+  document.body.addEventListener('click', e => {
+    if (e.target.matches('.bio-btn, .card .link')) {
+      e.preventDefault();
+      const id = e.target.getAttribute('data-id') || new URL(e.target.href).searchParams.get('id');
+      const animal = animals.find(a => a.id === id);
+      if (animal) openModal(animal);
+    }
+  });
+
+  // helpers
+  function getAnimalBioHTML(animal) {
+    return `
+      <div class="bio-grid">
+        <div class="bio-media">
+          <img src="${animal.image}" alt="${escapeHtml(animal.name)}">
+        </div>
+        <div class="bio-content">
+          <h1>${escapeHtml(animal.name)}</h1>
+          <div class="status ${statusClass(animal.status)}">${escapeHtml(animal.status)}</div>
+          <p><strong>Estimated remaining:</strong> ${escapeHtml(animal.estimated || '—')}</p>
+          <h3>Habitat</h3><p>${escapeHtml(animal.habitat || '—')}</p>
+          <h3>Threats</h3><ul>${(animal.threats || []).map(t => `<li>${escapeHtml(t)}</li>`).join('')}</ul>
+          <h3>Conservation efforts</h3><ul>${(animal.conservation || []).map(c => `<li>${escapeHtml(c)}</li>`).join('')}</ul>
+        </div>
+      </div>
+    `;
+  }
+
+  function createCard(a) {
     const article = document.createElement('article');
     article.className = 'card animate-up';
     article.innerHTML = `
@@ -176,22 +201,21 @@ document.addEventListener('DOMContentLoaded', async ()=> {
         </div>
         <p class="muted">${escapeHtml(a.habitat)}</p>
         <div style="margin-top:auto;display:flex;gap:10px;align-items:center">
-          <a class="link" href="animal.html?id=${encodeURIComponent(a.id)}">View Bio</a>
-          <span style="margin-left:auto;color:var(--muted);font-size:.95rem">${escapeHtml(a.estimated||'—')}</span>
+          <a class="link bio-btn" href="#" data-id="${a.id}">View Bio</a>
+          <span style="margin-left:auto;color:var(--muted);font-size:.95rem">${escapeHtml(a.estimated || '—')}</span>
         </div>
       </div>
     `;
     return article;
   }
 
-  // small utilities
-  function statusClass(status){
-    if(!status) return '';
-    if(status.toLowerCase().includes('critic')) return 'critical';
-    if(status.toLowerCase().includes('endang')) return 'endangered';
-    if(status.toLowerCase().includes('vulner')) return 'vulnerable';
+  function statusClass(status) {
+    if (!status) return '';
+    if (status.toLowerCase().includes('critic')) return 'critical';
+    if (status.toLowerCase().includes('endang')) return 'endangered';
+    if (status.toLowerCase().includes('vulner')) return 'vulnerable';
     return '';
   }
-  function escapeHtml(s){ if(!s) return ''; return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
-  function debounce(fn, ms=200){ let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a), ms); }; }
+  function escapeHtml(s) { if (!s) return ''; return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
+  function debounce(fn, ms = 200) { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); }; }
 });
