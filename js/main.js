@@ -201,7 +201,6 @@ function createCard(a) {
       </div>
       <p class="muted">${escapeHtml(a.habitat)}</p>
       <div style="margin-top:auto;display:flex;gap:10px;align-items:center">
-        <a class="link bio-btn" href="#" data-id="${a.id}">View Bio</a>
         ${a.link ? `<a class="btn small" href="${a.link}">View Page</a>` : ''}
         <span style="margin-left:auto;color:var(--muted);font-size:.95rem">${escapeHtml(a.estimated || '—')}</span>
       </div>
