@@ -329,3 +329,53 @@ button:hover ~ #cursor-outer {
   transform: translate(-50%, -50%) scale(1.4);
   border-color: var(--accent);
 }
+
+/* Newsletter Section */
+#newsletter {
+  padding: 2em;
+  background-color: #f9f9f9;
+  text-align: center;
+  font-family: 'Segoe UI', sans-serif;
+  border-top: 2px solid #e0e0e0;
+}
+
+#newsletter h2 {
+  font-size: 2em;
+  margin-bottom: 0.5em;
+  color: #333;
+}
+
+#newsletter p {
+  font-size: 1.1em;
+  margin-bottom: 1em;
+  color: #555;
+}
+
+/* Form Styling */
+#newsletter form {
+  display: inline-block;
+}
+
+#newsletter input[type="email"] {
+  padding: 0.6em;
+  width: 250px;
+  max-width: 80%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1em;
+}
+
+#newsletter input[type="submit"] {
+  padding: 0.6em 1.2em;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1em;
+  margin-top: 0.5em;
+}
+
+#newsletter input[type="submit"]:hover {
+  background-color: #45a049;
+}
