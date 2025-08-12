@@ -3,63 +3,117 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EchoedWild | 404 - Lost in the Wild</title>
-  <link rel="icon" href="favicon.ico" />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto&display=swap" rel="stylesheet">
+  <title>404 - Lost in the Wild</title>
   <style>
     body {
       margin: 0;
-      font-family: 'Roboto', sans-serif;
-      background: #ffffff;
-      color: #333;
+      padding: 0;
+      background: radial-gradient(circle at center, #e6f2f0, #cce0dd);
+      font-family: 'Segoe UI', sans-serif;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-height: 100vh;
+      height: 100vh;
       overflow: hidden;
       text-align: center;
+      color: #2c3e50;
     }
 
     h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 3.5em;
-      margin-bottom: 0.2em;
+      font-size: 6em;
+      margin: 0;
+      color: #3a6f5c;
       animation: fadeInDown 1s ease-out;
     }
 
     p {
       font-size: 1.2em;
-      margin-bottom: 1em;
+      margin: 0.5em 0 2em;
       animation: fadeInUp 1s ease-out;
     }
 
     a {
-      color: #fff;
       text-decoration: none;
-      font-weight: bold;
-      background: #007a5e;
-      padding: 0.6em 1.2em;
+      background: #3a6f5c;
+      color: white;
+      padding: 0.7em 1.5em;
       border-radius: 5px;
+      font-weight: bold;
       transition: background 0.3s ease;
       animation: fadeInUp 1.2s ease-out;
     }
 
     a:hover {
-      background: #005f47;
+      background: #2a5244;
     }
 
-    .animation {
-      width: 200px;
-      height: 200px;
+    .animal {
+      position: relative;
+      width: 120px;
+      height: 80px;
       margin-bottom: 2em;
       animation: float 3s ease-in-out infinite;
     }
 
+    .body {
+      width: 80px;
+      height: 40px;
+      background: #3a6f5c;
+      border-radius: 20px;
+      position: absolute;
+      bottom: 0;
+      left: 20px;
+    }
+
+    .head {
+      width: 30px;
+      height: 30px;
+      background: #3a6f5c;
+      border-radius: 50% 50% 40% 40%;
+      position: absolute;
+      top: 5px;
+      left: 0;
+    }
+
+    .ear {
+      width: 10px;
+      height: 10px;
+      background: #3a6f5c;
+      position: absolute;
+      top: -5px;
+      border-radius: 50%;
+    }
+
+    .ear.left {
+      left: 2px;
+    }
+
+    .ear.right {
+      left: 18px;
+    }
+
+    .tail {
+      width: 30px;
+      height: 20px;
+      background: #3a6f5c;
+      position: absolute;
+      bottom: 5px;
+      right: -15px;
+      border-radius: 50% 50% 0 0;
+      transform: rotate(20deg);
+      animation: wag 1s infinite alternate;
+    }
+
     @keyframes float {
       0% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
+      50% { transform: translateY(-8px); }
       100% { transform: translateY(0); }
+    }
+
+    @keyframes wag {
+      0% { transform: rotate(20deg); }
+      100% { transform: rotate(35deg); }
     }
 
     @keyframes fadeInDown {
@@ -71,46 +125,20 @@
       from { opacity: 0; transform: translateY(30px); }
       to { opacity: 1; transform: translateY(0); }
     }
-
-    .social-icons {
-      margin-top: 2em;
-      display: flex;
-      gap: 1em;
-      justify-content: center;
-      animation: fadeInUp 1.4s ease-out;
-    }
-
-    .social-icons a {
-      font-size: 1.5em;
-      color: #007a5e;
-      transition: color 0.3s ease;
-    }
-
-    .social-icons a:hover {
-      color: #005f47;
-    }
   </style>
 </head>
 <body>
-  <div class="animation">
-    <!-- Simple SVG Owl Animation -->
-    <svg viewBox="0 0 100 100" width="100%" height="100%">
-      <circle cx="50" cy="50" r="40" fill="#007a5e" />
-      <circle cx="40" cy="45" r="8" fill="#fff">
-        <animate attributeName="r" values="8;6;8" dur="1s" repeatCount="indefinite" />
-      </circle>
-      <circle cx="60" cy="45" r="8" fill="#fff">
-        <animate attributeName="r" values="8;6;8" dur="1s" repeatCount="indefinite" />
-      </circle>
-    </svg>
+  <div class="animal">
+    <div class="head">
+      <div class="ear left"></div>
+      <div class="ear right"></div>
+    </div>
+    <div class="body"></div>
+    <div class="tail"></div>
   </div>
 
-  <h1>404 - Lost in the Wild</h1>
-  <p>Sorry! The page you’re looking for has wandered off the trail.</p>
-  <a href="/">Return to Base Camp</a>
-
-  <div class="social-icons">
-    <a href="https://youtube.com/@" target="_blank">📸</a>
-  </div>
+  <h1>404</h1>
+  <p>Looks like this page wandered off the trail.</p>
+  <a href="/">Return to Home</a>
 </body>
 </html>
