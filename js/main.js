@@ -247,3 +247,20 @@ window.addEventListener('DOMContentLoaded', () => {
     document.body.appendChild(div);
   })();
 });
+
+// ChatGPT AI HELPER
+  window.addEventListener('DOMContentLoaded', () => {
+    (function loadElfsightChatbot() {
+      // Load Elfsight platform script
+      const script = document.createElement('script');
+      script.src = "https://static.elfsight.com/platform/platform.js";
+      script.async = true;
+      document.body.appendChild(script);
+
+      // Create chatbot container
+      const chatbotDiv = document.createElement('div');
+      chatbotDiv.className = "elfsight-app-bcbae895-b755-4186-b6ff-91b6549de863";
+      chatbotDiv.setAttribute("data-elfsight-app-lazy", "");
+      document.body.appendChild(chatbotDiv);
+    })();
+  });
