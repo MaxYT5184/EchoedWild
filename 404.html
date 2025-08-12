@@ -9,119 +9,132 @@
     body {
       margin: 0;
       font-family: 'Roboto', sans-serif;
-      background: url('images/wild-collage.jpg') no-repeat center center fixed;
-      background-size: cover;
-      color: #fff;
-      text-align: center;
+      background: #ffffff;
+      color: #333;
       display: flex;
       flex-direction: column;
+      align-items: center;
       justify-content: center;
-      height: 100vh;
-      backdrop-filter: blur(4px);
-      position: relative;
+      min-height: 100vh;
+      overflow-x: hidden;
+      animation: fadeIn 1s ease-in;
     }
-    .overlay {
-      background: rgba(0,0,0,0.6);
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: 0;
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
-    .content {
-      z-index: 1;
-      padding: 2em;
-    }
+
     h1 {
       font-family: 'Playfair Display', serif;
-      font-size: 4em;
+      font-size: 3em;
       margin-bottom: 0.2em;
+      animation: slideDown 1s ease-out;
     }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     p {
       font-size: 1.2em;
       margin-bottom: 1em;
+      text-align: center;
     }
+
     .fact {
       font-style: italic;
       margin-bottom: 2em;
       font-size: 1em;
-      color: #ffd700;
+      color: #007a5e;
     }
+
     a {
       color: #fff;
       text-decoration: none;
       font-weight: bold;
-      background: rgba(255,255,255,0.1);
-      padding: 0.5em 1em;
+      background: #007a5e;
+      padding: 0.6em 1.2em;
       border-radius: 5px;
       transition: background 0.3s ease;
     }
+
     a:hover {
-      background: rgba(255,255,255,0.3);
+      background: #005f47;
     }
-    .map {
-      position: absolute;
-      bottom: 20px;
-      right: 20px;
-      background: rgba(0,0,0,0.5);
-      padding: 1em;
-      border-radius: 10px;
-      font-size: 0.9em;
-    }
+
     .fpq {
-      text-align: left;
       max-width: 600px;
-      margin: 3em auto 0 auto;
-      z-index: 1;
+      margin: 3em auto;
     }
-    .fpq h2 {
-      color: #ffd700;
-      font-size: 1.5em;
+
+    .accordion {
+      background-color: #f1f1f1;
+      color: #333;
+      cursor: pointer;
+      padding: 1em;
+      width: 100%;
+      border: none;
+      text-align: left;
+      outline: none;
+      font-size: 1em;
+      transition: background-color 0.3s ease;
+      border-radius: 5px;
       margin-bottom: 0.5em;
     }
-    .fpq ul {
-      list-style: none;
-      padding: 0;
+
+    .accordion:hover {
+      background-color: #e0e0e0;
     }
-    .fpq li {
+
+    .panel {
+      padding: 0 1em;
+      background-color: #fff;
+      display: none;
+      overflow: hidden;
+      border-left: 3px solid #007a5e;
       margin-bottom: 1em;
-      font-size: 1em;
+      border-radius: 0 0 5px 5px;
     }
-    .fpq strong {
-      display: block;
-      margin-bottom: 0.2em;
+
+    .map {
+      font-size: 0.9em;
+      margin-top: 2em;
+      color: #666;
     }
+
     @media (max-width: 600px) {
-      h1 { font-size: 2.5em; }
-      .map { font-size: 0.8em; padding: 0.5em; }
+      h1 { font-size: 2.2em; }
+      .accordion { font-size: 0.95em; }
     }
   </style>
 </head>
 <body>
-  <div class="overlay"></div>
-  <div class="content">
-    <h1>404: Lost in the Wild</h1>
-    <p>This page doesn’t exist, but the adventure continues.</p>
-    <div class="fact" id="wildFact">Loading wild fact...</div>
-    <a href="/">Return to Base Camp</a>
+  <h1>404: Lost in the Wild</h1>
+  <p>This page doesn’t exist, but the adventure continues.</p>
+  <div class="fact" id="wildFact">Loading wild fact...</div>
+  <a href="/">Return to Base Camp</a>
 
-    <div class="fpq">
-      <h2>Why Am I Seeing This?</h2>
-      <ul>
-        <li>
-          <strong>🐾 You followed an old trail:</strong>
-          The link you clicked might be outdated or broken.
-        </li>
-        <li>
-          <strong>🌲 You wandered off the map:</strong>
-          You may have typed a URL that doesn’t exist on EchoedWild.
-        </li>
-        <li>
-          <strong>🦉 The animal moved:</strong>
-          We might’ve renamed or relocated the page during a site update.
-        </li>
-      </ul>
+  <div class="fpq">
+    <h2 style="text-align:center; margin-bottom: 1em;">Why Am I Seeing This?</h2>
+
+    <button class="accordion">🐾 You followed an old trail</button>
+    <div class="panel">
+      <p>The link you clicked might be outdated or broken. It happens when content gets moved or renamed.</p>
+    </div>
+
+    <button class="accordion">🌲 You wandered off the map</button>
+    <div class="panel">
+      <p>You may have typed a URL that doesn’t exist on EchoedWild. Double-check the spelling or try the homepage.</p>
+    </div>
+
+    <button class="accordion">🦉 The animal moved</button>
+    <div class="panel">
+      <p>We might’ve relocated the page during a site update. EchoedWild is always evolving!</p>
     </div>
   </div>
+
   <div class="map">🗺️ You are here: Unknown Territory</div>
 
   <script>
@@ -136,6 +149,15 @@
     ];
     document.getElementById('wildFact').textContent =
       facts[Math.floor(Math.random() * facts.length)];
+
+    const acc = document.getElementsByClassName("accordion");
+    for (let i = 0; i < acc.length; i++) {
+      acc[i].addEventListener("click", function () {
+        this.classList.toggle("active");
+        const panel = this.nextElementSibling;
+        panel.style.display = panel.style.display === "block" ? "none" : "block";
+      });
+    }
   </script>
 </body>
 </html>
