@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EchoedWild | Lost in the Wild</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background: url('images/wild-collage.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100vh;
+      backdrop-filter: blur(4px);
+      position: relative;
+    }
+    .overlay {
+      background: rgba(0,0,0,0.6);
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+    }
+    .content {
+      z-index: 1;
+      padding: 2em;
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 4em;
+      margin-bottom: 0.2em;
+    }
+    p {
+      font-size: 1.2em;
+      margin-bottom: 1em;
+    }
+    .fact {
+      font-style: italic;
+      margin-bottom: 2em;
+      font-size: 1em;
+      color: #ffd700;
+    }
+    a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      background: rgba(255,255,255,0.1);
+      padding: 0.5em 1em;
+      border-radius: 5px;
+      transition: background 0.3s ease;
+    }
+    a:hover {
+      background: rgba(255,255,255,0.3);
+    }
+    .map {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(0,0,0,0.5);
+      padding: 1em;
+      border-radius: 10px;
+      font-size: 0.9em;
+    }
+    .fpq {
+      text-align: left;
+      max-width: 600px;
+      margin: 3em auto 0 auto;
+      z-index: 1;
+    }
+    .fpq h2 {
+      color: #ffd700;
+      font-size: 1.5em;
+      margin-bottom: 0.5em;
+    }
+    .fpq ul {
+      list-style: none;
+      padding: 0;
+    }
+    .fpq li {
+      margin-bottom: 1em;
+      font-size: 1em;
+    }
+    .fpq strong {
+      display: block;
+      margin-bottom: 0.2em;
+    }
+    @media (max-width: 600px) {
+      h1 { font-size: 2.5em; }
+      .map { font-size: 0.8em; padding: 0.5em; }
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay"></div>
+  <div class="content">
+    <h1>404: Lost in the Wild</h1>
+    <p>This page doesn’t exist, but the adventure continues.</p>
+    <div class="fact" id="wildFact">Loading wild fact...</div>
+    <a href="/">Return to Base Camp</a>
+
+    <div class="fpq">
+      <h2>Why Am I Seeing This?</h2>
+      <ul>
+        <li>
+          <strong>🐾 You followed an old trail:</strong>
+          The link you clicked might be outdated or broken.
+        </li>
+        <li>
+          <strong>🌲 You wandered off the map:</strong>
+          You may have typed a URL that doesn’t exist on EchoedWild.
+        </li>
+        <li>
+          <strong>🦉 The animal moved:</strong>
+          We might’ve renamed or relocated the page during a site update.
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="map">🗺️ You are here: Unknown Territory</div>
+
+  <script>
+    const facts = [
+      "A tiger’s roar can be heard as far as 2 miles away.",
+      "Elephants mourn their dead and show empathy.",
+      "Owls can rotate their heads up to 270 degrees.",
+      "Leopards are strong enough to carry prey up trees.",
+      "Wolves communicate using complex vocalizations and body language.",
+      "Grizzly bears can smell food from over 18 miles away.",
+      "Elk antlers can grow up to an inch per day in spring."
+    ];
+    document.getElementById('wildFact').textContent =
+      facts[Math.floor(Math.random() * facts.length)];
+  </script>
+</body>
+</html>
