@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EchoedWild | Lost in the Wild</title>
+  <title>EchoedWild | 404 - Lost in the Wild</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto&display=swap" rel="stylesheet">
   <style>
     body {
@@ -16,38 +16,21 @@
       align-items: center;
       justify-content: center;
       min-height: 100vh;
-      overflow-x: hidden;
-      animation: fadeIn 1s ease-in;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      overflow: hidden;
+      text-align: center;
     }
 
     h1 {
       font-family: 'Playfair Display', serif;
-      font-size: 3em;
+      font-size: 3.5em;
       margin-bottom: 0.2em;
-      animation: slideDown 1s ease-out;
-    }
-
-    @keyframes slideDown {
-      from { opacity: 0; transform: translateY(-30px); }
-      to { opacity: 1; transform: translateY(0); }
+      animation: fadeInDown 1s ease-out;
     }
 
     p {
       font-size: 1.2em;
       margin-bottom: 1em;
-      text-align: center;
-    }
-
-    .fact {
-      font-style: italic;
-      margin-bottom: 2em;
-      font-size: 1em;
-      color: #007a5e;
+      animation: fadeInUp 1s ease-out;
     }
 
     a {
@@ -58,106 +41,75 @@
       padding: 0.6em 1.2em;
       border-radius: 5px;
       transition: background 0.3s ease;
+      animation: fadeInUp 1.2s ease-out;
     }
 
     a:hover {
       background: #005f47;
     }
 
-    .fpq {
-      max-width: 600px;
-      margin: 3em auto;
+    .animation {
+      width: 200px;
+      height: 200px;
+      margin-bottom: 2em;
+      animation: float 3s ease-in-out infinite;
     }
 
-    .accordion {
-      background-color: #f1f1f1;
-      color: #333;
-      cursor: pointer;
-      padding: 1em;
-      width: 100%;
-      border: none;
-      text-align: left;
-      outline: none;
-      font-size: 1em;
-      transition: background-color 0.3s ease;
-      border-radius: 5px;
-      margin-bottom: 0.5em;
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
     }
 
-    .accordion:hover {
-      background-color: #e0e0e0;
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    .panel {
-      padding: 0 1em;
-      background-color: #fff;
-      display: none;
-      overflow: hidden;
-      border-left: 3px solid #007a5e;
-      margin-bottom: 1em;
-      border-radius: 0 0 5px 5px;
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    .map {
-      font-size: 0.9em;
+    .social-icons {
       margin-top: 2em;
-      color: #666;
+      display: flex;
+      gap: 1em;
+      justify-content: center;
+      animation: fadeInUp 1.4s ease-out;
     }
 
-    @media (max-width: 600px) {
-      h1 { font-size: 2.2em; }
-      .accordion { font-size: 0.95em; }
+    .social-icons a {
+      font-size: 1.5em;
+      color: #007a5e;
+      transition: color 0.3s ease;
+    }
+
+    .social-icons a:hover {
+      color: #005f47;
     }
   </style>
 </head>
 <body>
-  <h1>404: Lost in the Wild</h1>
-  <p>This page doesn’t exist, but the adventure continues.</p>
-  <div class="fact" id="wildFact">Loading wild fact...</div>
-  <a href="/">Return to Base Camp</a>
-
-  <div class="fpq">
-    <h2 style="text-align:center; margin-bottom: 1em;">Why Am I Seeing This?</h2>
-
-    <button class="accordion">🐾 You followed an old trail</button>
-    <div class="panel">
-      <p>The link you clicked might be outdated or broken. It happens when content gets moved or renamed.</p>
-    </div>
-
-    <button class="accordion">🌲 You wandered off the map</button>
-    <div class="panel">
-      <p>You may have typed a URL that doesn’t exist on EchoedWild. Double-check the spelling or try the homepage.</p>
-    </div>
-
-    <button class="accordion">🦉 The animal moved</button>
-    <div class="panel">
-      <p>We might’ve relocated the page during a site update. EchoedWild is always evolving!</p>
-    </div>
+  <div class="animation">
+    <!-- Simple SVG Owl Animation -->
+    <svg viewBox="0 0 100 100" width="100%" height="100%">
+      <circle cx="50" cy="50" r="40" fill="#007a5e" />
+      <circle cx="40" cy="45" r="8" fill="#fff">
+        <animate attributeName="r" values="8;6;8" dur="1s" repeatCount="indefinite" />
+      </circle>
+      <circle cx="60" cy="45" r="8" fill="#fff">
+        <animate attributeName="r" values="8;6;8" dur="1s" repeatCount="indefinite" />
+      </circle>
+    </svg>
   </div>
 
-  <div class="map">🗺️ You are here: Unknown Territory</div>
+  <h1>404 - Lost in the Wild</h1>
+  <p>Sorry! The page you’re looking for has wandered off the trail.</p>
+  <a href="/">Return to Base Camp</a>
 
-  <script>
-    const facts = [
-      "A tiger’s roar can be heard as far as 2 miles away.",
-      "Elephants mourn their dead and show empathy.",
-      "Owls can rotate their heads up to 270 degrees.",
-      "Leopards are strong enough to carry prey up trees.",
-      "Wolves communicate using complex vocalizations and body language.",
-      "Grizzly bears can smell food from over 18 miles away.",
-      "Elk antlers can grow up to an inch per day in spring."
-    ];
-    document.getElementById('wildFact').textContent =
-      facts[Math.floor(Math.random() * facts.length)];
-
-    const acc = document.getElementsByClassName("accordion");
-    for (let i = 0; i < acc.length; i++) {
-      acc[i].addEventListener("click", function () {
-        this.classList.toggle("active");
-        const panel = this.nextElementSibling;
-        panel.style.display = panel.style.display === "block" ? "none" : "block";
-      });
-    }
-  </script>
+  <div class="social-icons">
+    <a href="https://youtube.com/@" target="_blank">📸</a>
+  </div>
 </body>
 </html>
