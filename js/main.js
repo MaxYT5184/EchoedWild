@@ -265,10 +265,13 @@ window.addEventListener('DOMContentLoaded', () => {
     })();
   });
 
+// Cookies POPUP UI
   const popup = document.getElementById('cookiePopup');
   const acceptBtn = document.getElementById('acceptCookies');
   const declineBtn = document.getElementById('declineCookies');
+  const closeBtn = document.getElementById('closeCookie');
 
+  // Show popup if no choice stored
   if (!localStorage.getItem('cookieConsent')) {
     popup.style.display = 'block';
   }
@@ -280,5 +283,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
   declineBtn.addEventListener('click', () => {
     localStorage.setItem('cookieConsent', 'declined');
+    popup.style.display = 'none';
+  });
+
+  closeBtn.addEventListener('click', () => {
     popup.style.display = 'none';
   });
