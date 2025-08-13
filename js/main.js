@@ -290,4 +290,19 @@ window.addEventListener('DOMContentLoaded', () => {
     popup.style.display = 'none';
   });
 
-// Rename this
+// Elfsight Countdown Timer
+window.addEventListener('DOMContentLoaded', () => {
+  (function loadElfsightCountdown() {
+    // Load Elfsight platform script
+    const script = document.createElement('script');
+    script.src = "https://elfsightcdn.com/platform.js";
+    script.async = true;
+    document.body.appendChild(script);
+
+    // Create countdown container
+    const countdownDiv = document.createElement('div');
+    countdownDiv.className = "elfsight-app-b711b4b1-7e26-4a00-813a-540ac42ecd1d";
+    countdownDiv.setAttribute("data-elfsight-app-lazy", "");
+    document.body.appendChild(countdownDiv);
+  })();
+});
