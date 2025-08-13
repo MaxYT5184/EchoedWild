@@ -1,16 +1,28 @@
-# EchoedWild — Static site
+# 🐾 EchoedWild
 
-## Deploy to GitHub Pages
-1. Create a repo (e.g., `echoedwild`) and push files.
-2. In GitHub → Settings → Pages, set branch `main` (root).
-3. Add your Namecheap domain: create a CNAME file (or configure DNS per GitHub docs).
+**EchoedWild** is a living digital sanctuary—an immersive, educational platform that blends expressive UI, realistic AI-generated animal profiles, and conservation storytelling. Built for curious minds and kind hearts, it’s a space where design meets empathy.
 
-## File structure
-- index.html
-- animals.html
-- animals/*.html (individual bio pages)
-- css/style.css
-- js/main.js
-- images/*
+---
 
-Need help pointing Namecheap to GitHub Pages? Ask and I'll walk you step-by-step.
+## 🌟 Features
+
+- 🎨 Custom UI elements: scrollbars, cursors, popups, banners, and error pages
+- 📸 Realistic AI-generated animal images with detailed bios
+- 🧠 Interactive onboarding and privacy-aware flows
+- 📊 Polls, newsletters, and chatbot integration
+- 🛡️ Community guidelines and safe learning environment
+
+---
+
+## 🐾 Animal Gallery Preview
+
+Explore rare and endangered species through lifelike visuals and heartfelt bios:
+
+- 🦊 Red Panda  
+- 🦅 Philippine Eagle  
+- 🐟 Axolotl  
+- 🕊️ Northern Bald Ibis  
+
+> Each profile is crafted to foster empathy, awareness, and action.
+npm install
+npm run dev
