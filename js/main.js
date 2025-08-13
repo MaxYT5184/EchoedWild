@@ -289,3 +289,45 @@ window.addEventListener('DOMContentLoaded', () => {
   closeBtn.addEventListener('click', () => {
     popup.style.display = 'none';
   });
+
+// Back To School | Popup UI
+  const popup = document.getElementById('schoolPopup');
+  const nextBtn = document.getElementById('nextStep');
+  const closeBtn = document.getElementById('closePopup');
+  const finalClose = document.getElementById('finalClose');
+  const showMessageBtn = document.getElementById('showMessage');
+  const gradeSelect = document.getElementById('gradeSelect');
+  const gradeMessage = document.getElementById('gradeMessage');
+
+  nextBtn.addEventListener('click', () => {
+    document.getElementById('step1').style.display = 'none';
+    document.getElementById('step2').style.display = 'block';
+  });
+
+  showMessageBtn.addEventListener('click', () => {
+    const grade = gradeSelect.value;
+    let message = "";
+
+    switch (grade) {
+      case "6": message = "Middle school magic begins! ✨"; break;
+      case "7": message = "7th grade—you're leveling up! 🚀"; break;
+      case "8": message = "Final middle school boss fight 💥"; break;
+      case "9": message = "Welcome to high school! 🎓"; break;
+      case "10": message = "Sophomore style—keep climbing! 🧗"; break;
+      case "11": message = "Junior year grind—you're almost there! 🔥"; break;
+      case "12": message = "Senior status unlocked. You got this! 👑"; break;
+      default: message = "Pick a grade to get your message!";
+    }
+
+    gradeMessage.textContent = message;
+    document.getElementById('step2').style.display = 'none';
+    document.getElementById('step3').style.display = 'block';
+  });
+
+  closeBtn.addEventListener('click', () => {
+    popup.style.display = 'none';
+  });
+
+  finalClose.addEventListener('click', () => {
+    popup.style.display = 'none';
+  });
