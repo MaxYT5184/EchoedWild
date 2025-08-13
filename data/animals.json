@@ -70,5 +70,13 @@
     "estimated": "Unknown",
     "image": "images/great-hammerhead.png",
     "link": "animals/great-hammerhead.html"
+  },
+  {
+    "name": "Snow Leopard",
+    "status": "Vulnerable",
+    "region": "Asia",
+    "estimated": "~4,000–6,500",
+    "image": "images/snow-leopard.png",
+    "link": "animals/snow-leopard.html"
   }
 ]
