@@ -78,5 +78,45 @@
     "estimated": "~4,000–6,500",
     "image": "images/snow-leopard.png",
     "link": "animals/snow-leopard.html"
+  },
+  {
+    "name": "Red Panda",
+    "status": "Endangered",
+    "region": "Asia",
+    "estimated": "~10,000",
+    "image": "images/red-panda.png",
+    "link": "animals/red-panda.html"
+  },
+  {
+    "name": "Saola",
+    "status": "Critically Endangered",
+    "region": "Asia",
+    "estimated": "<100",
+    "image": "images/saola.png",
+    "link": "animals/saola.html"
+  },
+  {
+    "name": "Northern Bald Ibis",
+    "status": "Endangered",
+    "region": "Europe, North Africa",
+    "estimated": "~1,000",
+    "image": "images/northern-bald-ibis.png",
+    "link": "animals/northern-bald-ibis.html"
+  },
+  {
+    "name": "Philippine Eagle",
+    "status": "Critically Endangered",
+    "region": "Asia",
+    "estimated": "~400",
+    "image": "images/philippine-eagle.png",
+    "link": "animals/philippine-eagle.html"
+  },
+  {
+    "name": "Axolotl",
+    "status": "Critically Endangered",
+    "region": "Americas",
+    "estimated": "Unknown (wild population extremely low)",
+    "image": "images/axolotl.png",
+    "link": "animals/axolotl.html"
   }
 ]
