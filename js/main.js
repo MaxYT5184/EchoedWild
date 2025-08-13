@@ -264,3 +264,21 @@ window.addEventListener('DOMContentLoaded', () => {
       document.body.appendChild(chatbotDiv);
     })();
   });
+
+  const popup = document.getElementById('cookiePopup');
+  const acceptBtn = document.getElementById('acceptCookies');
+  const declineBtn = document.getElementById('declineCookies');
+
+  if (!localStorage.getItem('cookieConsent')) {
+    popup.style.display = 'block';
+  }
+
+  acceptBtn.addEventListener('click', () => {
+    localStorage.setItem('cookieConsent', 'accepted');
+    popup.style.display = 'none';
+  });
+
+  declineBtn.addEventListener('click', () => {
+    localStorage.setItem('cookieConsent', 'declined');
+    popup.style.display = 'none';
+  });
