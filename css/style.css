@@ -403,3 +403,80 @@ body::-webkit-scrollbar-thumb {
 body::-webkit-scrollbar-thumb:hover {
   background: linear-gradient(135deg, #00e6ff, #0052ff);
 }
+
+.cookie-popup {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(26, 26, 26, 0.95);
+  color: #fff;
+  padding: 2rem;
+  z-index: 9999;
+  display: none;
+  animation: slideUp 0.5s ease-out;
+  font-family: 'Inter', sans-serif;
+}
+
+.cookie-box {
+  max-width: 600px;
+  margin: auto;
+  text-align: center;
+  background: #2e2e2e;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 198, 255, 0.3);
+}
+
+.cookie-box h3 {
+  margin-top: 0;
+  font-size: 1.4rem;
+}
+
+.cookie-box p {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.cookie-box a {
+  color: #00c6ff;
+  text-decoration: underline;
+}
+
+.cookie-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.cookie-actions button {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+#acceptCookies {
+  background: #00c6ff;
+  color: #fff;
+}
+
+#acceptCookies:hover {
+  background: #0072ff;
+}
+
+#declineCookies {
+  background: #444;
+  color: #ccc;
+}
+
+#declineCookies:hover {
+  background: #666;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
