@@ -17,7 +17,6 @@ body{
   background:linear-gradient(180deg,var(--bg1),var(--bg2));
   color:#072227;
   cursor: none;
-  caret-color: transparent; /* hides the default blinking bar */
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
   line-height:1.45;
