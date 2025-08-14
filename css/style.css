@@ -64,17 +64,11 @@ body{
 .btn:hover{transform:translateY(-6px)}
 .btn.ghost{background:transparent;border:1px solid rgba(10,15,25,0.06);color:var(--accent)}
 
-.hero-section {
+.hero-media {
   display: flex;
-  flex-direction: row;       /* Text on left, image on right */
-  align-items: flex-end;     /* Align both at bottom */
-  gap: 2rem;                 /* Space between text and image */
-}
-
-.hero-media img {
-  transform: scale(0.25);
-  transform-origin: bottom left; /* Anchors image lower */
-  margin-bottom: 0;              /* Prevents extra spacing */
+  justify-content: flex-end; /* Push image to the bottom or side */
+  align-items: flex-end;     /* Align image lower */
+  margin-top: 2rem;          /* Adds space above image */
 }
 
 /* pills */
