@@ -33,7 +33,7 @@ body{
 }
 .header-inner{display:flex;align-items:center;gap:12px;justify-content:space-between}
 .logo{font-weight:800;color:var(--accent);text-decoration:none;font-size:1.2rem;letter-spacing:0.6px}
-.logo .echoed{color:#042b2b;}
+.logo .echo{color:#042b2b}
 .logo .wild{color:#163a3a}
 .logo.small{font-size:1rem}
 
