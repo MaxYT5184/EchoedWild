@@ -75,35 +75,39 @@
       </div>
     </section>
 
-    <section id="contact" class="contact-section">
-  <h2>Contact Us</h2>
-  <form action="https://formspree.io/f/movlrqnd" method="POST">
-    <label for="name">Name</label>
-    <input type="text" name="name" id="name" required>
+<!-- Contact and Newsletter Section Wrapper -->
+<section class="connect-section">
+  <div class="container">
+    
+    <!-- Contact Us -->
+    <div class="contact-box">
+      <h2>Contact Us</h2>
+      <form action="https://formspree.io/f/movlrqnd" method="POST" class="contact-form">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name" required>
 
-    <label for="email">Email</label>
-    <input type="email" name="_replyto" id="email" required>
+        <label for="email">Email</label>
+        <input type="email" name="_replyto" id="email" required>
 
-    <label for="message">Message</label>
-    <textarea name="message" id="message" rows="5" required></textarea>
+        <label for="message">Message</label>
+        <textarea name="message" id="message" rows="5" required></textarea>
 
-    <button type="submit">Send Message</button>
-  </form>
-   </section>
+        <button type="submit">Send Message</button>
+      </form>
+    </div>
 
-    <section id="newsletter" style="padding: 2em; background-color: #f9f9f9; text-align: center;">
-  <h2 style="font-size: 2em; margin-bottom: 0.5em;">🌿 Stay Wild with EchoedWild</h2>
-  <p style="font-size: 1.1em; margin-bottom: 1em;">
-    Subscribe to our newsletter for the latest animal profiles, conservation updates, and digital discoveries.
-  </p>
+    <!-- Newsletter -->
+    <div class="newsletter-box">
+      <h2>🌿 Stay Wild with EchoedWild</h2>
+      <p>Subscribe to our newsletter for the latest animal profiles, conservation updates, and digital discoveries.</p>
 
-  <form action="https://buttondown.email/api/emails/embed-subscribe/EchoedWild" method="post" target="popupwindow" onsubmit="window.open('https://buttondown.email/EchoedWild', 'popupwindow')">
-    <input type="email" name="email" id="bd-email" placeholder="Enter your email" required
-      style="padding: 0.6em; width: 250px; max-width: 80%; border: 1px solid #ccc; border-radius: 4px;">
-    <br><br>
-    <input type="submit" value="Subscribe" 
-      style="padding: 0.6em 1.2em; background-color: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer;">
-  </form>
+      <form action="https://buttondown.email/api/emails/embed-subscribe/EchoedWild" method="post" target="popupwindow" onsubmit="window.open('https://buttondown.email/EchoedWild', 'popupwindow')" class="newsletter-form">
+        <input type="email" name="email" id="bd-email" placeholder="Enter your email" required>
+        <input type="submit" value="Subscribe">
+      </form>
+    </div>
+
+  </div>
 </section>
 
     <section class="info container animate-up">
