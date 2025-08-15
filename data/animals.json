@@ -66,7 +66,7 @@
   {
     "name": "Great Hammerhead",
     "status": "Endangered",
-    "region": "Global Oceans",
+    "region": "Global",
     "estimated": "Unknown",
     "image": "images/great-hammerhead.png",
     "link": "animals/great-hammerhead.html"
@@ -122,7 +122,7 @@
   {
     "name": "Blue Whale",
     "status": "Endangered",
-    "region": "Global Oceans",
+    "region": "Global",
     "estimated": "10,000–25,000 individuals",
     "image": "images/blue-whale.png",
     "link": "animals/blue-whale.html"
