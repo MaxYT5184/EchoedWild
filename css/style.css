@@ -65,10 +65,15 @@ body{
 .btn.ghost{background:transparent;border:1px solid rgba(10,15,25,0.06);color:var(--accent)}
 
 .hero-media {
+  flex: 1;
   display: flex;
-  justify-content: flex-end; /* Push image to the bottom or side */
-  align-items: flex-end;     /* Align image lower */
-  margin-top: 2rem;          /* Adds space above image */
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-media img {
+  transform: scale(0.25);
+  transform-origin: center;
 }
 
 /* pills */
