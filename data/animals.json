@@ -118,5 +118,13 @@
     "estimated": "Unknown (wild population extremely low)",
     "image": "images/axolotl.png",
     "link": "animals/axolotl.html"
+  },
+  {
+    "name": "Blue Whale",
+    "status": "Endangered",
+    "region": "Global Oceans",
+    "estimated": "10,000–25,000 individuals",
+    "image": "images/blue-whale.png",
+    "link": "animals/blue-whale.html"
   }
 ]
