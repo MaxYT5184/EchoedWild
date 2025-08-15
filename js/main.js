@@ -306,3 +306,18 @@ window.addEventListener('DOMContentLoaded', () => {
     document.body.appendChild(countdownDiv);
   })();
 });
+
+// Website Translator
+window.addEventListener('DOMContentLoaded', () => {
+  (function loadElfsightTranslator() {
+    const script = document.createElement('script');
+    script.src = "https://static.elfsight.com/platform/platform.js";
+    script.async = true;
+    document.body.appendChild(script);
+
+    const div = document.createElement('div');
+    div.className = "elfsight-app-382038fb-e338-47f3-8024-5b3946054098";
+    div.setAttribute("data-elfsight-app-lazy", "");
+    document.body.appendChild(div);
+  })();
+});
