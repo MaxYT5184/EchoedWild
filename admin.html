@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard | EchoedWild</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f5f9fc;
+      margin: 0;
+      padding: 40px;
+      text-align: center;
+      color: #333;
+    }
+    h1 {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+    .subtitle {
+      font-size: 16px;
+      color: #777;
+      margin-bottom: 30px;
+    }
+    .icon-gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 25px;
+    }
+    .icon-card {
+      width: 130px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+      padding: 15px;
+      transition: transform 0.2s ease;
+    }
+    .icon-card:hover {
+      transform: scale(1.05);
+    }
+    .icon-card img {
+      width: 60px;
+      height: 60px;
+      border-radius: 8px;
+    }
+    .icon-card p {
+      margin-top: 10px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🧰 Admin Role Icon Gallery</h1>
+  <p class="subtitle">View and manage core role icons for EchoedWild</p>
+
+  <section class="icon-gallery">
+    <div class="icon-card">
+      <img src="assets/icons/website-icon.png" alt="Website Icon" />
+      <p>Website</p>
+    </div>
+    <div class="icon-card">
+      <img src="assets/icons/admin-icon.png" alt="Admin Icon" />
+      <p>Admin</p>
+    </div>
+    <div class="icon-card">
+      <img src="assets/icons/member-icon.png" alt="Member Icon" />
+      <p>Member</p>
+    </div>
+    <div class="icon-card">
+      <img src="assets/icons/developer-icon.png" alt="Developer Icon" />
+      <p>Developer</p>
+    </div>
+    <div class="icon-card">
+      <img src="assets/icons/helper-icon.png" alt="Helper Icon" />
+      <p>Helper</p>
+    </div>
+    <div class="icon-card">
+      <img src="assets/icons/guest-icon.png" alt="Guest Icon" />
+      <p>Guest</p>
+    </div>
+  </section>
+
+</body>
+</html>
