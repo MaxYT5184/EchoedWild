@@ -241,7 +241,7 @@ window.addEventListener('DOMContentLoaded', () => {
     document.body.appendChild(script);
 
     const div = document.createElement('div');
-    div.className = "elfsight-app-2f707cbf-eeb9-4836-876d-36785d10541a";
+    div.className = "elfsight-app-e20e946d-b400-4a60-b1aa-493ba934c72c";
     div.setAttribute("data-elfsight-app-lazy", "");
     document.body.appendChild(div);
   })();
