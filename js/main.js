@@ -129,7 +129,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         <td>${escapeHtml(a.name)}</td>
         <td class="status ${statusClass(a.status)}">${escapeHtml(a.status)}</td>
         <td>${escapeHtml(a.estimated || '—')}</td>
-        <td><button class="bio-btn" data-id="${a.id}">Bio</button></td>
       </tr>
     `).join('');
   }
