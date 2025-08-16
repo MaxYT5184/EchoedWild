@@ -1,11 +1,3 @@
-<?php
-// Fake stats for the dashboard
-$totalUsers = 1245;
-$activeSessions = 312;
-$revenue = 5740;
-$messages = 152;
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -76,19 +68,19 @@ $messages = 152;
       <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
         <div class="bg-white shadow-md p-4 rounded-lg text-center">
           <h3 class="text-gray-500">Total Users</h3>
-          <p class="text-2xl font-bold"><?= $totalUsers ?></p>
+          <p class="text-2xl font-bold">1245</p>
         </div>
         <div class="bg-white shadow-md p-4 rounded-lg text-center">
           <h3 class="text-gray-500">Active Sessions</h3>
-          <p class="text-2xl font-bold"><?= $activeSessions ?></p>
+          <p class="text-2xl font-bold">312</p>
         </div>
         <div class="bg-white shadow-md p-4 rounded-lg text-center">
           <h3 class="text-gray-500">Revenue</h3>
-          <p class="text-2xl font-bold">$<?= number_format($revenue) ?></p>
+          <p class="text-2xl font-bold">$5,740</p>
         </div>
         <div class="bg-white shadow-md p-4 rounded-lg text-center">
           <h3 class="text-gray-500">Messages</h3>
-          <p class="text-2xl font-bold"><?= $messages ?></p>
+          <p class="text-2xl font-bold">152</p>
         </div>
       </div>
 
@@ -104,6 +96,17 @@ $messages = 152;
         </div>
       </div>
     </main>
+  </div>
+
+  <!-- REDIRECT POPUP -->
+  <div id="redirect-popup" class="hidden fixed inset-0 bg-black bg-opacity-50 backdrop-blur-md flex items-center justify-center z-50">
+    <div class="bg-white/20 backdrop-blur-xl p-6 rounded-xl shadow-xl text-center text-white w-80">
+      <h2 class="text-xl font-bold mb-4">Redirecting...</h2>
+      <p id="redirect-text" class="mb-4">Redirecting to homepage: 0%</p>
+      <div class="w-full bg-gray-300 rounded-full h-3">
+        <div id="redirect-bar" class="bg-blue-500 h-3 rounded-full w-0"></div>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -129,7 +132,7 @@ $messages = 152;
         showError("Invalid username or password (" + attempts + " / 5)");
 
         if (attempts >= 5) {
-          window.location.href = "index.html";
+          showRedirectPopup();
         }
       }
     }
@@ -167,6 +170,25 @@ $messages = 152;
 
     function logout() {
       window.location.reload();
+    }
+
+    function showRedirectPopup() {
+      document.getElementById("redirect-popup").classList.remove("hidden");
+
+      let progress = 0;
+      const bar = document.getElementById("redirect-bar");
+      const text = document.getElementById("redirect-text");
+
+      const interval = setInterval(() => {
+        progress += 5;
+        bar.style.width = progress + "%";
+        text.innerText = "Redirecting to homepage: " + progress + "%";
+
+        if (progress >= 100) {
+          clearInterval(interval);
+          window.location.href = "index.html";
+        }
+      }, 80); // fast animation
     }
 
     // Charts
