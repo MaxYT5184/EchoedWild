@@ -126,5 +126,21 @@
     "estimated": "10,000–25,000 individuals",
     "image": "images/blue-whale.png",
     "link": "animals/blue-whale.html"
-  }
+  },
+  {
+  "name": "Asian Giant Hornet",
+  "status": "Near Threatened",
+  "region": "East Asia",
+  "estimated": "Unknown",
+  "image": "images/asian-giant-hornet.png",
+  "link": "animals/asian-giant-hornet.html"
+},
+{
+  "name": "Ball Python",
+  "status": "Near Threatened",
+  "region": "West and Central Africa",
+  "estimated": "Stable but declining",
+  "image": "images/ball-python.png",
+  "link": "animals/ball-python.html"
+}
 ]
