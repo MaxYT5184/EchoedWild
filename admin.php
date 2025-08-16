@@ -1,0 +1,205 @@
+<?php
+// Fake stats for the dashboard
+$totalUsers = 1245;
+$activeSessions = 312;
+$revenue = 5740;
+$messages = 152;
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+  <!-- LOGIN SCREEN -->
+  <div id="login-screen" class="flex items-center justify-center h-screen bg-gradient-to-r from-blue-500 to-purple-600">
+    <div class="bg-white shadow-lg rounded-xl p-8 w-96 text-center">
+      <h1 class="text-2xl font-bold mb-4">Admin Login</h1>
+
+      <input type="text" id="username" placeholder="Username" class="w-full p-2 mb-3 border rounded">
+      <input type="password" id="password" placeholder="Password" class="w-full p-2 mb-3 border rounded">
+
+      <!-- Fake reCAPTCHA -->
+      <div class="flex items-center gap-2 mb-3">
+        <input type="checkbox" id="captcha">
+        <label for="captcha" class="text-sm">I am not a robot</label>
+      </div>
+
+      <button onclick="login()" class="bg-blue-600 text-white px-4 py-2 rounded w-full">Login</button>
+
+      <p onclick="showRecovery()" class="text-sm text-blue-600 mt-4 cursor-pointer">Forgot Password?</p>
+
+      <p id="login-error" class="text-red-600 mt-3 text-sm hidden">Invalid login</p>
+    </div>
+  </div>
+
+  <!-- RECOVERY SCREEN -->
+  <div id="recovery-screen" class="hidden flex items-center justify-center h-screen bg-gray-800">
+    <div class="bg-white shadow-lg rounded-xl p-8 w-96 text-center">
+      <h1 class="text-xl font-bold mb-4">Recover Access</h1>
+
+      <button onclick="usePin()" class="bg-green-600 text-white px-4 py-2 rounded w-full mb-3">Use PIN</button>
+      <button onclick="useFingerprint()" class="bg-purple-600 text-white px-4 py-2 rounded w-full">Use Fingerprint</button>
+
+      <p id="recovery-error" class="text-red-600 mt-3 text-sm hidden"></p>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div id="dashboard" class="hidden flex">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white shadow-md h-screen p-5">
+      <h2 class="text-2xl font-bold text-blue-600 mb-6">Admin Panel</h2>
+      <nav class="space-y-3">
+        <a href="#" class="block p-2 rounded bg-blue-600 text-white">Dashboard</a>
+        <a href="#" class="block p-2 rounded hover:bg-blue-100">Users</a>
+        <a href="#" class="block p-2 rounded hover:bg-blue-100">Reports</a>
+        <a href="#" class="block p-2 rounded hover:bg-blue-100">Settings</a>
+      </nav>
+    </aside>
+
+    <!-- Main -->
+    <main class="flex-1 p-6">
+      <header class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-bold">Dashboard</h1>
+        <button onclick="logout()" class="bg-blue-600 text-white px-4 py-2 rounded">Logout</button>
+      </header>
+
+      <!-- Stats -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+        <div class="bg-white shadow-md p-4 rounded-lg text-center">
+          <h3 class="text-gray-500">Total Users</h3>
+          <p class="text-2xl font-bold"><?= $totalUsers ?></p>
+        </div>
+        <div class="bg-white shadow-md p-4 rounded-lg text-center">
+          <h3 class="text-gray-500">Active Sessions</h3>
+          <p class="text-2xl font-bold"><?= $activeSessions ?></p>
+        </div>
+        <div class="bg-white shadow-md p-4 rounded-lg text-center">
+          <h3 class="text-gray-500">Revenue</h3>
+          <p class="text-2xl font-bold">$<?= number_format($revenue) ?></p>
+        </div>
+        <div class="bg-white shadow-md p-4 rounded-lg text-center">
+          <h3 class="text-gray-500">Messages</h3>
+          <p class="text-2xl font-bold"><?= $messages ?></p>
+        </div>
+      </div>
+
+      <!-- Charts -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-white shadow-md p-4 rounded-lg">
+          <h3 class="text-lg font-semibold mb-4">User Growth</h3>
+          <canvas id="usersChart"></canvas>
+        </div>
+        <div class="bg-white shadow-md p-4 rounded-lg">
+          <h3 class="text-lg font-semibold mb-4">Revenue Trend</h3>
+          <canvas id="revenueChart"></canvas>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    let attempts = 0;
+    const correctUser = "Admin";
+    const correctPass = "2026-project";
+
+    function login() {
+      const user = document.getElementById("username").value;
+      const pass = document.getElementById("password").value;
+      const captcha = document.getElementById("captcha").checked;
+
+      if (!captcha) {
+        showError("Please check reCAPTCHA");
+        return;
+      }
+
+      if (user === correctUser && pass === correctPass) {
+        document.getElementById("login-screen").classList.add("hidden");
+        document.getElementById("dashboard").classList.remove("hidden");
+      } else {
+        attempts++;
+        showError("Invalid username or password (" + attempts + " / 5)");
+
+        if (attempts >= 5) {
+          window.location.href = "index.html";
+        }
+      }
+    }
+
+    function showError(msg) {
+      const err = document.getElementById("login-error");
+      err.innerText = msg;
+      err.classList.remove("hidden");
+    }
+
+    function showRecovery() {
+      document.getElementById("login-screen").classList.add("hidden");
+      document.getElementById("recovery-screen").classList.remove("hidden");
+    }
+
+    function usePin() {
+      const age = prompt("Enter your age:");
+      const pin = 13 - parseInt(age);
+      const entered = prompt("Enter your recovery PIN:");
+
+      if (parseInt(entered) === pin) {
+        document.getElementById("recovery-screen").classList.add("hidden");
+        document.getElementById("dashboard").classList.remove("hidden");
+      } else {
+        document.getElementById("recovery-error").innerText = "Wrong PIN";
+        document.getElementById("recovery-error").classList.remove("hidden");
+      }
+    }
+
+    function useFingerprint() {
+      alert("Fingerprint scan successful ✅");
+      document.getElementById("recovery-screen").classList.add("hidden");
+      document.getElementById("dashboard").classList.remove("hidden");
+    }
+
+    function logout() {
+      window.location.reload();
+    }
+
+    // Charts
+    window.onload = () => {
+      const ctx1 = document.getElementById('usersChart');
+      new Chart(ctx1, {
+        type: 'line',
+        data: {
+          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+          datasets: [{
+            label: 'Users',
+            data: [120, 300, 450, 600, 800],
+            borderColor: 'blue',
+            backgroundColor: 'rgba(59,130,246,0.2)',
+            fill: true,
+            tension: 0.3
+          }]
+        }
+      });
+
+      const ctx2 = document.getElementById('revenueChart');
+      new Chart(ctx2, {
+        type: 'bar',
+        data: {
+          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+          datasets: [{
+            label: 'Revenue',
+            data: [200, 400, 800, 1200, 1500],
+            backgroundColor: 'rgba(249,115,22,0.8)'
+          }]
+        }
+      });
+    };
+  </script>
+</body>
+</html>
