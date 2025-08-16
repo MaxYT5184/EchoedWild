@@ -3,30 +3,52 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard</title>
+  <title>EchoedWild Admin</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="icon" href="favicon.ico" type="image/x-icon">
+  <style>
+    /* CAPTCHA distortions */
+    .captcha-canvas {
+      background: #f8fafc;
+      border: 1px solid #ccc;
+      display: block;
+      margin: auto;
+      margin-bottom: 10px;
+    }
+  </style>
 </head>
 <body class="bg-gray-100 font-sans">
 
   <!-- LOGIN SCREEN -->
-  <div id="login-screen" class="flex items-center justify-center h-screen bg-gradient-to-r from-blue-500 to-purple-600">
+  <div id="login-screen" class="flex items-center justify-center h-screen bg-gradient-to-r from-green-500 to-teal-600">
     <div class="bg-white shadow-lg rounded-xl p-8 w-96 text-center">
-      <h1 class="text-2xl font-bold mb-4">Admin Login</h1>
+      <img src="favicon.ico" alt="EchoedWild" class="mx-auto w-12 mb-3">
+      <h1 class="text-2xl font-bold mb-4">EchoedWild Admin Login</h1>
 
       <input type="text" id="username" placeholder="Username" class="w-full p-2 mb-3 border rounded">
       <input type="password" id="password" placeholder="Password" class="w-full p-2 mb-3 border rounded">
 
-      <!-- Fake reCAPTCHA -->
-      <div class="flex items-center gap-2 mb-3">
-        <input type="checkbox" id="captcha">
-        <label for="captcha" class="text-sm">I am not a robot</label>
+      <!-- Custom CAPTCHA -->
+      <div class="bg-gray-50 border rounded p-3 mb-3 text-left">
+        <p class="text-sm mb-2 font-bold text-gray-700">EchoedWild CAPTCHA</p>
+        <canvas id="captchaCanvas" width="200" height="50" class="captcha-canvas"></canvas>
+        <input type="text" id="captchaInput" placeholder="Enter CAPTCHA" class="w-full p-2 mb-2 border rounded">
+        
+        <div class="flex justify-between text-sm mb-2">
+          <button onclick="generateCaptcha()" class="text-blue-600">↻ Refresh</button>
+          <button onclick="playCaptchaSound()" class="text-purple-600">🔊 Sound</button>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <input type="checkbox" id="captchaCheck">
+          <label for="captchaCheck" class="text-sm">I am not a bot</label>
+        </div>
       </div>
 
-      <button onclick="login()" class="bg-blue-600 text-white px-4 py-2 rounded w-full">Login</button>
+      <button onclick="login()" class="bg-green-600 text-white px-4 py-2 rounded w-full">Login</button>
 
       <p onclick="showRecovery()" class="text-sm text-blue-600 mt-4 cursor-pointer">Forgot Password?</p>
-
       <p id="login-error" class="text-red-600 mt-3 text-sm hidden">Invalid login</p>
     </div>
   </div>
@@ -35,10 +57,8 @@
   <div id="recovery-screen" class="hidden flex items-center justify-center h-screen bg-gray-800">
     <div class="bg-white shadow-lg rounded-xl p-8 w-96 text-center">
       <h1 class="text-xl font-bold mb-4">Recover Access</h1>
-
       <button onclick="usePin()" class="bg-green-600 text-white px-4 py-2 rounded w-full mb-3">Use PIN</button>
       <button onclick="useFingerprint()" class="bg-purple-600 text-white px-4 py-2 rounded w-full">Use Fingerprint</button>
-
       <p id="recovery-error" class="text-red-600 mt-3 text-sm hidden"></p>
     </div>
   </div>
@@ -48,101 +68,131 @@
 
     <!-- Sidebar -->
     <aside class="w-64 bg-white shadow-md h-screen p-5">
-      <h2 class="text-2xl font-bold text-blue-600 mb-6">Admin Panel</h2>
+      <h2 class="text-2xl font-bold text-green-600 mb-6">EchoedWild</h2>
       <nav class="space-y-3">
-        <a href="#" class="block p-2 rounded bg-blue-600 text-white">Dashboard</a>
-        <a href="#" class="block p-2 rounded hover:bg-blue-100">Users</a>
-        <a href="#" class="block p-2 rounded hover:bg-blue-100">Reports</a>
-        <a href="#" class="block p-2 rounded hover:bg-blue-100">Settings</a>
+        <button onclick="showSection('dashboard-section')" class="block p-2 rounded bg-green-600 text-white w-full text-left">Dashboard</button>
+        <button onclick="showSection('visitors-section')" class="block p-2 rounded hover:bg-green-100 w-full text-left">Visitors</button>
+        <button onclick="showSection('reports-section')" class="block p-2 rounded hover:bg-green-100 w-full text-left">Reports</button>
+        <button onclick="showSection('settings-section')" class="block p-2 rounded hover:bg-green-100 w-full text-left">Settings</button>
       </nav>
     </aside>
 
     <!-- Main -->
     <main class="flex-1 p-6">
       <header class="flex justify-between items-center mb-6">
-        <h1 class="text-2xl font-bold">Dashboard</h1>
-        <button onclick="logout()" class="bg-blue-600 text-white px-4 py-2 rounded">Logout</button>
+        <h1 class="text-2xl font-bold">Admin Dashboard</h1>
+        <button onclick="logout()" class="bg-green-600 text-white px-4 py-2 rounded">Logout</button>
       </header>
 
-      <!-- Stats -->
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
-        <div class="bg-white shadow-md p-4 rounded-lg text-center">
-          <h3 class="text-gray-500">Total Users</h3>
-          <p class="text-2xl font-bold">1245</p>
-        </div>
-        <div class="bg-white shadow-md p-4 rounded-lg text-center">
-          <h3 class="text-gray-500">Active Sessions</h3>
-          <p class="text-2xl font-bold">312</p>
-        </div>
-        <div class="bg-white shadow-md p-4 rounded-lg text-center">
-          <h3 class="text-gray-500">Revenue</h3>
-          <p class="text-2xl font-bold">$5,740</p>
-        </div>
-        <div class="bg-white shadow-md p-4 rounded-lg text-center">
-          <h3 class="text-gray-500">Messages</h3>
-          <p class="text-2xl font-bold">152</p>
+      <!-- Dashboard Section -->
+      <div id="dashboard-section" class="section">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+          <div class="bg-white shadow-md p-4 rounded-lg text-center">
+            <h3 class="text-gray-500">Active Visitors</h3>
+            <p id="visitor-count" class="text-2xl font-bold">0</p>
+          </div>
+          <div class="bg-white shadow-md p-4 rounded-lg text-center">
+            <h3 class="text-gray-500">Reports Logged</h3>
+            <p class="text-2xl font-bold">14</p>
+          </div>
+          <div class="bg-white shadow-md p-4 rounded-lg text-center">
+            <h3 class="text-gray-500">Protected Species</h3>
+            <p class="text-2xl font-bold">7</p>
+          </div>
         </div>
       </div>
 
-      <!-- Charts -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div class="bg-white shadow-md p-4 rounded-lg">
-          <h3 class="text-lg font-semibold mb-4">User Growth</h3>
-          <canvas id="usersChart"></canvas>
-        </div>
-        <div class="bg-white shadow-md p-4 rounded-lg">
-          <h3 class="text-lg font-semibold mb-4">Revenue Trend</h3>
-          <canvas id="revenueChart"></canvas>
-        </div>
+      <!-- Visitors Section -->
+      <div id="visitors-section" class="section hidden">
+        <h2 class="text-xl font-bold mb-4">Visitors Over Time</h2>
+        <canvas id="visitorsChart"></canvas>
+      </div>
+
+      <!-- Reports Section -->
+      <div id="reports-section" class="section hidden">
+        <h2 class="text-xl font-bold mb-4">Reports</h2>
+        <p class="text-gray-600">No new reports at the moment.</p>
+      </div>
+
+      <!-- Settings Section -->
+      <div id="settings-section" class="section hidden">
+        <h2 class="text-xl font-bold mb-4">Settings</h2>
+        <p class="text-gray-600">Customize your admin dashboard.</p>
       </div>
     </main>
-  </div>
-
-  <!-- REDIRECT POPUP -->
-  <div id="redirect-popup" class="hidden fixed inset-0 bg-black bg-opacity-50 backdrop-blur-md flex items-center justify-center z-50">
-    <div class="bg-white/20 backdrop-blur-xl p-6 rounded-xl shadow-xl text-center text-white w-80">
-      <h2 class="text-xl font-bold mb-4">Redirecting...</h2>
-      <p id="redirect-text" class="mb-4">Redirecting to homepage: 0%</p>
-      <div class="w-full bg-gray-300 rounded-full h-3">
-        <div id="redirect-bar" class="bg-blue-500 h-3 rounded-full w-0"></div>
-      </div>
-    </div>
   </div>
 
   <script>
     let attempts = 0;
     const correctUser = "Admin";
     const correctPass = "2026-project";
+    let captchaText = "";
 
+    // CAPTCHA generator
+    function generateCaptcha() {
+      const canvas = document.getElementById("captchaCanvas");
+      const ctx = canvas.getContext("2d");
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+      captchaText = "";
+      for (let i = 0; i < 5; i++) {
+        captchaText += chars.charAt(Math.floor(Math.random() * chars.length));
+      }
+
+      ctx.font = "28px Verdana";
+      ctx.fillStyle = "#000";
+      ctx.setTransform(1, Math.random() * 0.2, Math.random() * 0.2, 1, 0, 0);
+
+      for (let i = 0; i < captchaText.length; i++) {
+        ctx.fillText(captchaText[i], 30 * i + 10, 35);
+      }
+
+      // Add noise lines
+      for (let i = 0; i < 5; i++) {
+        ctx.strokeStyle = "rgba(0,0,0,0.3)";
+        ctx.beginPath();
+        ctx.moveTo(Math.random() * 200, Math.random() * 50);
+        ctx.lineTo(Math.random() * 200, Math.random() * 50);
+        ctx.stroke();
+      }
+    }
+
+    // CAPTCHA audio (Text-to-Speech)
+    function playCaptchaSound() {
+      const utterance = new SpeechSynthesisUtterance(captchaText.split("").join(" "));
+      speechSynthesis.speak(utterance);
+    }
+
+    // Login validation
     function login() {
       const user = document.getElementById("username").value;
       const pass = document.getElementById("password").value;
-      const captcha = document.getElementById("captcha").checked;
+      const captchaInput = document.getElementById("captchaInput").value;
+      const captchaCheck = document.getElementById("captchaCheck").checked;
 
-      if (!captcha) {
-        showError("Please check reCAPTCHA");
-        return;
-      }
-
-      if (user === correctUser && pass === correctPass) {
+      if (user === correctUser && pass === correctPass && captchaInput === captchaText && captchaCheck) {
         document.getElementById("login-screen").classList.add("hidden");
         document.getElementById("dashboard").classList.remove("hidden");
+        updateVisitors();
       } else {
         attempts++;
-        showError("Invalid username or password (" + attempts + " / 5)");
-
+        document.getElementById("login-error").innerText = "Login failed ("+attempts+"/5)";
+        document.getElementById("login-error").classList.remove("hidden");
         if (attempts >= 5) {
-          showRedirectPopup();
+          alert("Too many attempts, redirecting...");
+          window.location.href = "index.html";
         }
       }
     }
 
-    function showError(msg) {
-      const err = document.getElementById("login-error");
-      err.innerText = msg;
-      err.classList.remove("hidden");
+    // Sidebar section switch
+    function showSection(id) {
+      document.querySelectorAll(".section").forEach(sec => sec.classList.add("hidden"));
+      document.getElementById(id).classList.remove("hidden");
     }
 
+    // Recovery
     function showRecovery() {
       document.getElementById("login-screen").classList.add("hidden");
       document.getElementById("recovery-screen").classList.remove("hidden");
@@ -152,10 +202,10 @@
       const age = prompt("Enter your age:");
       const pin = 13 - parseInt(age);
       const entered = prompt("Enter your recovery PIN:");
-
       if (parseInt(entered) === pin) {
         document.getElementById("recovery-screen").classList.add("hidden");
         document.getElementById("dashboard").classList.remove("hidden");
+        updateVisitors();
       } else {
         document.getElementById("recovery-error").innerText = "Wrong PIN";
         document.getElementById("recovery-error").classList.remove("hidden");
@@ -166,62 +216,46 @@
       alert("Fingerprint scan successful ✅");
       document.getElementById("recovery-screen").classList.add("hidden");
       document.getElementById("dashboard").classList.remove("hidden");
+      updateVisitors();
     }
 
     function logout() {
       window.location.reload();
     }
 
-    function showRedirectPopup() {
-      document.getElementById("redirect-popup").classList.remove("hidden");
+    // Fake visitor updates
+    function updateVisitors() {
+      function randomVisitors() {
+        return Math.floor(Math.random() * 27) + 1;
+      }
 
-      let progress = 0;
-      const bar = document.getElementById("redirect-bar");
-      const text = document.getElementById("redirect-text");
+      const counter = document.getElementById("visitor-count");
+      counter.innerText = randomVisitors();
 
-      const interval = setInterval(() => {
-        progress += 5;
-        bar.style.width = progress + "%";
-        text.innerText = "Redirecting to homepage: " + progress + "%";
+      setInterval(() => {
+        counter.innerText = randomVisitors();
+      }, 4000);
 
-        if (progress >= 100) {
-          clearInterval(interval);
-          window.location.href = "index.html";
-        }
-      }, 80); // fast animation
-    }
-
-    // Charts
-    window.onload = () => {
-      const ctx1 = document.getElementById('usersChart');
-      new Chart(ctx1, {
-        type: 'line',
+      // Chart simulation
+      const ctx = document.getElementById("visitorsChart");
+      new Chart(ctx, {
+        type: "line",
         data: {
-          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+          labels: ["1m", "2m", "3m", "4m", "5m"],
           datasets: [{
-            label: 'Users',
-            data: [120, 300, 450, 600, 800],
-            borderColor: 'blue',
-            backgroundColor: 'rgba(59,130,246,0.2)',
+            label: "Visitors",
+            data: [randomVisitors(), randomVisitors(), randomVisitors(), randomVisitors(), randomVisitors()],
+            borderColor: "green",
+            backgroundColor: "rgba(16,185,129,0.2)",
             fill: true,
             tension: 0.3
           }]
         }
       });
+    }
 
-      const ctx2 = document.getElementById('revenueChart');
-      new Chart(ctx2, {
-        type: 'bar',
-        data: {
-          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
-          datasets: [{
-            label: 'Revenue',
-            data: [200, 400, 800, 1200, 1500],
-            backgroundColor: 'rgba(249,115,22,0.8)'
-          }]
-        }
-      });
-    };
+    // Generate first CAPTCHA on load
+    window.onload = generateCaptcha;
   </script>
 </body>
 </html>
