@@ -166,6 +166,15 @@ body{
   opacity: 0;
 }
 
+.status.near-threatened {
+  background-color: #f4b400; /* Google yellow */
+  color: #fff;
+  padding: 0.4em 0.8em;
+  border-radius: 6px;
+  font-weight: 600;
+  display: inline-block;
+}
+
 /* Hover row effect */
 .status-table tbody tr:hover {
   background-color: rgba(0, 0, 0, 0.03);
