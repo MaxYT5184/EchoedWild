@@ -1,231 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>YouTube UI Concept Advanced</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fake YouTube Live Chat</title>
 <style>
-  :root {
-    --bg:#fff; --text:#111; --muted:#555; --card:#f5f5f5; --accent:#e62117;
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
   }
-  body.dark{--bg:#181818;--text:#f1f1f1;--muted:#aaa;--card:#202020;}
-  *{margin:0;padding:0;box-sizing:border-box;font-family:'Inter',sans-serif;transition:0.3s;}
-  body{display:grid;grid-template-columns:220px 1fr;grid-template-rows:60px 1fr;grid-template-areas:"sidebar header""sidebar main";height:100vh;overflow:hidden;background:var(--bg);color:var(--text);}
-  header{grid-area:header;display:flex;align-items:center;justify-content:center;position:relative;padding:0 1rem;border-bottom:1px solid var(--card);}
-  header input{width:50%;padding:8px 12px;border-radius:20px;border:1px solid var(--muted);outline:none;background:var(--card);color:var(--text);}
-  header .actions{position:absolute;right:1rem;display:flex;align-items:center;gap:1rem;}
-  .icon-btn{cursor:pointer;font-size:1.3rem;position:relative;}
-  .badge{position:absolute;top:-5px;right:-5px;background:var(--accent);color:#fff;font-size:0.7rem;padding:2px 6px;border-radius:10px;}
-  aside{grid-area:sidebar;background:var(--card);display:flex;flex-direction:column;padding:1rem;gap:0.5rem;border-right:1px solid var(--muted);}
-  aside button, aside a{display:flex;align-items:center;gap:10px;padding:10px;border-radius:10px;text-decoration:none;color:var(--text);font-weight:600;cursor:pointer;border:none;background:transparent;transition:0.2s;}
-  aside button:hover, aside a:hover{background:var(--accent);color:#fff;}
-  aside a.active{background:var(--accent);color:#fff;}
-  main{grid-area:main;padding:1rem;overflow-y:auto;}
-  .videos,.shorts{display:grid;gap:1.5rem;}
-  .videos{grid-template-columns:repeat(auto-fill,minmax(280px,1fr));}
-  .shorts{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));}
-  .card,.ad-card{background:var(--card);border-radius:12px;overflow:hidden;cursor:pointer;transition:transform 0.2s, box-shadow 0.2s, opacity 0.5s;opacity:0;transform:translateY(20px);animation:fadeUp 0.5s forwards;}
-  .card:hover,.ad-card:hover{transform:translateY(-5px);box-shadow:0 8px 20px rgba(0,0,0,0.15);}
-  .thumbnail,.short-thumb{width:100%;height:160px;background:#ccc;}
-  .short-thumb{height:280px;}
-  .card-content{display:flex;padding:10px;gap:10px;}
-  .avatar{width:36px;height:36px;border-radius:50%;background:#bbb;flex-shrink:0;}
-  .info{display:flex;flex-direction:column;font-size:0.9rem;}
-  .info .title{font-weight:600;margin-bottom:4px;}
-  .info .views{font-size:0.8rem;color:var(--muted);}
-  .ad-card{border:2px dashed var(--accent);}
-  .ad-card .thumbnail{background:repeating-linear-gradient(45deg,#e62117,#e62117 10px,#fff 10px,#fff 20px);}
-  .ad-card .info .title::before{content:"Ad · ";color:var(--accent);}
-  .channels{display:flex;flex-wrap:wrap;gap:1rem;}
-  .channel{display:flex;flex-direction:column;align-items:center;cursor:pointer;}
-  .channel .avatar{width:60px;height:60px;}
-  .channel span{margin-top:5px;font-size:0.85rem;}
-  .modal,.overlay{position:fixed;top:0;left:0;right:0;bottom:0;display:none;justify-content:center;align-items:center;z-index:2000;}
-  .overlay{background:rgba(0,0,0,0.6);}
-  .modal-content{background:var(--bg);padding:1rem;border-radius:12px;width:90%;max-width:700px;max-height:90vh;overflow-y:auto;position:relative;}
-  .modal-content h2{margin-bottom:0.5rem;}
-  .close-btn{position:absolute;top:10px;right:10px;cursor:pointer;font-size:1.2rem;}
-  #notificationsPanel{position:absolute;top:60px;right:10px;width:320px;background:var(--bg);border:1px solid var(--muted);border-radius:12px;display:none;flex-direction:column;box-shadow:0 6px 20px rgba(0,0,0,0.2);z-index:1500;}
-  .notification{padding:12px;border-bottom:1px solid var(--card);display:flex;gap:10px;align-items:center;}
-  .notification:hover{background:var(--card);}
-  .notification:last-child{border-bottom:none;}
-  .notification .dismiss{margin-left:auto;cursor:pointer;}
-  #feedbackModal textarea{width:100%;height:100px;margin:0.5rem 0;padding:10px;border-radius:8px;border:1px solid var(--muted);background:var(--card);color:var(--text);}
-  .emoji-bar{display:flex;gap:10px;font-size:1.4rem;cursor:pointer;}
-  @keyframes fadeUp{to{opacity:1;transform:translateY(0);}}
+
+  .chat-container {
+    width: 400px;
+    max-height: 600px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .chat-header {
+    background: #cc0000;
+    color: #fff;
+    padding: 10px;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px;
+  }
+
+  .message {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 10px;
+  }
+
+  .message img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+
+  .username {
+    font-weight: bold;
+    margin-right: 5px;
+  }
+
+  .moderator {
+    color: green;
+  }
+
+  .platform-logo {
+    width: 20px;
+    height: 20px;
+    margin-left: 5px;
+  }
 </style>
 </head>
 <body>
-<!-- Sidebar -->
-<aside>
-  <a href="#" data-section="home" class="active">🏠 Home</a>
-  <a href="#" data-section="trending">🔥 Trending</a>
-  <a href="#" data-section="shorts">🎬 Shorts</a>
-  <a href="#" data-section="subs">📺 Subscriptions</a>
-  <a href="#" data-section="library">📚 Library</a>
-  <a href="#" data-section="explore">🧭 Explore</a>
-  <a href="#" data-section="live">🔴 Live</a>
-  <button id="toggleMode">🌙 Dark Mode</button>
-</aside>
-<!-- Header -->
-<header>
-  <input type="text" id="search" placeholder="Search"/>
-  <div class="actions">
-    <div class="icon-btn" id="notificationsBtn">🔔<span class="badge" id="notifCount">3</span></div>
-    <div class="icon-btn" id="userBtn">👤</div>
-  </div>
-</header>
 
-<!-- Notifications Panel -->
-<div id="notificationsPanel"></div>
-
-<!-- Main -->
-<main><div id="videosContainer"></div></main>
-
-<!-- Video Modal -->
-<div class="overlay" id="videoOverlay"></div>
-<div class="modal" id="videoModal">
-  <div class="modal-content">
-    <span class="close-btn" id="closeVideo">✖</span>
-    <div class="thumbnail" style="height:300px;background:#000;display:flex;align-items:center;justify-content:center;color:white;font-size:2rem;">▶ Playing Video</div>
-    <h2 id="videoTitle">Video Title</h2>
-    <div style="display:flex;align-items:center;gap:10px;">
-      <div class="avatar"></div>
-      <div><strong>Channel Name</strong><br><small>123K views</small></div>
-    </div>
-    <div style="margin-top:10px;"><button>👍 Like</button> <button>👎 Dislike</button> <button>🔗 Share</button></div>
-    <div style="margin-top:15px;"><strong>Comments:</strong>
-      <div style="margin-top:5px;">User1: Great Video!</div>
-      <div>User2: Loved it!</div>
-      <div>User3: Funny clip 😄</div>
-    </div>
-  </div>
-</div>
-
-<!-- Feedback Modal -->
-<div class="overlay" id="feedbackOverlay"></div>
-<div class="modal" id="feedbackModal">
-  <div class="modal-content">
-    <span class="close-btn" id="closeFeedback">✖</span>
-    <h2>Send Feedback</h2>
-    <textarea placeholder="Tell us what you think..."></textarea>
-    <div class="emoji-bar">😊 😐 😢 😡</div>
-    <button id="sendFeedback">Submit</button>
-    <div id="feedbackMsg" style="margin-top:10px;color:var(--accent);display:none;">Thanks for your feedback!</div>
-  </div>
+<div class="chat-container">
+  <div class="chat-header">Live Chat</div>
+  <div class="chat-messages" id="chatMessages"></div>
 </div>
 
 <script>
-const toggle=document.getElementById("toggleMode");
-const links=document.querySelectorAll("aside a");
-const container=document.getElementById("videosContainer");
-const searchInput=document.getElementById("search");
-const videoModal=document.getElementById("videoModal");
-const videoOverlay=document.getElementById("videoOverlay");
-const videoTitle=document.getElementById("videoTitle");
-const closeVideo=document.getElementById("closeVideo");
-const notificationsPanel=document.getElementById("notificationsPanel");
-const notificationsBtn=document.getElementById("notificationsBtn");
-const notifCount=document.getElementById("notifCount");
-const feedbackModal=document.getElementById("feedbackModal");
-const feedbackOverlay=document.getElementById("feedbackOverlay");
-const feedbackBtn=document.getElementById("userBtn");
-const closeFeedback=document.getElementById("closeFeedback");
-const sendFeedback=document.getElementById("sendFeedback");
-const feedbackMsg=document.getElementById("feedbackMsg");
+  const users = [
+    {name: 'PixelPro', platform: 'windows'},
+    {name: 'iOSFan99', platform: 'ios'},
+    {name: 'AndroMaster', platform: 'android'},
+    {name: 'LinuxLover', platform: 'linux'},
+    {name: 'WebWizard', platform: 'web'}
+  ];
 
-// Fake Data
-const videoData={home:Array.from({length:10},(_,i)=>({title:`Home Video ${i+1}`,views:`${(i+1)*10}K views`})),
-  trending:Array.from({length:10},(_,i)=>({title:`Trending ${i+1}`,views:`${(i+5)*15}K views`})),
-  shorts:Array.from({length:12},(_,i)=>({title:`Short ${i+1}`,views:`${(i+2)*20}K views`})),
-  subs:{'Channel A':[ {title:'A-Fun',views:'5K views'}, {title:'A-Gaming',views:'10K views'}],
-        'Channel B':[ {title:'B-Vlog1',views:'2K views'}, {title:'B-Vlog2',views:'8K views'}],
-        'Channel C':[ {title:'C-Tutorial',views:'12K views'}],
-        'Channel D':[ {title:'D-Music',views:'50K views'}]},
-  library:Array.from({length:5},(_,i)=>({title:`Library Video ${i+1}`,views:`${i*10}K views`})),
-  explore:Array.from({length:8},(_,i)=>({title:`Explore Video ${i+1}`,views:`${i*5}K views`})),
-  live:Array.from({length:4},(_,i)=>({title:`Live Stream ${i+1}`,views:`${i*3}K watching`})),
-};
-const ads=[{title:"Try Premium Today",views:"Ad Views"},{title:"Cool New App",views:"Sponsored"}];
-let currentSection="home";let currentChannel=null;
-let notifications=["New comment on your video","Channel D uploaded a new song","Your subscription is expiring soon"];
+  const moderators = ['ModMax', 'AdminYT', 'ChatGuard'];
 
-function renderCards(videos,type="videos"){
-  container.innerHTML="";
-  const wrapper=document.createElement("div");wrapper.className=type;
-  videos.forEach((vid,i)=>{
-    const card=document.createElement("div");
-    card.className=i%5===2 && type==="videos"?"ad-card":"card";
-    card.style.animationDelay=`${i*0.1}s`;
-    card.innerHTML=`<div class="${type==="shorts"?"short-thumb":"thumbnail"}"></div>
-      <div class="card-content"><div class="avatar"></div><div class="info">
-      <div class="title">${vid.title}</div><div class="views">${vid.views}</div></div></div>`;
-    if(card.className==="card")card.onclick=()=>openVideo(vid);
-    wrapper.appendChild(card);
-  });
-  container.appendChild(wrapper);
-}
-function renderChannels(){
-  container.innerHTML="";
-  const wrap=document.createElement("div");wrap.className="channels";
-  Object.keys(videoData.subs).forEach(ch=>{
-    const div=document.createElement("div");div.className="channel";
-    div.innerHTML=`<div class="avatar"></div><span>${ch}</span>`;
-    div.onclick=()=>{currentChannel=ch;renderCards(videoData.subs[ch]);};
-    wrap.appendChild(div);
-  });
-  container.appendChild(wrap);
-}
-function loadSection(section){currentSection=section;currentChannel=null;if(section==="subs")renderChannels();else renderCards(videoData[section],section==="shorts"?"shorts":"videos");}
-function openVideo(video){videoTitle.textContent=video.title;videoModal.style.display="flex";videoOverlay.style.display="block";}
-function closeModal(){videoModal.style.display="none";videoOverlay.style.display="none";}
-function renderNotifications(){
-  notificationsPanel.innerHTML="";
-  const markAll=document.createElement("div");markAll.className="notification";markAll.style.fontWeight="600";markAll.textContent="Mark all as read";markAll.onclick=()=>{notifications=[];renderNotifications();};
-  notificationsPanel.appendChild(markAll);
-  notifications.forEach((note,i)=>{
-    const div=document.createElement("div");div.className="notification";
-    div.innerHTML=`<span>🔔</span><span>${note}</span><span class="dismiss">✖</span>`;
-    div.querySelector(".dismiss").onclick=()=>{notifications.splice(i,1);renderNotifications();};
-    notificationsPanel.appendChild(div);
-  });
-  notifCount.textContent=notifications.length;notifCount.style.display=notifications.length?"inline-block":"none";
-}
+  const messages = [
+    'Hello everyone!',
+    'This stream is lit 🔥',
+    '😂😂😂',
+    'Check out my channel!',
+    'Who else is watching from mobile?',
+    'Subscribe to me!',
+    'Lol that was funny',
+    'I can’t stop laughing',
+    'Awesome content!',
+    'First time here!'
+  ];
 
-// Search
-searchInput.addEventListener("input",()=>{
-  const q=searchInput.value.toLowerCase();
-  if(currentSection==="subs" && currentChannel){
-    const filtered=videoData.subs[currentChannel].filter(v=>v.title.toLowerCase().includes(q));
-    renderCards(filtered);
-  }else if(currentSection==="subs"){
-    const wrap=document.createElement("div");wrap.className="channels";
-    Object.keys(videoData.subs).filter(ch=>ch.toLowerCase().includes(q)).forEach(ch=>{
-      const div=document.createElement("div");div.className="channel";
-      div.innerHTML=`<div class="avatar"></div><span>${ch}</span>`;
-      div.onclick=()=>{currentChannel=ch;renderCards(videoData.subs[ch]);};
-      wrap.appendChild(div);
-    });
-    container.innerHTML="";container.appendChild(wrap);
-  }else{
-    const filtered=videoData[currentSection].filter(v=>v.title.toLowerCase().includes(q));
-    renderCards(filtered,currentSection==="shorts"?"shorts":"videos");
+  const platformLogos = {
+    windows: 'https://upload.wikimedia.org/wikipedia/commons/5/5f/Windows_logo_-_2021.svg',
+    ios: 'https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg',
+    android: 'https://upload.wikimedia.org/wikipedia/commons/d/d7/Android_robot.svg',
+    linux: 'https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png',
+    web: 'https://upload.wikimedia.org/wikipedia/commons/0/08/Globe_icon.svg'
+  };
+
+  function randomItem(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
   }
-});
 
-// Toggles
-toggle.onclick=()=>document.body.classList.toggle("dark");
-closeVideo.onclick=closeModal;videoOverlay.onclick=closeModal;
-links.forEach(link=>{link.onclick=e=>{e.preventDefault();links.forEach(l=>l.classList.remove("active"));link.classList.add("active");loadSection(link.dataset.section);};});
-notificationsBtn.onclick=()=>{notificationsPanel.style.display=notificationsPanel.style.display==="flex"?"none":"flex";renderNotifications();};
-feedbackBtn.onclick=()=>{feedbackModal.style.display="flex";feedbackOverlay.style.display="block";};
-closeFeedback.onclick=()=>{feedbackModal.style.display="none";feedbackOverlay.style.display="none";};
-feedbackOverlay.onclick=closeFeedback;
-sendFeedback.onclick=()=>{feedbackMsg.style.display="block";setTimeout(()=>{feedbackMsg.style.display="none";closeFeedback();},1500);};
+  function addMessage() {
+    const chat = document.getElementById('chatMessages');
 
-// Init
-loadSection("home");renderNotifications();
+    let isModerator = Math.random() < 0.1; // 10% chance message is from a moderator
+    let userName, platform;
+
+    if (isModerator) {
+      userName = randomItem(moderators);
+      platform = 'web';
+    } else {
+      let user = randomItem(users);
+      userName = user.name;
+      platform = user.platform;
+    }
+
+    let msgText = randomItem(messages);
+
+    const msgDiv = document.createElement('div');
+    msgDiv.className = 'message';
+
+    msgDiv.innerHTML = `
+      <img src="${platformLogos[platform]}" alt="${platform}">
+      <div>
+        <span class="username ${isModerator ? 'moderator' : ''}">${userName}</span>
+        <span>${msgText}</span>
+      </div>
+    `;
+    
+    chat.appendChild(msgDiv);
+    chat.scrollTop = chat.scrollHeight;
+  }
+
+  // Spam messages every 500ms
+  setInterval(addMessage, 500);
 </script>
+
 </body>
 </html>
