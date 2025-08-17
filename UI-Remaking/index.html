@@ -3,142 +3,165 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ultimate GOD LEVEL Live Chat</title>
+<title>ULTIMATE LIVE STREAM CHAOS</title>
 <style>
   body {
-    font-family: Arial, sans-serif;
-    background: #1c1c1c;
-    color: white;
     margin: 0;
-    display: flex;
-    justify-content: center;
-    padding: 20px;
-  }
-  .chat-container {
-    width: 500px;
-    height: 700px;
-    background: #111;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-    display: flex;
-    flex-direction: column;
     overflow: hidden;
-    padding: 10px;
+    background: #0a0a0a;
+    font-family: Arial, sans-serif;
   }
-  .chat-header {
-    background: #e62e2e;
-    color: white;
+
+  .viewer-counter {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    font-size: 24px;
+    color: #ff0;
     font-weight: bold;
-    padding: 12px;
-    text-align: center;
-    font-size: 18px;
-    border-radius: 10px 10px 0 0;
+    text-shadow: 0 0 10px #000;
+    z-index: 9999;
+    transition: transform 0.2s;
   }
-  .chat-messages {
-    flex: 1;
-    background: #222;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    overflow: hidden; /* no scroll */
-  }
+
   .message {
+    position: absolute;
+    white-space: nowrap;
+    font-weight: bold;
+    font-size: 16px;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 5px;
+    cursor: pointer;
+    text-shadow: 0 0 5px #000;
   }
-  .message img {
-    width: 30px;
-    height: 30px;
+
+  .username { font-weight: bold; }
+  .moderator { color: lime; }
+  .platform-logo { width: 25px; height: 25px; }
+  .confetti {
+    position: absolute;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
-  }
-  .username {
-    font-weight: bold;
-  }
-  .moderator {
-    color: lime;
-  }
-  .platform-logo {
-    width: 20px;
-    height: 20px;
-  }
-  .system-message {
-    font-style: italic;
-    color: #aaa;
+    pointer-events: none;
+    opacity: 0.8;
   }
 </style>
 </head>
 <body>
 
-<div class="chat-container">
-  <div class="chat-header">GOD LEVEL Live Chat</div>
-  <div class="chat-messages" id="chatMessages"></div>
-</div>
+<div class="viewer-counter" id="viewerCounter">Viewers: 0</div>
 
 <script>
-  const streamingPlatforms = {
-    youtube: 'https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg',
-    twitch: 'https://upload.wikimedia.org/wikipedia/commons/d/d8/Twitch_logo_%28wordmark_only%29.svg',
-    tiktok: 'https://upload.wikimedia.org/wikipedia/en/0/0a/TikTok_logo.svg',
-    facebook: 'https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png',
-    twitter: 'https://upload.wikimedia.org/wikipedia/en/9/9f/Twitter_bird_logo_2012.svg'
-  };
+const streamingPlatforms = {
+  youtube: 'https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg',
+  twitch: 'https://upload.wikimedia.org/wikipedia/commons/d/d8/Twitch_logo_%28wordmark_only%29.svg',
+  tiktok: 'https://upload.wikimedia.org/wikipedia/en/0/0a/TikTok_logo.svg',
+  facebook: 'https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png',
+  twitter: 'https://upload.wikimedia.org/wikipedia/en/9/9f/Twitter_bird_logo_2012.svg'
+};
 
-  const moderators = ['ModMax', 'AdminYT', 'ChatGuard', 'GodMod', 'MegaAdmin'];
+const moderators = ['ModMax','AdminYT','ChatGuard','GodMod','MegaAdmin','SupremeMod'];
+const emojis = ['😂','🔥','❤️','👍','💀','🤣','🥹','🤯','👏','💯','😎','🥳','😱','💥','✨'];
+const messages = ['Hello everyone!','This stream is insane!','Check this out!','Subscribe now!','LOL','This is epic!','Can’t stop watching 😎','First time here!','Spam spam spam','Epic content!','😂😂😂','Who else is here?','Legendary stream','🔥🔥🔥'];
 
-  const emojis = ['😂','🔥','❤️','👍','💀','🤣','🥹','🤯','👏','💯','😎','🥳','😱','💥','✨'];
-  const messages = [
-    'Hello everyone!', 'This stream is insane!', 'Check this out!', 
-    'Subscribe now!', 'LOL', 'This is epic!', 'Can’t stop watching 😎', 
-    'First time here!', 'Spam spam spam', 'Epic content!', '😂😂😂','Who else is here?','Legendary stream','🔥🔥🔥'
-  ];
+// Sound effects
+const spawnSound = new Audio('https://freesound.org/data/previews/522/522015_8045080-lq.mp3');
+const clickSound = new Audio('https://freesound.org/data/previews/353/353539_5121236-lq.mp3');
 
-  const chatContainer = document.getElementById('chatMessages');
+let viewers = 0;
+const viewerCounter = document.getElementById('viewerCounter');
 
-  // Generate random username
-  function randomName() {
-    const adjectives = ['Crazy','Fast','Silly','Epic','Happy','Dark','Silent','Wild','Funny','Cool','Mega','Ultra','Hyper','Ghost','King','Queen','Pro','Legend','Master'];
-    const nouns = ['Tiger','Ninja','Wizard','Gamer','Coder','Player','Robot','Alien','Panda','Shark','Dragon','Monkey','Hunter','Boss','Sniper'];
-    return adjectives[Math.floor(Math.random()*adjectives.length)] + nouns[Math.floor(Math.random()*nouns.length)] + Math.floor(Math.random()*9999);
+function updateViewerCounter(flash=false){
+  viewers++;
+  viewerCounter.textContent = `Viewers: ${viewers}`;
+  if(flash){
+    viewerCounter.style.transform = 'scale(1.5)';
+    setTimeout(()=>{ viewerCounter.style.transform = 'scale(1)'; },150);
   }
+}
 
-  function randomMessage() {
-    let msg = messages[Math.floor(Math.random()*messages.length)];
-    if (Math.random() < 0.7) { // 70% chance to add emoji spam
-      for(let i=0;i<Math.floor(Math.random()*4);i++){
-        msg += ' ' + emojis[Math.floor(Math.random()*emojis.length)];
-      }
-    }
-    return msg;
+function randomName() {
+  const adj=['Crazy','Fast','Silly','Epic','Happy','Dark','Silent','Wild','Funny','Cool','Mega','Ultra','Hyper','Ghost','King','Queen','Pro','Legend','Master'];
+  const nouns=['Tiger','Ninja','Wizard','Gamer','Coder','Player','Robot','Alien','Panda','Shark','Dragon','Monkey','Hunter','Boss','Sniper'];
+  return adj[Math.floor(Math.random()*adj.length)]+nouns[Math.floor(Math.random()*nouns.length)]+Math.floor(Math.random()*9999);
+}
+
+function randomMessage() {
+  let msg=messages[Math.floor(Math.random()*messages.length)];
+  if(Math.random()<0.9){
+    for(let i=0;i<Math.floor(Math.random()*6);i++){ msg+=' '+emojis[Math.floor(Math.random()*emojis.length)]; }
   }
+  return msg;
+}
 
-  function addMessage() {
-    const msgDiv = document.createElement('div');
-    msgDiv.className = 'message';
+function randomColor() { return `rgb(${Math.floor(Math.random()*256)},${Math.floor(Math.random()*256)},${Math.floor(Math.random()*256)})`; }
 
-    const isMod = Math.random() < 0.1; // 10% chance
-    const userName = isMod ? moderators[Math.floor(Math.random()*moderators.length)] : randomName();
-    const platform = Object.keys(streamingPlatforms)[Math.floor(Math.random()*Object.keys(streamingPlatforms).length)];
-    const msgText = randomMessage();
-
-    msgDiv.innerHTML = `
-      <img src="${streamingPlatforms[platform]}" class="platform-logo" alt="${platform}">
-      <span class="username ${isMod ? 'moderator' : ''}">${userName}</span>
-      <span>${msgText}</span>
-    `;
-
-    // Add to chat
-    chatContainer.appendChild(msgDiv);
-
-    // Keep last 50 messages to avoid overflow
-    if(chatContainer.children.length > 50) {
-      chatContainer.removeChild(chatContainer.firstChild);
-    }
+function spawnConfetti(x,y){
+  for(let i=0;i<15;i++){
+    const confetti=document.createElement('div');
+    confetti.className='confetti';
+    confetti.style.left=x+'px';
+    confetti.style.top=y+'px';
+    confetti.style.background=randomColor();
+    document.body.appendChild(confetti);
+    const dx=(Math.random()-0.5)*200, dy=(Math.random()-0.5)*200;
+    const duration=800+Math.random()*800;
+    const startTime=performance.now();
+    (function animate(time){
+      const elapsed=time-startTime, progress=Math.min(elapsed/duration,1);
+      confetti.style.left=x+dx*progress+'px';
+      confetti.style.top=y+dy*progress+'px';
+      confetti.style.opacity=1-progress;
+      if(progress<1) requestAnimationFrame(animate);
+      else document.body.removeChild(confetti);
+    })(startTime);
   }
+}
 
-  // GOD LEVEL spam frenzy
-  setInterval(addMessage, 100); // 10 messages per second
+function spawnMessage(){
+  const msgDiv=document.createElement('div');
+  msgDiv.className='message';
+  const isMod=Math.random()<0.1;
+  const userName=isMod?moderators[Math.floor(Math.random()*moderators.length)]:randomName();
+  const platform=Object.keys(streamingPlatforms)[Math.floor(Math.random()*Object.keys(streamingPlatforms).length)];
+  const msgText=randomMessage();
+
+  const startX=Math.random()<0.5?-500:window.innerWidth+500;
+  const startY=Math.random()*(window.innerHeight-30);
+  const endX=startX<0?window.innerWidth+500:-500;
+  const duration=3000+Math.random()*3000;
+
+  msgDiv.style.top=startY+'px';
+  msgDiv.style.left=startX+'px';
+  msgDiv.style.color=isMod?'lime':randomColor();
+  msgDiv.innerHTML=`<img src="${streamingPlatforms[platform]}" class="platform-logo" alt="${platform}"><span class="username ${isMod?'moderator':''}">${userName}</span><span>${msgText}</span>`;
+
+  document.body.appendChild(msgDiv);
+  spawnSound.currentTime=0; spawnSound.play().catch(()=>{});
+  updateViewerCounter(); // new viewer for each message
+
+  msgDiv.addEventListener('click',()=>{
+    clickSound.currentTime=0; clickSound.play().catch(()=>{});
+    const rect=msgDiv.getBoundingClientRect();
+    spawnConfetti(rect.left+rect.width/2, rect.top+rect.height/2);
+    document.body.removeChild(msgDiv);
+    updateViewerCounter(true); // flash counter on click
+  });
+
+  const startTime=performance.now();
+  (function animate(time){
+    const elapsed=time-startTime, progress=Math.min(elapsed/duration,1);
+    msgDiv.style.left=startX+(endX-startX)*progress+'px';
+    msgDiv.style.transform=`translateY(${Math.sin(progress*Math.PI*2)*10}px) rotate(${progress*720}deg)`;
+    if(progress<1) requestAnimationFrame(animate);
+    else { const rect=msgDiv.getBoundingClientRect(); spawnConfetti(rect.left+rect.width/2, rect.top+rect.height/2); document.body.removeChild(msgDiv); }
+  })(startTime);
+}
+
+// Spawn messages rapidly
+setInterval(spawnMessage,50); // 20 messages/sec
 </script>
 
 </body>
