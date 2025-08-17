@@ -94,6 +94,11 @@
       background: var(--accent);
       color: #fff;
     }
+    aside svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+    }
     main {
       grid-area: main;
       padding: 1rem;
@@ -103,6 +108,11 @@
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 1.5rem;
+    }
+    .shorts {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 1.2rem;
     }
     .card {
       background: var(--card);
@@ -114,15 +124,6 @@
       transform: translateY(20px);
       animation: fadeUp 0.5s forwards;
     }
-    .card:nth-child(1) { animation-delay: 0.1s; }
-    .card:nth-child(2) { animation-delay: 0.2s; }
-    .card:nth-child(3) { animation-delay: 0.3s; }
-    .card:nth-child(4) { animation-delay: 0.4s; }
-    .card:nth-child(5) { animation-delay: 0.5s; }
-    .card:nth-child(6) { animation-delay: 0.6s; }
-    @keyframes fadeUp {
-      to { opacity: 1; transform: translateY(0); }
-    }
     .card:hover {
       transform: translateY(-5px);
       box-shadow: 0 8px 20px rgba(0,0,0,0.15);
@@ -131,6 +132,11 @@
       width: 100%;
       height: 160px;
       background: #ccc;
+    }
+    .short-thumb {
+      width: 100%;
+      height: 280px;
+      background: #bbb;
     }
     .card-content {
       display: flex;
@@ -156,6 +162,28 @@
     .info .views {
       font-size: 0.8rem;
       color: var(--muted);
+    }
+    .channels {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .channel {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+    }
+    .channel .avatar {
+      width: 60px;
+      height: 60px;
+    }
+    .channel span {
+      margin-top: 5px;
+      font-size: 0.85rem;
+    }
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
     }
     /* Responsive */
     @media (max-width: 768px) {
@@ -191,25 +219,42 @@
 </head>
 <body>
   <aside>
-    <a href="#" data-section="home" class="active">🏠 Home</a>
-    <a href="#" data-section="trending">🔥 Trending</a>
-    <a href="#" data-section="subs">📺 Subscriptions</a>
-    <button id="toggleMode">🌙 Toggle Dark Mode</button>
+    <a href="#" data-section="home" class="active">
+      <svg fill="currentColor" viewBox="0 0 24 24"><path d="M3 9.75L12 3l9 6.75V21H3z"/></svg>
+      Home
+    </a>
+    <a href="#" data-section="trending">
+      <svg fill="currentColor" viewBox="0 0 24 24"><path d="M13 3a9 9 0 0 0-9 9c0 2.6 1.2 4.9 3 6.4V21l3-2c.6.2 1.3.3 2 .3a9 9 0 0 0 0-18z"/></svg>
+      Trending
+    </a>
+    <a href="#" data-section="shorts">
+      <svg fill="currentColor" viewBox="0 0 24 24"><path d="M10 2l9 5-9 5v10L1 17V7z"/></svg>
+      Shorts
+    </a>
+    <a href="#" data-section="subs">
+      <svg fill="currentColor" viewBox="0 0 24 24"><path d="M4 4h16v12H4zM2 18h20v2H2z"/></svg>
+      Subscriptions
+    </a>
+    <button id="toggleMode">
+      <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18V3z"/></svg>
+      Dark Mode
+    </button>
   </aside>
 
   <header>
-    <input type="text" placeholder="Search"/>
+    <input type="text" id="search" placeholder="Search"/>
     <div class="guest">👤</div>
   </header>
 
   <main>
-    <div class="videos" id="videosContainer"></div>
+    <div id="videosContainer"></div>
   </main>
 
   <script>
     const toggle = document.getElementById("toggleMode");
     const links = document.querySelectorAll("aside a");
     const container = document.getElementById("videosContainer");
+    const searchInput = document.getElementById("search");
 
     const videoData = {
       home: [
@@ -225,27 +270,41 @@
         {title:"🔥 Trending 2", views:"1.5M views"},
         {title:"🔥 Trending 3", views:"800K views"},
         {title:"🔥 Trending 4", views:"600K views"},
-        {title:"🔥 Trending 5", views:"450K views"},
-        {title:"🔥 Trending 6", views:"300K views"},
       ],
-      subs: [
-        {title:"📺 Sub Video 1", views:"20K views"},
-        {title:"📺 Sub Video 2", views:"15K views"},
-        {title:"📺 Sub Video 3", views:"9K views"},
-        {title:"📺 Sub Video 4", views:"8K views"},
-        {title:"📺 Sub Video 5", views:"5K views"},
-        {title:"📺 Sub Video 6", views:"2K views"},
-      ]
+      shorts: [
+        {title:"Shorts Clip 1", views:"200K views"},
+        {title:"Shorts Clip 2", views:"150K views"},
+        {title:"Shorts Clip 3", views:"90K views"},
+        {title:"Shorts Clip 4", views:"50K views"},
+      ],
+      subs: {
+        "Channel A": [
+          {title:"A - Video 1", views:"5K views"},
+          {title:"A - Video 2", views:"10K views"}
+        ],
+        "Channel B": [
+          {title:"B - Video 1", views:"2K views"},
+          {title:"B - Video 2", views:"8K views"}
+        ],
+        "Channel C": [
+          {title:"C - Video 1", views:"12K views"}
+        ]
+      }
     };
 
-    function loadVideos(section) {
+    let currentSection = "home";
+    let currentChannel = null;
+
+    function renderCards(videos, type="videos") {
       container.innerHTML = "";
-      videoData[section].forEach((vid, i) => {
+      const wrapper = document.createElement("div");
+      wrapper.className = type;
+      videos.forEach((vid, i) => {
         const card = document.createElement("div");
         card.className = "card";
         card.style.animationDelay = `${i*0.1}s`;
         card.innerHTML = `
-          <div class="thumbnail"></div>
+          <div class="${type==="shorts"?"short-thumb":"thumbnail"}"></div>
           <div class="card-content">
             <div class="avatar"></div>
             <div class="info">
@@ -254,28 +313,85 @@
             </div>
           </div>
         `;
-        container.appendChild(card);
+        wrapper.appendChild(card);
       });
+      container.appendChild(wrapper);
     }
 
-    // Toggle dark mode
+    function renderChannels() {
+      container.innerHTML = "";
+      const wrap = document.createElement("div");
+      wrap.className = "channels";
+      Object.keys(videoData.subs).forEach(ch => {
+        const div = document.createElement("div");
+        div.className = "channel";
+        div.innerHTML = `<div class="avatar"></div><span>${ch}</span>`;
+        div.onclick = () => {
+          currentChannel = ch;
+          renderCards(videoData.subs[ch]);
+        };
+        wrap.appendChild(div);
+      });
+      container.appendChild(wrap);
+    }
+
+    function loadSection(section) {
+      currentSection = section;
+      currentChannel = null;
+      if(section === "subs") {
+        renderChannels();
+      } else {
+        renderCards(videoData[section], section==="shorts"?"shorts":"videos");
+      }
+    }
+
+    // Search functionality
+    searchInput.addEventListener("input", () => {
+      const query = searchInput.value.toLowerCase();
+      if(currentSection === "subs" && currentChannel) {
+        const filtered = videoData.subs[currentChannel].filter(v => v.title.toLowerCase().includes(query));
+        renderCards(filtered);
+      } else if(currentSection === "subs") {
+        // searching channels
+        const wrap = document.createElement("div");
+        wrap.className = "channels";
+        Object.keys(videoData.subs)
+          .filter(ch => ch.toLowerCase().includes(query))
+          .forEach(ch => {
+            const div = document.createElement("div");
+            div.className = "channel";
+            div.innerHTML = `<div class="avatar"></div><span>${ch}</span>`;
+            div.onclick = () => {
+              currentChannel = ch;
+              renderCards(videoData.subs[ch]);
+            };
+            wrap.appendChild(div);
+          });
+        container.innerHTML = "";
+        container.appendChild(wrap);
+      } else {
+        const filtered = videoData[currentSection].filter(v => v.title.toLowerCase().includes(query));
+        renderCards(filtered, currentSection==="shorts"?"shorts":"videos");
+      }
+    });
+
+    // Dark mode
     toggle.addEventListener("click", () => {
       document.body.classList.toggle("dark");
     });
 
-    // Sidebar navigation
+    // Navigation
     links.forEach(link => {
       link.addEventListener("click", e => {
         e.preventDefault();
         links.forEach(l => l.classList.remove("active"));
         link.classList.add("active");
-        const section = link.dataset.section;
-        loadVideos(section);
+        loadSection(link.dataset.section);
       });
     });
 
-    // Load home videos by default
-    loadVideos("home");
+    // Load home by default
+    loadSection("home");
   </script>
 </body>
 </html>
