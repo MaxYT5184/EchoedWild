@@ -3,172 +3,142 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fake YouTube Live Chat - Level 250</title>
+<title>Ultimate GOD LEVEL Live Chat</title>
 <style>
   body {
     font-family: Arial, sans-serif;
-    background: #f3f3f3;
+    background: #1c1c1c;
+    color: white;
     margin: 0;
     display: flex;
     justify-content: center;
     padding: 20px;
   }
   .chat-container {
-    width: 450px;
-    max-height: 700px;
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    width: 500px;
+    height: 700px;
+    background: #111;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
     display: flex;
     flex-direction: column;
     overflow: hidden;
+    padding: 10px;
   }
   .chat-header {
-    background: #cc0000;
+    background: #e62e2e;
     color: white;
-    padding: 12px;
     font-weight: bold;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    padding: 12px;
+    text-align: center;
+    font-size: 18px;
+    border-radius: 10px 10px 0 0;
   }
   .chat-messages {
     flex: 1;
-    overflow-y: auto;
+    background: #222;
     padding: 10px;
-    background: #fafafa;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    overflow: hidden; /* no scroll */
   }
   .message {
     display: flex;
-    align-items: flex-start;
-    margin-bottom: 10px;
+    align-items: center;
+    gap: 8px;
   }
   .message img {
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    margin-right: 10px;
   }
   .username {
     font-weight: bold;
-    margin-right: 5px;
   }
   .moderator {
-    color: green;
+    color: lime;
   }
   .platform-logo {
     width: 20px;
     height: 20px;
-    margin-left: 5px;
   }
   .system-message {
-    color: #555;
     font-style: italic;
-    margin-bottom: 10px;
+    color: #aaa;
   }
 </style>
 </head>
 <body>
 
 <div class="chat-container">
-  <div class="chat-header">
-    Live Chat
-    <span id="viewerCount">0 viewers</span>
-  </div>
+  <div class="chat-header">GOD LEVEL Live Chat</div>
   <div class="chat-messages" id="chatMessages"></div>
 </div>
 
 <script>
-  // User data
-  const platforms = ['windows', 'ios', 'android', 'linux', 'web'];
-  const platformLogos = {
-    windows: 'https://upload.wikimedia.org/wikipedia/commons/5/5f/Windows_logo_-_2021.svg',
-    ios: 'https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg',
-    android: 'https://upload.wikimedia.org/wikipedia/commons/d/d7/Android_robot.svg',
-    linux: 'https://upload.wikimedia.org/wikipedia/commons/a/af/Tux.png',
-    web: 'https://upload.wikimedia.org/wikipedia/commons/0/08/Globe_icon.svg'
+  const streamingPlatforms = {
+    youtube: 'https://upload.wikimedia.org/wikipedia/commons/b/b8/YouTube_Logo_2017.svg',
+    twitch: 'https://upload.wikimedia.org/wikipedia/commons/d/d8/Twitch_logo_%28wordmark_only%29.svg',
+    tiktok: 'https://upload.wikimedia.org/wikipedia/en/0/0a/TikTok_logo.svg',
+    facebook: 'https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png',
+    twitter: 'https://upload.wikimedia.org/wikipedia/en/9/9f/Twitter_bird_logo_2012.svg'
   };
 
-  const moderators = ['ModMax', 'AdminYT', 'ChatGuard'];
-  const emojis = ['😂','🔥','❤️','👍','💀','🤣','🥹','🤯','👏','💯'];
-  const messagePhrases = [
-    'Hello everyone!', 'This stream is lit', 'Check this out!', 
-    'Subscribe now!', 'Who else is watching from mobile?', 
-    'LOL', 'This is awesome!', 'Can’t stop watching 😎', 
-    'First time here!', 'Spam spam spam', 'Epic content!', '😂😂😂'
+  const moderators = ['ModMax', 'AdminYT', 'ChatGuard', 'GodMod', 'MegaAdmin'];
+
+  const emojis = ['😂','🔥','❤️','👍','💀','🤣','🥹','🤯','👏','💯','😎','🥳','😱','💥','✨'];
+  const messages = [
+    'Hello everyone!', 'This stream is insane!', 'Check this out!', 
+    'Subscribe now!', 'LOL', 'This is epic!', 'Can’t stop watching 😎', 
+    'First time here!', 'Spam spam spam', 'Epic content!', '😂😂😂','Who else is here?','Legendary stream','🔥🔥🔥'
   ];
 
-  const chatMessages = document.getElementById('chatMessages');
-  const viewerCountSpan = document.getElementById('viewerCount');
-  let currentViewers = 0;
+  const chatContainer = document.getElementById('chatMessages');
 
-  // Generate random usernames
-  function generateRandomName() {
-    const adjectives = ['Crazy','Fast','Silly','Epic','Happy','Dark','Silent','Wild','Funny','Cool','Mega','Ultra','Hyper','Ghost','King','Queen','Pro'];
-    const nouns = ['Tiger','Ninja','Wizard','Gamer','Coder','Player','Robot','Alien','Panda','Shark','Dragon','Monkey','Hunter','Master','Legend'];
+  // Generate random username
+  function randomName() {
+    const adjectives = ['Crazy','Fast','Silly','Epic','Happy','Dark','Silent','Wild','Funny','Cool','Mega','Ultra','Hyper','Ghost','King','Queen','Pro','Legend','Master'];
+    const nouns = ['Tiger','Ninja','Wizard','Gamer','Coder','Player','Robot','Alien','Panda','Shark','Dragon','Monkey','Hunter','Boss','Sniper'];
     return adjectives[Math.floor(Math.random()*adjectives.length)] + nouns[Math.floor(Math.random()*nouns.length)] + Math.floor(Math.random()*9999);
   }
 
-  // Generate random message
-  function generateMessage() {
-    let text = messagePhrases[Math.floor(Math.random()*messagePhrases.length)];
-    if (Math.random() < 0.5) {
-      text += ' ' + emojis[Math.floor(Math.random()*emojis.length)];
+  function randomMessage() {
+    let msg = messages[Math.floor(Math.random()*messages.length)];
+    if (Math.random() < 0.7) { // 70% chance to add emoji spam
+      for(let i=0;i<Math.floor(Math.random()*4);i++){
+        msg += ' ' + emojis[Math.floor(Math.random()*emojis.length)];
+      }
     }
-    return text;
+    return msg;
   }
 
-  // Add user join/leave message
-  function systemMessage(text) {
-    const msgDiv = document.createElement('div');
-    msgDiv.className = 'system-message';
-    msgDiv.textContent = text;
-    chatMessages.appendChild(msgDiv);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
-  }
-
-  // Add chat message
-  function addChatMessage(userName, platform, msgText, isModerator=false) {
+  function addMessage() {
     const msgDiv = document.createElement('div');
     msgDiv.className = 'message';
+
+    const isMod = Math.random() < 0.1; // 10% chance
+    const userName = isMod ? moderators[Math.floor(Math.random()*moderators.length)] : randomName();
+    const platform = Object.keys(streamingPlatforms)[Math.floor(Math.random()*Object.keys(streamingPlatforms).length)];
+    const msgText = randomMessage();
+
     msgDiv.innerHTML = `
-      <img src="${platformLogos[platform]}" alt="${platform}">
-      <div>
-        <span class="username ${isModerator ? 'moderator' : ''}">${userName}</span>
-        <span>${msgText}</span>
-      </div>
+      <img src="${streamingPlatforms[platform]}" class="platform-logo" alt="${platform}">
+      <span class="username ${isMod ? 'moderator' : ''}">${userName}</span>
+      <span>${msgText}</span>
     `;
-    chatMessages.appendChild(msgDiv);
-    chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    // Add to chat
+    chatContainer.appendChild(msgDiv);
+
+    // Keep last 50 messages to avoid overflow
+    if(chatContainer.children.length > 50) {
+      chatContainer.removeChild(chatContainer.firstChild);
+    }
   }
 
-  // Simulate live chat
-  function simulateChat() {
-    // Random chance user join/leave
-    if (Math.random() < 0.05) {
-      const user = generateRandomName();
-      systemMessage(`${user} joined the chat`);
-      currentViewers++;
-      viewerCountSpan.textContent = currentViewers + ' viewers';
-    }
-
-    if (Math.random() < 0.03 && currentViewers > 0) {
-      const user = generateRandomName();
-      systemMessage(`${user} left the chat`);
-      currentViewers--;
-      viewerCountSpan.textContent = currentViewers + ' viewers';
-    }
-
-    // Random chat message
-    let isModerator = Math.random() < 0.1; // 10% chance
-    let userName = isModerator ? moderators[Math.floor(Math.random()*moderators.length)] : generateRandomName();
-    let platform = platforms[Math.floor(Math.random()*platforms.length)];
-    let msgText = generateMessage();
-    addChatMessage(userName, platform, msgText, isModerator);
-  }
-
-  // Spam frenzy
-  setInterval(simulateChat, 200); // 5 messages per second
+  // GOD LEVEL spam frenzy
+  setInterval(addMessage, 100); // 10 messages per second
 </script>
 
 </body>
