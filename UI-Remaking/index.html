@@ -57,12 +57,47 @@
       background: var(--card);
       color: var(--text);
     }
-    header .guest {
+    header .right {
       position: absolute;
       right: 1rem;
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+    .icon-btn {
+      cursor: pointer;
       font-size: 1.4rem;
+      position: relative;
+    }
+    .dropdown {
+      position: absolute;
+      top: 60px;
+      right: 0;
+      background: var(--card);
+      border: 1px solid var(--muted);
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      width: 260px;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      animation: fadeIn 0.2s ease;
+      z-index: 20;
+    }
+    .dropdown.active { display: flex; }
+    .dropdown div {
+      padding: 10px;
+      border-bottom: 1px solid var(--muted);
+      font-size: 0.9rem;
       cursor: pointer;
     }
+    .dropdown div:hover { background: var(--accent); color: #fff; }
+    .dropdown div:last-child { border-bottom: none; }
+    @keyframes fadeIn {
+      from {opacity:0; transform: translateY(-10px);}
+      to {opacity:1; transform: translateY(0);}
+    }
+
     aside {
       grid-area: sidebar;
       background: var(--card);
@@ -128,16 +163,8 @@
       transform: translateY(-5px);
       box-shadow: 0 8px 20px rgba(0,0,0,0.15);
     }
-    .thumbnail {
-      width: 100%;
-      height: 160px;
-      background: #ccc;
-    }
-    .short-thumb {
-      width: 100%;
-      height: 280px;
-      background: #bbb;
-    }
+    .thumbnail { width: 100%; height: 160px; background: #ccc; }
+    .short-thumb { width: 100%; height: 280px; background: #bbb; }
     .card-content {
       display: flex;
       padding: 10px;
@@ -187,33 +214,15 @@
     }
     /* Responsive */
     @media (max-width: 768px) {
-      body {
-        grid-template-columns: 60px 1fr;
-      }
-      aside {
-        padding: 0.5rem;
-      }
-      aside a, aside button {
-        justify-content: center;
-        font-size: 0.8rem;
-      }
-      header input {
-        width: 70%;
-      }
+      body { grid-template-columns: 60px 1fr; }
+      aside { padding: 0.5rem; }
+      aside a, aside button { justify-content: center; font-size: 0.8rem; }
+      header input { width: 70%; }
     }
     @media (max-width: 500px) {
-      header input {
-        width: 100%;
-      }
-      aside {
-        display: none;
-      }
-      body {
-        grid-template-columns: 1fr;
-        grid-template-areas:
-          "header"
-          "main";
-      }
+      header input { width: 100%; }
+      aside { display: none; }
+      body { grid-template-columns: 1fr; grid-template-areas: "header" "main"; }
     }
   </style>
 </head>
@@ -243,7 +252,25 @@
 
   <header>
     <input type="text" id="search" placeholder="Search"/>
-    <div class="guest">👤</div>
+    <div class="right">
+      <div class="icon-btn" id="notifications">🔔</div>
+      <div class="icon-btn" id="userIcon">👤</div>
+    </div>
+
+    <!-- Notifications Dropdown -->
+    <div class="dropdown" id="notifMenu">
+      <div>📺 Channel A uploaded a new video</div>
+      <div>🔥 Trending Video 3 is blowing up</div>
+      <div>💬 Someone commented on your video</div>
+      <div>➕ New subscriber joined!</div>
+    </div>
+
+    <!-- User Menu Dropdown -->
+    <div class="dropdown" id="userMenu">
+      <div>⚙️ Settings</div>
+      <div>📢 Feedback</div>
+      <div>🚪 Logout</div>
+    </div>
   </header>
 
   <main>
@@ -255,40 +282,20 @@
     const links = document.querySelectorAll("aside a");
     const container = document.getElementById("videosContainer");
     const searchInput = document.getElementById("search");
+    const notifBtn = document.getElementById("notifications");
+    const userBtn = document.getElementById("userIcon");
+    const notifMenu = document.getElementById("notifMenu");
+    const userMenu = document.getElementById("userMenu");
 
     const videoData = {
-      home: [
-        {title:"Home Video 1", views:"123K views"},
-        {title:"Home Video 2", views:"55K views"},
-        {title:"Home Video 3", views:"9K views"},
-        {title:"Home Video 4", views:"1.2M views"},
-        {title:"Home Video 5", views:"88K views"},
-        {title:"Home Video 6", views:"40K views"},
-      ],
-      trending: [
-        {title:"🔥 Trending 1", views:"2M views"},
-        {title:"🔥 Trending 2", views:"1.5M views"},
-        {title:"🔥 Trending 3", views:"800K views"},
-        {title:"🔥 Trending 4", views:"600K views"},
-      ],
-      shorts: [
-        {title:"Shorts Clip 1", views:"200K views"},
-        {title:"Shorts Clip 2", views:"150K views"},
-        {title:"Shorts Clip 3", views:"90K views"},
-        {title:"Shorts Clip 4", views:"50K views"},
-      ],
+      home: Array.from({length:8}, (_,i)=>({title:`Home Video ${i+1}`, views:`${Math.floor(Math.random()*900)+100}K views`})),
+      trending: Array.from({length:6}, (_,i)=>({title:`Trending Clip ${i+1}`, views:`${Math.floor(Math.random()*5)+1}M views`})),
+      shorts: Array.from({length:12}, (_,i)=>({title:`Shorts #${i+1}`, views:`${Math.floor(Math.random()*500)+50}K views`})),
       subs: {
-        "Channel A": [
-          {title:"A - Video 1", views:"5K views"},
-          {title:"A - Video 2", views:"10K views"}
-        ],
-        "Channel B": [
-          {title:"B - Video 1", views:"2K views"},
-          {title:"B - Video 2", views:"8K views"}
-        ],
-        "Channel C": [
-          {title:"C - Video 1", views:"12K views"}
-        ]
+        "Channel A": Array.from({length:3}, (_,i)=>({title:`A - Upload ${i+1}`, views:`${Math.floor(Math.random()*90)+10}K views`})),
+        "Channel B": Array.from({length:3}, (_,i)=>({title:`B - Video ${i+1}`, views:`${Math.floor(Math.random()*90)+10}K views`})),
+        "Channel C": Array.from({length:3}, (_,i)=>({title:`C - Clip ${i+1}`, views:`${Math.floor(Math.random()*90)+10}K views`})),
+        "Channel D": Array.from({length:2}, (_,i)=>({title:`D - Post ${i+1}`, views:`${Math.floor(Math.random()*90)+10}K views`})),
       }
     };
 
@@ -345,14 +352,13 @@
       }
     }
 
-    // Search functionality
+    // Search
     searchInput.addEventListener("input", () => {
       const query = searchInput.value.toLowerCase();
       if(currentSection === "subs" && currentChannel) {
         const filtered = videoData.subs[currentChannel].filter(v => v.title.toLowerCase().includes(query));
         renderCards(filtered);
       } else if(currentSection === "subs") {
-        // searching channels
         const wrap = document.createElement("div");
         wrap.className = "channels";
         Object.keys(videoData.subs)
@@ -361,10 +367,7 @@
             const div = document.createElement("div");
             div.className = "channel";
             div.innerHTML = `<div class="avatar"></div><span>${ch}</span>`;
-            div.onclick = () => {
-              currentChannel = ch;
-              renderCards(videoData.subs[ch]);
-            };
+            div.onclick = () => { currentChannel = ch; renderCards(videoData.subs[ch]); };
             wrap.appendChild(div);
           });
         container.innerHTML = "";
@@ -390,7 +393,21 @@
       });
     });
 
-    // Load home by default
+    // Menus
+    notifBtn.onclick = () => {
+      notifMenu.classList.toggle("active");
+      userMenu.classList.remove("active");
+    };
+    userBtn.onclick = () => {
+      userMenu.classList.toggle("active");
+      notifMenu.classList.remove("active");
+    };
+    window.addEventListener("click", e => {
+      if(!notifBtn.contains(e.target) && !notifMenu.contains(e.target)) notifMenu.classList.remove("active");
+      if(!userBtn.contains(e.target) && !userMenu.contains(e.target)) userMenu.classList.remove("active");
+    });
+
+    // Load home
     loadSection("home");
   </script>
 </body>
