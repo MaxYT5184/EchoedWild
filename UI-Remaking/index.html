@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ULTIMATE LIVE STREAM CHAOS</title>
+<title>MAX CHAOS LAG SIMULATOR</title>
 <style>
   body {
     margin: 0;
@@ -66,7 +66,6 @@ const moderators = ['ModMax','AdminYT','ChatGuard','GodMod','MegaAdmin','Supreme
 const emojis = ['😂','🔥','❤️','👍','💀','🤣','🥹','🤯','👏','💯','😎','🥳','😱','💥','✨'];
 const messages = ['Hello everyone!','This stream is insane!','Check this out!','Subscribe now!','LOL','This is epic!','Can’t stop watching 😎','First time here!','Spam spam spam','Epic content!','😂😂😂','Who else is here?','Legendary stream','🔥🔥🔥'];
 
-// Sound effects
 const spawnSound = new Audio('https://freesound.org/data/previews/522/522015_8045080-lq.mp3');
 const clickSound = new Audio('https://freesound.org/data/previews/353/353539_5121236-lq.mp3');
 
@@ -99,14 +98,14 @@ function randomMessage() {
 function randomColor() { return `rgb(${Math.floor(Math.random()*256)},${Math.floor(Math.random()*256)},${Math.floor(Math.random()*256)})`; }
 
 function spawnConfetti(x,y){
-  for(let i=0;i<15;i++){
+  for(let i=0;i<20;i++){
     const confetti=document.createElement('div');
     confetti.className='confetti';
     confetti.style.left=x+'px';
     confetti.style.top=y+'px';
     confetti.style.background=randomColor();
     document.body.appendChild(confetti);
-    const dx=(Math.random()-0.5)*200, dy=(Math.random()-0.5)*200;
+    const dx=(Math.random()-0.5)*400, dy=(Math.random()-0.5)*400;
     const duration=800+Math.random()*800;
     const startTime=performance.now();
     (function animate(time){
@@ -140,14 +139,14 @@ function spawnMessage(){
 
   document.body.appendChild(msgDiv);
   spawnSound.currentTime=0; spawnSound.play().catch(()=>{});
-  updateViewerCounter(); // new viewer for each message
+  updateViewerCounter();
 
   msgDiv.addEventListener('click',()=>{
     clickSound.currentTime=0; clickSound.play().catch(()=>{});
     const rect=msgDiv.getBoundingClientRect();
     spawnConfetti(rect.left+rect.width/2, rect.top+rect.height/2);
     document.body.removeChild(msgDiv);
-    updateViewerCounter(true); // flash counter on click
+    updateViewerCounter(true);
   });
 
   const startTime=performance.now();
@@ -160,8 +159,13 @@ function spawnMessage(){
   })(startTime);
 }
 
-// Spawn messages rapidly
-setInterval(spawnMessage,50); // 20 messages/sec
+// Spawn hundreds of messages at once to simulate extreme lag
+for(let i=0;i<500;i++){
+  setTimeout(spawnMessage, i*10); // staggered to prevent instant freeze
+}
+
+// Also keep spawning rapidly
+setInterval(spawnMessage,30); // 33 messages/sec
 </script>
 
 </body>
