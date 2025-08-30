@@ -166,6 +166,13 @@
   "estimated": "<100 in the wild",
   "image": "images/addax.png",
   "link": "animals/addax.html"
+},
+{
+  "name": "Pangolin",
+  "status": "Critically Endangered",
+  "region": "Asia & Africa (Forests, Grasslands, Savannas)",
+  "estimated": "Unknown (all 8 species declining)",
+  "image": "images/pangolin.png",
+  "link": "animals/pangolin.html"
 }
-
 ]
