@@ -150,5 +150,22 @@
   "estimated": "28-31",
   "image": "images/red-wolf.png",
   "link": "animals/red-wolf.html"
+},
+{
+  "name": "Sea Otter",
+  "status": "Threatened",
+  "region": "North Pacific Coast",
+  "estimated": "~3,000 (Southern population)",
+  "image": "images/sea-otter.png",
+  "link": "animals/sea-otter.html"
+},
+{
+  "name": "Addax",
+  "status": "Critically Endangered",
+  "region": "Sahara Desert (Niger, Chad, Morocco)",
+  "estimated": "<100 in the wild",
+  "image": "images/addax.png",
+  "link": "animals/addax.html"
 }
+
 ]
