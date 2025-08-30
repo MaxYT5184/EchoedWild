@@ -320,3 +320,34 @@ window.addEventListener('DOMContentLoaded', () => {
     document.body.appendChild(div);
   })();
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+  // Inject popup HTML into body
+  const popupHTML = `
+    <div id="cashapp-donation" class="popup-overlay">
+      <div class="popup-box">
+        <h2>Support the Developer</h2>
+        <p>Would you like to donate <strong>$1</strong> to the developer?</p>
+        <p class="cashapp-tag">CashApp: <span>$3003435A</span></p>
+        <div class="popup-buttons">
+          <button id="donate-btn">Donate</button>
+          <button id="decide-btn">Decide</button>
+        </div>
+      </div>
+    </div>
+  `;
+  document.body.insertAdjacentHTML("beforeend", popupHTML);
+
+  // Show popup (you can delay or trigger this however you want)
+  document.getElementById("cashapp-donation").style.display = "flex";
+
+  // Button actions
+  document.getElementById("donate-btn").addEventListener("click", function () {
+    window.open("https://cash.app/$3003435A/1", "_blank");
+    document.getElementById("cashapp-donation").style.display = "none";
+  });
+
+  document.getElementById("decide-btn").addEventListener("click", function () {
+    document.getElementById("cashapp-donation").style.display = "none";
+  });
+});
