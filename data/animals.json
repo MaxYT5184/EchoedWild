@@ -222,5 +222,29 @@
     "estimated": "~6,600 individuals",
     "image": "images/african-wild-dog.png",
     "link": "animals/african-wild-dog.html"
+  },
+  {
+    "name": "Chimpanzee",
+    "status": "Endangered",
+    "region": "Central & West Africa (Rainforests, Savannas, Woodlands)",
+    "estimated": "172,700–299,700",
+    "image": "images/chimpanzee.png",
+    "link": "animals/chimpanzee.html"
+  },
+  {
+    "name": "Aye-Aye",
+    "status": "Endangered",
+    "region": "Madagascar (Rainforests, Deciduous Forests, Plantations)",
+    "estimated": "1,000–10,000",
+    "image": "images/aye-aye.png",
+    "link": "animals/aye-aye.html"
+  },
+  {
+    "name": "Long-eared Jerboa",
+    "status": "Least Concern",
+    "region": "Mongolia & China (Deserts, Sandy Valleys, High Plateaus)",
+    "estimated": "Unknown",
+    "image": "images/long-eared-jerboa.png",
+    "link": "animals/long-eared-jerboa.html"
   }
 ]
