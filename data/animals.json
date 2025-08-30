@@ -142,5 +142,13 @@
   "estimated": "Stable but declining",
   "image": "images/ball-python.png",
   "link": "animals/ball-python.html"
+},
+{
+  "name": "Red Wold",
+  "status": "Critically Endangered",
+  "region": "North Carolina",
+  "estimated": "28-31",
+  "image": "images/red-wolf.png",
+  "link": "animals/red-wolf.html"
 }
 ]
