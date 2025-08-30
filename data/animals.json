@@ -216,14 +216,6 @@
     "link": "animals/kakapo.html"
   },
   {
-    "name": "Saola",
-    "status": "Critically Endangered",
-    "region": "Annamite Mountains (Vietnam & Laos)",
-    "estimated": "Possibly fewer than 100",
-    "image": "images/saola.png",
-    "link": "animals/saola.html"
-  },
-  {
     "name": "African Wild Dog",
     "status": "Endangered",
     "region": "Sub-Saharan Africa (Savannas, Woodlands, Plains)",
