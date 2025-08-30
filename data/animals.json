@@ -174,5 +174,37 @@
   "estimated": "Unknown (all 8 species declining)",
   "image": "images/pangolin.png",
   "link": "animals/pangolin.html"
-}
+},
+{
+    "name": "Lemur",
+    "status": "Critically Endangered",
+    "region": "Madagascar (Rainforests, Spiny Forests, Dry Forests)",
+    "estimated": "98% of species endangered",
+    "image": "images/lemur.png",
+    "link": "animals/lemur.html"
+  },
+  {
+    "name": "Orangutan",
+    "status": "Critically Endangered",
+    "region": "Borneo & Sumatra (Tropical Rainforests)",
+    "estimated": "~50,000 (all species combined)",
+    "image": "images/orangutan.png",
+    "link": "animals/orangutan.html"
+  },
+  {
+    "name": "Tiger",
+    "status": "Endangered",
+    "region": "Asia (India, Russia, Indonesia, Nepal, Bhutan)",
+    "estimated": "~5,574 wild tigers",
+    "image": "images/tiger.png",
+    "link": "animals/tiger.html"
+  },
+  {
+    "name": "Rhinoceros",
+    "status": "Critically Endangered",
+    "region": "Africa & Asia (Savannas, Forests, Wetlands)",
+    "estimated": "<28,000 across all 5 species",
+    "image": "images/rhinoceros.png",
+    "link": "animals/rhinoceros.html"
+  }
 ]
