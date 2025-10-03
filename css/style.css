@@ -15,7 +15,7 @@ html,body{height:100%}
 body{
   margin:0;
   background:linear-gradient(180deg,var(--bg1),var(--bg2));
-  color:#072227;
+  color:#F4831B;
   cursor: none;
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
@@ -120,19 +120,19 @@ body{
 
 .status.critical {
   background: #ffe9e6;
-  color: #9b1e11;
+  color: #F4831B;
   border: 1px solid #f5c2bc;
 }
 
 .status.endangered {
   background: #fff4e6;
-  color: #7a3f00;
+  color: #F4831B;
   border: 1px solid #f2d1b2;
 }
 
 .status.vulnerable {
   background: #fff7e6;
-  color: #7a4b00;
+  color: #F4831B;
   border: 1px solid #f5dcb2;
 }
 
@@ -168,7 +168,7 @@ body{
 
 .status.near-threatened {
   background-color: #f4b400; /* Google yellow */
-  color: #fff;
+  color: #F4831B;
   padding: 0.4em 0.8em;
   border-radius: 6px;
   font-weight: 600;
@@ -319,7 +319,7 @@ a:focus, button:focus, input:focus{outline:3px solid rgba(14,165,164,0.14);outli
   margin-top: 1.5rem;
   padding: 0.75rem;
   background-color: var(--accent);
-  color: white;
+  color: purple;
   border: none;
   border-radius: 6px;
   font-weight: bold;
@@ -432,7 +432,7 @@ a:focus, button:focus, input:focus{outline:3px solid rgba(14,165,164,0.14);outli
 #cursor-inner {
   width: 8px;
   height: 8px;
-  background-color: #072227;
+  background-color: #902EBB;
   border-radius: 50%;
   transition: transform 0.1s ease;
 }
@@ -455,7 +455,7 @@ button:hover ~ #cursor-outer {
 /* Newsletter Section */
 #newsletter {
   padding: 2em;
-  background-color: #f9f9f9;
+  background-color: #D02823;
   text-align: center;
   font-family: 'Segoe UI', sans-serif;
   border-top: 2px solid #e0e0e0;
@@ -490,7 +490,7 @@ button:hover ~ #cursor-outer {
 #newsletter input[type="submit"] {
   padding: 0.6em 1.2em;
   background-color: #4CAF50;
-  color: white;
+  color: orange;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -499,7 +499,7 @@ button:hover ~ #cursor-outer {
 }
 
 #newsletter input[type="submit"]:hover {
-  background-color: #45a049;
+  background-color: #F4831B;
 }
 
 /* Apply to the whole page */
@@ -515,7 +515,7 @@ body::-webkit-scrollbar-track {
 
 /* Thumb (scroll handle) */
 body::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #00c6ff, #0072ff); /* EchoedWild blue gradient */
+  background: linear-gradient(135deg, #902EBB, #F4831B); /* EchoedWild blue gradient */
   border-radius: 6px;
   border: 2px solid #1a1a1a;
 }
@@ -542,7 +542,7 @@ body::-webkit-scrollbar-thumb:hover {
 .cookie-box {
   max-width: 600px;
   margin: auto;
-  background: #2e2e2e;
+  background: #902EBB;
   padding: 1.5rem;
   border-radius: 12px;
   box-shadow: 0 0 10px rgba(0, 198, 255, 0.3);
@@ -566,7 +566,7 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 .cookie-box a {
-  color: #00c6ff;
+  color: ##F4831B;
   text-decoration: underline;
 }
 
@@ -586,7 +586,7 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 #acceptCookies {
-  background: #00c6ff;
+  background: #63C328;
   color: #fff;
 }
 
@@ -680,7 +680,7 @@ body::-webkit-scrollbar-thumb:hover {
 
 /* Donate Button */
 #donate-btn {
-  background-color: #28a745;
+  background-color: #EEEB27;
   color: white;
   border: none;
   padding: 0.8rem 1.5rem;
@@ -691,12 +691,12 @@ body::-webkit-scrollbar-thumb:hover {
 }
 
 #donate-btn:hover {
-  background-color: #218838;
+  background-color: #EEEB27;
 }
 
 /* Decide Button */
 #decide-btn {
-  background-color: #dc3545;
+  background-color: #D02823;
   color: white;
   border: none;
   padding: 0.8rem 1.5rem;
