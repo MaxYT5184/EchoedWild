@@ -16,7 +16,7 @@
 html,body{height:100%}
 body{
   margin:0;
-  background:linear-gradient(180deg,var(--bg1),var(--bg2));
+  background: linear-gradient(180deg, #ffbf00, #ff7518, #2c1e30);
   color:#F4831B;
   cursor: none;
   -webkit-font-smoothing:antialiased;
