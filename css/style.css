@@ -1,33 +1,36 @@
-/* === CHRISTMAS THEME OVERLAY === */
+/* === GLOBAL CHRISTMAS THEME === */
 
-/* Colors and Background */
+/* Color Palette */
 :root {
-  --bg1: #ffefef;
-  --bg2: #fff5f5;
-  --glass: rgba(255, 255, 255, 0.75);
-  --accent: #c62828; /* deep red */
-  --accent-2: #2e7d32; /* dark green */
-  --muted: #5e5e5e;
-  --glass-border: rgba(255, 255, 255, 0.7);
-  --shadow: 0 10px 30px rgba(20, 10, 10, 0.1);
+  --bg1: #fff6f6;
+  --bg2: #fff9f0;
+  --glass: rgba(255, 255, 255, 0.8);
+  --accent: #c62828; /* Christmas red */
+  --accent-2: #2e7d32; /* Christmas green */
+  --text: #333;
+  --shadow: 0 10px 30px rgba(50, 10, 10, 0.1);
 }
 
-/* Festive Background */
+/* Background */
 body {
   background: linear-gradient(180deg, #ffebee, #fff8e1);
-  position: relative;
+  font-family: "Poppins", sans-serif;
+  color: var(--text);
   overflow-x: hidden;
+  margin: 0;
+  padding: 0;
 }
 
 /* Twinkling Header Lights */
-.site-header {
+header, .site-header {
   position: relative;
-  border: 2px solid rgba(255, 255, 255, 0.5);
   background: rgba(255, 255, 255, 0.7);
-  box-shadow: 0 0 20px rgba(255, 0, 0, 0.2);
+  backdrop-filter: blur(8px);
+  border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 5px 25px rgba(255, 0, 0, 0.15);
 }
 
-.site-header::before {
+header::before, .site-header::before {
   content: "";
   position: absolute;
   top: -6px;
@@ -50,34 +53,59 @@ body {
   50% { opacity: 0.3; }
 }
 
-/* Logo Festive Glow */
-.logo {
+/* Logo with festive glow */
+.logo, h1, h2, h3 {
   color: #c62828;
-  text-shadow: 0 0 8px #ff5252, 0 0 12px #c62828;
+  text-shadow: 0 0 8px #ff5252, 0 0 12px #2e7d32;
   animation: glow 2s ease-in-out infinite alternate;
 }
 
 @keyframes glow {
-  from { text-shadow: 0 0 8px #ff1744, 0 0 20px #2e7d32; }
+  from { text-shadow: 0 0 8px #ff1744, 0 0 18px #2e7d32; }
   to { text-shadow: 0 0 18px #c62828, 0 0 28px #81c784; }
 }
 
 /* Buttons */
-.btn {
+button, .btn {
   background: linear-gradient(90deg, #c62828, #2e7d32);
-  box-shadow: 0 8px 30px rgba(198, 40, 40, 0.2);
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(198, 40, 40, 0.25);
+  transition: all 0.3s ease;
 }
-.btn:hover {
+
+button:hover, .btn:hover {
   transform: translateY(-5px);
   background: linear-gradient(90deg, #d32f2f, #388e3c);
 }
 
-/* Card hover snow glow */
-.card:hover {
+/* Cards / Boxes */
+.card, .container, .box {
+  background: var(--glass);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  transition: all 0.3s ease;
+}
+
+.card:hover, .box:hover {
+  transform: translateY(-5px);
   box-shadow: 0 20px 60px rgba(255, 0, 0, 0.15);
 }
 
-/* Snowflake Animation */
+/* Footer */
+footer, .site-footer {
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 0 30px rgba(0, 128, 0, 0.15);
+  text-align: center;
+  padding: 1rem;
+  border-top: 2px solid rgba(255, 255, 255, 0.6);
+}
+
+/* Snowfall Animation */
 @keyframes fall {
   0% {
     transform: translateY(0) rotate(0deg);
@@ -100,7 +128,6 @@ body {
   z-index: 9999;
 }
 
-/* Different animation speeds for realism */
 .snowflake:nth-child(1) { left: 5%; animation-duration: 10s; }
 .snowflake:nth-child(2) { left: 20%; animation-duration: 12s; }
 .snowflake:nth-child(3) { left: 35%; animation-duration: 9s; }
@@ -108,10 +135,3 @@ body {
 .snowflake:nth-child(5) { left: 65%; animation-duration: 11s; }
 .snowflake:nth-child(6) { left: 80%; animation-duration: 10s; }
 .snowflake:nth-child(7) { left: 90%; animation-duration: 14s; }
-
-/* Footer snow glow */
-.site-footer {
-  background: rgba(255, 255, 255, 0.8);
-  box-shadow: 0 0 30px rgba(0, 128, 0, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-}
