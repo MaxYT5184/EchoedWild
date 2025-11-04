@@ -1,227 +1,117 @@
-@import url('https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@700&family=Poppins:wght@400;600;700&display=swap');
+/* === CHRISTMAS THEME OVERLAY === */
 
+/* Colors and Background */
 :root {
-  --bg1: #f7fdfc;
-  --bg2: #e9f9f8;
-  --glass: rgba(255, 255, 255, 0.8);
-  --accent: #2ecc71; /* Christmas Green */
-  --accent-2: #e74c3c; /* Christmas Red */
-  --muted: #6b7280;
-  --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-  --glass-border: rgba(255, 255, 255, 0.6);
-  font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  --bg1: #ffefef;
+  --bg2: #fff5f5;
+  --glass: rgba(255, 255, 255, 0.75);
+  --accent: #c62828; /* deep red */
+  --accent-2: #2e7d32; /* dark green */
+  --muted: #5e5e5e;
+  --glass-border: rgba(255, 255, 255, 0.7);
+  --shadow: 0 10px 30px rgba(20, 10, 10, 0.1);
 }
 
-* { box-sizing: border-box; }
-html, body { height: 100%; }
-
+/* Festive Background */
 body {
-  margin: 0;
-  background: linear-gradient(180deg, #ffffff, #c0e4ff, #7fc7ff);
-  color: #1C1C1C;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  line-height: 1.45;
-  background-image: radial-gradient(white 1px, transparent 1px),
-    radial-gradient(white 1px, transparent 1px);
-  background-size: 60px 60px;
-  background-position: 0 0, 30px 30px; /* Snow effect */
+  background: linear-gradient(180deg, #ffebee, #fff8e1);
+  position: relative;
+  overflow-x: hidden;
 }
 
-/* Containers */
-.container { max-width: 1100px; margin: 0 auto; padding: 26px; }
-
-/* Header */
+/* Twinkling Header Lights */
 .site-header {
-  position: sticky; top: 12px; margin: 12px;
-  backdrop-filter: blur(8px) saturate(130%);
-  border-radius: 14px;
-  padding: 10px;
-  box-shadow: var(--shadow);
-  border: 1px solid var(--glass-border);
-  background: rgba(255, 255, 255, 0.8);
+  position: relative;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.2);
 }
 
-.logo {
-  font-family: 'Mountains of Christmas', cursive;
-  font-weight: 700;
-  color: var(--accent-2);
-  text-decoration: none;
-  font-size: 1.6rem;
-}
-.logo .echo { color: var(--accent); }
-.logo .wild { color: #c0392b; }
-
-/* Nav */
-.nav a {
-  color: inherit;
-  text-decoration: none;
-  padding: 8px 10px;
-  border-radius: 10px;
-  transition: all 0.18s ease;
-}
-.nav a:hover {
-  background: rgba(255, 255, 255, 0.5);
-  transform: translateY(-3px);
-}
-.nav a.active {
-  font-weight: 700;
-  background: linear-gradient(90deg, rgba(231,76,60,0.12), rgba(46,204,113,0.12));
-}
-
-/* Hero */
-.hero {
-  padding: 60px 0;
-  text-align: center;
-}
-.hero-text h1 {
-  font-size: 3rem;
-  margin: 0;
-  font-family: 'Mountains of Christmas', cursive;
-  background: linear-gradient(90deg, var(--accent-2), var(--accent));
-  -webkit-background-clip: text;
-  color: transparent;
-  text-shadow: 2px 2px 6px rgba(0,0,0,0.15);
-}
-.hero-text p {
-  color: var(--muted);
-  font-size: 1.2rem;
-}
-.btn {
-  padding: 10px 16px;
-  border-radius: 12px;
-  background: linear-gradient(90deg, var(--accent-2), var(--accent));
-  color: white;
-  text-decoration: none;
-  font-weight: 700;
-  transition: transform 0.16s ease;
-  box-shadow: 0 6px 20px rgba(231,76,60,0.2);
-}
-.btn:hover { transform: translateY(-6px); }
-
-/* Cards */
-.card {
-  background: linear-gradient(180deg, #fff, #fdf7f7);
-  border-radius: 14px;
-  overflow: hidden;
-  box-shadow: var(--shadow);
-  border: 1px solid rgba(0,0,0,0.05);
-  transition: transform 0.28s cubic-bezier(.2,.9,.2,1);
-}
-.card:hover {
-  transform: translateY(-12px);
-  box-shadow: 0 28px 60px rgba(0,0,0,0.12);
-}
-
-/* Newsletter – Christmas Style */
-#newsletter {
-  padding: 2em;
-  background-color: #f3f9ff;
-  text-align: center;
-  border-top: 3px solid var(--accent);
-  border-bottom: 3px solid var(--accent-2);
-}
-#newsletter h2 {
-  font-family: 'Mountains of Christmas', cursive;
-  font-size: 2.5em;
-  color: var(--accent-2);
-  text-shadow: 1px 1px 4px #fff;
-}
-#newsletter p {
-  font-family: 'Poppins', sans-serif;
-  font-size: 1.1em;
-  color: #333;
-  margin-bottom: 1em;
-}
-#newsletter input[type="email"] {
-  padding: 0.6em;
-  width: 250px;
-  border: 2px solid var(--accent);
-  border-radius: 8px;
-  font-size: 1em;
-  background-color: #ffffff;
-  color: #333;
-}
-#newsletter input[type="submit"] {
-  padding: 0.6em 1.2em;
-  background-color: var(--accent-2);
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.3s ease;
-}
-#newsletter input[type="submit"]:hover {
-  background-color: var(--accent);
-  color: #fff;
-}
-
-/* Scrollbar – Christmas colors */
-body::-webkit-scrollbar {
-  width: 12px;
-}
-body::-webkit-scrollbar-track {
-  background: #eaf5ff;
-}
-body::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #e74c3c, #2ecc71);
-  border-radius: 6px;
-  border: 2px solid #ffffff;
-}
-body::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, #ff7675, #55efc4);
-}
-
-/* Footer */
-.site-footer {
-  margin: 26px;
-  border-radius: 12px;
-  padding: 18px;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  background: rgba(255,255,255,0.8);
-  backdrop-filter: blur(4px);
-  text-align: center;
-  color: #333;
-}
-.site-footer::after {
-  content: "❄️ Merry Christmas & Happy Holidays! 🎅";
-  display: block;
-  margin-top: 8px;
-  font-family: 'Mountains of Christmas', cursive;
-  color: var(--accent-2);
-  font-size: 1.1rem;
-}
-
-/* ❄️ Snowflake Styles */
-#snow-container {
-  position: fixed;
-  top: 0;
+.site-header::before {
+  content: "";
+  position: absolute;
+  top: -6px;
   left: 0;
   width: 100%;
-  height: 100%;
-  pointer-events: none; /* lets users still click normally */
-  overflow: hidden;
-  z-index: 9999;
+  height: 6px;
+  background: repeating-linear-gradient(
+    to right,
+    red 0 20px,
+    gold 20px 40px,
+    green 40px 60px,
+    red 60px 80px
+  );
+  animation: twinkle 1s infinite alternate;
+  border-radius: 8px 8px 0 0;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* Logo Festive Glow */
+.logo {
+  color: #c62828;
+  text-shadow: 0 0 8px #ff5252, 0 0 12px #c62828;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from { text-shadow: 0 0 8px #ff1744, 0 0 20px #2e7d32; }
+  to { text-shadow: 0 0 18px #c62828, 0 0 28px #81c784; }
+}
+
+/* Buttons */
+.btn {
+  background: linear-gradient(90deg, #c62828, #2e7d32);
+  box-shadow: 0 8px 30px rgba(198, 40, 40, 0.2);
+}
+.btn:hover {
+  transform: translateY(-5px);
+  background: linear-gradient(90deg, #d32f2f, #388e3c);
+}
+
+/* Card hover snow glow */
+.card:hover {
+  box-shadow: 0 20px 60px rgba(255, 0, 0, 0.15);
+}
+
+/* Snowflake Animation */
+@keyframes fall {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0.6;
+  }
 }
 
 .snowflake {
-  position: absolute;
+  position: fixed;
   top: -10px;
   color: white;
-  font-size: 14px;
-  user-select: none;
-  animation-name: fall, sway;
-  animation-timing-function: linear, ease-in-out;
-  animation-iteration-count: infinite;
+  font-size: 1.4rem;
+  opacity: 0.9;
+  animation: fall linear infinite;
+  pointer-events: none;
+  z-index: 9999;
 }
 
-@keyframes fall {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(110vh); }
-}
+/* Different animation speeds for realism */
+.snowflake:nth-child(1) { left: 5%; animation-duration: 10s; }
+.snowflake:nth-child(2) { left: 20%; animation-duration: 12s; }
+.snowflake:nth-child(3) { left: 35%; animation-duration: 9s; }
+.snowflake:nth-child(4) { left: 50%; animation-duration: 13s; }
+.snowflake:nth-child(5) { left: 65%; animation-duration: 11s; }
+.snowflake:nth-child(6) { left: 80%; animation-duration: 10s; }
+.snowflake:nth-child(7) { left: 90%; animation-duration: 14s; }
 
-@keyframes sway {
-  0%, 100% { transform: translateX(0); }
-  50% { transform: translateX(30px); }
+/* Footer snow glow */
+.site-footer {
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 30px rgba(0, 128, 0, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.4);
 }
