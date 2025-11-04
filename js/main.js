@@ -351,23 +351,3 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("cashapp-donation").style.display = "none";
   });
 });
-
-// ❄️ Falling Snowflakes Animation
-document.addEventListener("DOMContentLoaded", () => {
-  const snowContainer = document.createElement("div");
-  snowContainer.id = "snow-container";
-  document.body.appendChild(snowContainer);
-
-  const snowflakeCount = 40; // number of snowflakes
-  for (let i = 0; i < snowflakeCount; i++) {
-    const snowflake = document.createElement("div");
-    snowflake.className = "snowflake";
-    snowflake.style.left = Math.random() * 100 + "vw";
-    snowflake.style.animationDuration = 5 + Math.random() * 10 + "s";
-    snowflake.style.animationDelay = Math.random() * 10 + "s";
-    snowflake.style.opacity = Math.random();
-    snowflake.style.fontSize = 8 + Math.random() * 16 + "px";
-    snowflake.textContent = "❄";
-    snowContainer.appendChild(snowflake);
-  }
-});
